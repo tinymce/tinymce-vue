@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json",
+    "clean": "rimraf lib",
+    "build": "npm run clean && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json",
     "prepare": "npm run build",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@storybook/vue": "^3.2.17",
     "@types/node": "^8.0.54",
+    "rimraf": "^2.6.2",
     "ts-loader": "^3.2.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",

@@ -2,17 +2,17 @@ import { storiesOf } from '@storybook/vue';
 import Vue from 'vue';
 
 // Import your custom components.
-import { MyButton } from '../src/Test';
+import { Editor } from '../src/Test';
 
 // Register custom components.
-Vue.component('my-button', MyButton);
+Vue.component('editor', Editor);
 
 storiesOf('TestComponent', module)
   .add('inline', () => ({
-    components: { MyButton },
-    template: '<my-button inline />'
+    components: { Editor },
+    template: '<editor inline />'
   }))
   .add('iframe', () => ({
-    components: { MyButton },
-    template: '<my-button />'
+    components: { Editor },
+    template: '<editor initialValue="<p>This is some text</p>" />'
   }));
