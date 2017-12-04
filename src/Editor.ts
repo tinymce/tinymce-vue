@@ -12,6 +12,7 @@ import { getTinymce } from './TinyMCE';
 import { isTextarea, uuid } from './Utils';
 
 @Component({
+  name: 'editor',
   props: {
     inline: Boolean,
     id: String,
@@ -77,6 +78,9 @@ export class Editor extends Vue {
     return createElement('textarea', {
       attrs: {
         id: this.elementId
+      },
+      style: {
+        visibility: 'hidden'
       }
     });
   }

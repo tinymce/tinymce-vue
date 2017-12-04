@@ -2,17 +2,17 @@ import { storiesOf } from '@storybook/vue';
 import Vue from 'vue';
 
 // Import your custom components.
-import { Editor } from '../src/Test';
-
-// Register custom components.
-Vue.component('editor', Editor);
+import { Editor } from '../src/Editor';
+import { content } from './fakeContent';
 
 storiesOf('TestComponent', module)
   .add('inline', () => ({
     components: { Editor },
-    template: '<editor inline />'
+    data: () => ({content}),
+    template: '<editor inline :initialValue="content" />'
   }))
   .add('iframe', () => ({
     components: { Editor },
-    template: '<editor initialValue="<p>This is some text</p>" />'
+    data: () => ({content}),
+    template: '<editor :initialValue="content" />'
   }));
