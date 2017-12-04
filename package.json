@@ -4,7 +4,10 @@
   "description": "Official TinyMCE Vue Component",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json",
+    "prepare": "npm run build",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "keywords": [
     "tinymce",
@@ -12,5 +15,18 @@
     "component"
   ],
   "author": "Ephox Inc",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "vue": "^2.5.9",
+    "vue-class-component": "^6.1.1"
+  },
+  "devDependencies": {
+    "@storybook/vue": "^3.2.17",
+    "@types/node": "^8.0.54",
+    "ts-loader": "^3.2.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2",
+    "vue-loader": "^13.5.0",
+    "vue-template-compiler": "^2.5.9"
+  }
 }
