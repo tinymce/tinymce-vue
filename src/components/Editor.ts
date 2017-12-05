@@ -8,34 +8,41 @@
 
 import Vue, {CreateElement, VNode} from 'vue';
 import Component from 'vue-class-component';
-import { getTinymce } from './TinyMCE';
-import { isTextarea, uuid } from './Utils';
+import * as ScriptLoader from '../ScriptLoader';
+import { getTinymce } from '../TinyMCE';
+import { bindHandlers, isTextarea, uuid } from '../Utils';
+import { editorProps, IPropTypes } from './EditorPropTypes';
+
+const scriptState = ScriptLoader.create();
 
 @Component({
   name: 'editor',
-  props: {
-    inline: Boolean,
-    id: String,
-    init: Object,
-    initialValue: String
-  }
+  props: editorProps
 })
 export class Editor extends Vue {
-  private inline: boolean;
-  private id: string;
-  private init: object;
-  private initialValue: string;
+  public $props: IPropTypes;
   private elementId: string;
   private editor: any;
   private element: Element | null = null;
 
   public created() {
-    this.elementId = this.id || uuid('tiny-react');
+    this.elementId = this.$props.id || uuid('tiny-react');
   }
 
   public mounted() {
     this.element = this.$el;
-    this.initialise();
+
+    if (getTinymce() !== null) {
+      this.initialise();
+    } else if (this.element) {
+      const doc = this.element.ownerDocument;
+      const channel = this.$props.cloudChannel ? this.$props.cloudChannel : 'stable';
+      const apiKey = this.$props.apiKey ? this.$props.apiKey : '';
+
+      ScriptLoader.load(
+        scriptState, doc, `https://cloud.tinymce.com/${channel}/tinymce.min.js?apiKey=${apiKey}`, this.initialise
+      );
+    }
   }
 
   public destroy() {
@@ -43,19 +50,19 @@ export class Editor extends Vue {
   }
 
   public render(createElement: CreateElement): VNode {
-    return this.inline ? this.renderInline(createElement) : this.renderIframe(createElement);
+    return this.$props.inline ? this.renderInline(createElement) : this.renderIframe(createElement);
   }
 
   private initialise() {
-    const initialValue = typeof this.initialValue === 'string' ? this.initialValue : '';
+    const initialValue = typeof this.$props.initialValue === 'string' ? this.$props.initialValue : '';
     const finalInit = {
-      ...this.init,
+      ...this.$props.init,
       selector: `#${this.elementId}`,
-      inline: this.inline,
+      inline: this.$props.inline,
       setup: (editor: any) => {
         this.editor = editor;
         editor.on('init', () => editor.setContent(initialValue));
-        // bindHandlers(this.props, editor);
+        bindHandlers(this.$listeners, editor);
       }
     };
 
