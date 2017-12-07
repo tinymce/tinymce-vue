@@ -6,7 +6,7 @@
  *
  */
 
- const validKeys = [
+ const validEvents = [
   'onActivate',
   'onAddUndo',
   'onBeforeAddUndo',
@@ -72,7 +72,7 @@
   'onVisualAid'
  ];
 
- const isValidKey = (key: string) => validKeys.indexOf(key) !== -1;
+ const isValidKey = (key: string) => validEvents.indexOf(key) !== -1;
 
  export const bindHandlers = (listeners: any, editor: any): void => {
   Object.keys(listeners)

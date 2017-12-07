@@ -74,7 +74,8 @@ export class Editor extends Vue {
   }
 
   private renderInline(createElement: CreateElement) {
-    return createElement('div', {
+    const tagName = this.$props.tagName ? this.$props.tagName : 'div';
+    return createElement(tagName, {
       attrs: {
         id: this.elementId
       }
