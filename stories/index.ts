@@ -18,5 +18,13 @@ storiesOf('TestComponent', module)
       // tslint:disable-next-line:no-console
       log: (e: any, editor: any) => console.log(editor.getContent())
     },
-    template: '<editor :initialValue="content" @onChange="log" :init="{branding: false}" />'
+    template: `<div>
+      <editor
+        :initialValue="content"
+        @onChange="log"
+        :init="{branding: false}"
+        v-model="content"
+        :modelEvents="['change', 'keyup']" />
+      <div v-html="content"></div>
+    </div>`
   }));

@@ -6,6 +6,7 @@
  *
  */
 
+import { normalize } from 'path';
 import Vue, {CreateElement, VNode} from 'vue';
 import Component from 'vue-class-component';
 import * as ScriptLoader from '../ScriptLoader';
@@ -16,6 +17,9 @@ import { editorProps, IPropTypes } from './EditorPropTypes';
 const scriptState = ScriptLoader.create();
 
 @Component({
+  model: {
+    prop: 'initialValue'
+  },
   name: 'editor',
   props: editorProps
 })
@@ -54,7 +58,7 @@ export class Editor extends Vue {
   }
 
   private initialise() {
-    const initialValue = typeof this.$props.initialValue === 'string' ? this.$props.initialValue : '';
+    const initialValue = this.$props.initialValue ? this.$props.initialValue : '';
     const finalInit = {
       ...this.$props.init,
       selector: `#${this.elementId}`,
@@ -62,6 +66,16 @@ export class Editor extends Vue {
       setup: (editor: any) => {
         this.editor = editor;
         editor.on('init', () => editor.setContent(initialValue));
+
+        // checks if the v-model shorthand is used (which sets an v-on:input listener) and
+        // then binds either specified events or defaults to "change" event and emits
+        // the editor content on that event
+        if (this.$listeners.hasOwnProperty('input')) {
+          const modelEvents = this.$props.modelEvents ? this.$props.modelEvents : null;
+          const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
+          editor.on(normalizedEvents ? normalizedEvents : 'change', () => this.$emit('input', editor.getContent()));
+        }
+
         bindHandlers(this.$listeners, editor);
       }
     };
