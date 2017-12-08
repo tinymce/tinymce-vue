@@ -12,6 +12,7 @@ export interface IPropTypes {
   tagName: string;
   onChange: string;
   modelEvents: string[] | string;
+  value: string;
 }
 
 export const editorProps: CopyProps<IPropTypes> = {
@@ -34,5 +35,6 @@ export const editorProps: CopyProps<IPropTypes> = {
   apiKey: String,
   tagName: String,
   onChange: String,
-  modelEvents: [String, Array]
+  modelEvents: [String, Array],
+  value: String
 };

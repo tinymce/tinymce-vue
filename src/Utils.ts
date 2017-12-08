@@ -1,3 +1,5 @@
+import { IEditor } from './components/Editor';
+
 /**
  * Copyright (c) 2017-present, Ephox, Inc.
  *
@@ -6,7 +8,7 @@
  *
  */
 
- const validEvents = [
+const validEvents = [
   'onActivate',
   'onAddUndo',
   'onBeforeAddUndo',
@@ -72,9 +74,9 @@
   'onVisualAid'
  ];
 
- const isValidKey = (key: string) => validEvents.indexOf(key) !== -1;
+const isValidKey = (key: string) => validEvents.indexOf(key) !== -1;
 
- export const bindHandlers = (listeners: any, editor: any): void => {
+export const bindHandlers = (listeners: any, editor: any): void => {
   Object.keys(listeners)
     .filter(isValidKey)
     .forEach((key: string) => {
@@ -85,9 +87,15 @@
     });
 };
 
- let unique = 0;
+export const bindModelHandlers = (ctx: IEditor, editor: any) => {
+  const modelEvents = ctx.$props.modelEvents ? ctx.$props.modelEvents : null;
+  const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
+  editor.on(normalizedEvents ? normalizedEvents : 'change', () => ctx.$emit('input', editor.getContent()));
+};
 
- export const uuid = (prefix: string): string => {
+let unique = 0;
+
+export const uuid = (prefix: string): string => {
   const date   = new Date();
   const time   = date.getTime();
   const random = Math.floor(Math.random() * 1000000000);
@@ -97,6 +105,6 @@
   return prefix + '_' + random + unique + String(time);
 };
 
- export const isTextarea = (element: Element | null): element is HTMLTextAreaElement => {
+export const isTextarea = (element: Element | null): element is HTMLTextAreaElement => {
   return element !== null && element.tagName.toLowerCase() === 'textarea';
 };

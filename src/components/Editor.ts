@@ -5,105 +5,89 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
-import { normalize } from 'path';
-import Vue, {CreateElement, VNode} from 'vue';
-import Component from 'vue-class-component';
+import Vue, { CreateElement, VNode, VueConstructor } from 'vue';
 import * as ScriptLoader from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
-import { bindHandlers, isTextarea, uuid } from '../Utils';
+import { bindHandlers, bindModelHandlers, isTextarea, uuid } from '../Utils';
 import { editorProps, IPropTypes } from './EditorPropTypes';
 
 const scriptState = ScriptLoader.create();
 
-@Component({
-  model: {
-    prop: 'initialValue'
-  },
-  name: 'editor',
-  props: editorProps
-})
-export class Editor extends Vue {
-  public $props: IPropTypes;
-  private elementId: string;
-  private editor: any;
-  private element: Element | null = null;
+export interface IEditor extends Vue {
+  readonly $props: IPropTypes;
+  elementId: string;
+  element: Element | null;
+  editor: any;
+}
 
-  public created() {
-    this.elementId = this.$props.id || uuid('tiny-react');
+const renderInline = (createElement: CreateElement, tagName: string, id: string): VNode => {
+  return createElement(tagName ? tagName : 'div', {
+    attrs: { id }
+  });
+};
+
+const renderIframe = (createElement: CreateElement, id: string): VNode => {
+  return createElement('textarea', {
+    attrs: { id },
+    style: { visibility: 'hidden' }
+  });
+};
+
+const initialise = (ctx: IEditor) => () => {
+  const initialValue = ctx.$props.initialValue ? ctx.$props.initialValue : '';
+  const value = ctx.$props.value ? ctx.$props.value : '';
+  const finalInit = {
+    ...ctx.$props.init,
+    selector: `#${ctx.elementId}`,
+    inline: ctx.$props.inline,
+    setup: (editor: any) => {
+      ctx.editor = editor;
+      editor.on('init', () => editor.setContent(initialValue || value));
+
+      // checks if the v-model shorthand is used (which sets an v-on:input listener) and then binds either
+      // specified the events or defaults to "change" event and emits the editor content on that event
+      if (ctx.$listeners.input) {
+        bindModelHandlers(ctx, editor);
+      }
+
+      bindHandlers(ctx.$listeners, editor);
+    }
+  };
+
+  if (isTextarea(ctx.element)) {
+    ctx.element.style.visibility = '';
   }
 
-  public mounted() {
+  getTinymce().init(finalInit);
+};
+
+export const Editor: VueConstructor<IEditor> = Vue.extend({
+  name: 'editor',
+  props: editorProps,
+  created() {
+    this.elementId = this.$props.id || uuid('tiny-react');
+  },
+  mounted() {
     this.element = this.$el;
 
     if (getTinymce() !== null) {
-      this.initialise();
+      initialise(this)();
     } else if (this.element) {
       const doc = this.element.ownerDocument;
       const channel = this.$props.cloudChannel ? this.$props.cloudChannel : 'stable';
       const apiKey = this.$props.apiKey ? this.$props.apiKey : '';
+      const url = `https://cloud.tinymce.com/${channel}/tinymce.min.js?apiKey=${apiKey}`;
 
       ScriptLoader.load(
-        scriptState, doc, `https://cloud.tinymce.com/${channel}/tinymce.min.js?apiKey=${apiKey}`, this.initialise
+        scriptState, doc, url, initialise(this)
       );
     }
-  }
-
-  public destroy() {
+  },
+  beforeDestroy() {
     getTinymce().remove(this.editor);
+  },
+  render(createElement: any) {
+    const {inline, tagName} = this.$props;
+    return inline ? renderInline(createElement, tagName, this.elementId) : renderIframe(createElement, this.elementId);
   }
-
-  public render(createElement: CreateElement): VNode {
-    return this.$props.inline ? this.renderInline(createElement) : this.renderIframe(createElement);
-  }
-
-  private initialise() {
-    const initialValue = this.$props.initialValue ? this.$props.initialValue : '';
-    const finalInit = {
-      ...this.$props.init,
-      selector: `#${this.elementId}`,
-      inline: this.$props.inline,
-      setup: (editor: any) => {
-        this.editor = editor;
-        editor.on('init', () => editor.setContent(initialValue));
-
-        // checks if the v-model shorthand is used (which sets an v-on:input listener) and
-        // then binds either specified events or defaults to "change" event and emits
-        // the editor content on that event
-        if (this.$listeners.hasOwnProperty('input')) {
-          const modelEvents = this.$props.modelEvents ? this.$props.modelEvents : null;
-          const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
-          editor.on(normalizedEvents ? normalizedEvents : 'change', () => this.$emit('input', editor.getContent()));
-        }
-
-        bindHandlers(this.$listeners, editor);
-      }
-    };
-
-    if (isTextarea(this.element)) {
-      this.element.style.visibility = '';
-    }
-
-    getTinymce().init(finalInit);
-  }
-
-  private renderInline(createElement: CreateElement) {
-    const tagName = this.$props.tagName ? this.$props.tagName : 'div';
-    return createElement(tagName, {
-      attrs: {
-        id: this.elementId
-      }
-    });
-  }
-
-  private renderIframe(createElement: CreateElement) {
-    return createElement('textarea', {
-      attrs: {
-        id: this.elementId
-      },
-      style: {
-        visibility: 'hidden'
-      }
-    });
-  }
-}
+});

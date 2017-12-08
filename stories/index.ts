@@ -9,7 +9,7 @@ storiesOf('TestComponent', module)
   .add('inline', () => ({
     components: { Editor },
     data: () => ({content}),
-    template: '<editor inline :initialValue="content" tagName="p" />'
+    template: '<editor inline :init="{theme: \'inlite\'}" :initialValue="content" />'
   }))
   .add('iframe', () => ({
     components: { Editor },
@@ -19,10 +19,9 @@ storiesOf('TestComponent', module)
       log: (e: any, editor: any) => console.log(editor.getContent())
     },
     template: `<div>
+      <editor :initialValue="'<p>hello world</p>'"></editor>
       <editor
-        :initialValue="content"
-        @onChange="log"
-        :init="{branding: false}"
+        :init="{branding: false, height: 300}"
         v-model="content"
         :modelEvents="['change', 'keyup']" />
       <div v-html="content"></div>
