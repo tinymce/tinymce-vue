@@ -1,10 +1,11 @@
 /**
- * Copyright (c) 2017-present, Ephox, Inc.
+ * Copyright (c) 2018-present, Ephox, Inc.
  *
  * This source code is licensed under the Apache 2 license found in the
  * LICENSE file in the root directory of this source tree.
  *
  */
+
 import Vue, { CreateElement, VNode, VueConstructor } from 'vue';
 import * as ScriptLoader from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
@@ -14,7 +15,7 @@ import { editorProps, IPropTypes } from './EditorPropTypes';
 const scriptState = ScriptLoader.create();
 
 export interface IEditor extends Vue {
-  readonly $props: IPropTypes;
+  $props: IPropTypes;
   elementId: string;
   element: Element | null;
   editor: any;
@@ -51,6 +52,10 @@ const initialise = (ctx: IEditor) => () => {
       }
 
       bindHandlers(ctx.$listeners, editor);
+
+      if (ctx.$props.init && typeof ctx.$props.init.setup === 'function') {
+        ctx.$props.init.setup(editor);
+      }
     }
   };
 
@@ -61,7 +66,7 @@ const initialise = (ctx: IEditor) => () => {
   getTinymce().init(finalInit);
 };
 
-export const Editor: VueConstructor<IEditor> = Vue.extend({
+export const Editor: VueConstructor = Vue.extend({
   name: 'editor',
   props: editorProps,
   created() {

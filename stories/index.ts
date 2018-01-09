@@ -16,12 +16,17 @@ storiesOf('TestComponent', module)
     data: () => ({content}),
     methods: {
       // tslint:disable-next-line:no-console
-      log: (e: any, editor: any) => console.log(editor.getContent())
+      log: (e: any, editor: any) => console.log(editor.getContent()),
+      setup: (editor: any) => {
+        setTimeout(() => {
+          editor.setContent('hellooo');
+          editor.undoManager.add();
+        }, 2000);
+      }
     },
     template: `<div>
-      <editor :initialValue="'<p>hello world</p>'"></editor>
       <editor
-        :init="{branding: false, height: 300}"
+        :init="{branding: false, height: 300, setup: setup}"
         v-model="content"
         :modelEvents="['change', 'keyup']" />
       <div v-html="content"></div>
