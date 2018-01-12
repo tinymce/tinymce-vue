@@ -46,7 +46,7 @@ const initialise = (ctx: IEditor) => () => {
       editor.on('init', () => editor.setContent(initialValue || value));
 
       // checks if the v-model shorthand is used (which sets an v-on:input listener) and then binds either
-      // specified the events or defaults to "change" event and emits the editor content on that event
+      // specified the events or defaults to "change keyup" event and emits the editor content on that event
       if (ctx.$listeners.input) {
         bindModelHandlers(ctx, editor);
       }

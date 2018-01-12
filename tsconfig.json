@@ -5,6 +5,7 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
+    "noUnusedLocals": true,
     "declaration": true,
     "outDir": "./lib",
     "preserveConstEnums": true,

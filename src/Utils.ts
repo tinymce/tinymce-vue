@@ -90,7 +90,7 @@ export const bindHandlers = (listeners: any, editor: any): void => {
 export const bindModelHandlers = (ctx: IEditor, editor: any) => {
   const modelEvents = ctx.$props.modelEvents ? ctx.$props.modelEvents : null;
   const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
-  editor.on(normalizedEvents ? normalizedEvents : 'change', () => ctx.$emit('input', editor.getContent()));
+  editor.on(normalizedEvents ? normalizedEvents : 'change keyup', () => ctx.$emit('input', editor.getContent()));
 };
 
 let unique = 0;
