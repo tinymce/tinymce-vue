@@ -3,3 +3,4 @@ lib
 .DS_Store
 yarn.lock
 storybook-static
+.rpt2_cache
