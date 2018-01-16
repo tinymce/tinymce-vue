@@ -4,3 +4,4 @@ lib
 yarn.lock
 storybook-static
 .rpt2_cache
+tinymce-tinymce-vue-*.tgz

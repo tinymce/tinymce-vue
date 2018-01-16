@@ -2,12 +2,15 @@
   "name": "@tinymce/tinymce-vue",
   "version": "1.0.0",
   "description": "Official TinyMCE Vue Component",
+  "repository": {
+    "url": "https://github.com/tinymce/tinymce-vue"
+  },
   "main": "lib/cjs/index.js",
   "module": "lib/es2015/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf lib",
-    "build": "npm run clean && tsc -p ./tsconfig.es2015.json & tsc -p ./tsconfig.cjs.json & node rollup.build.js",
+    "build": "npm run clean && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json && node rollup.build.js",
     "prepare": "npm run build",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
@@ -18,22 +21,31 @@
   ],
   "author": "Ephox Inc",
   "license": "Apache-2.0",
+  "files": [
+    "lib/*/**",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE.txt"
+  ],
   "dependencies": {
-    "vue": "^2.5.9",
-    "vue-class-component": "^6.1.1"
+    "vue": "^2.5.13"
   },
   "devDependencies": {
     "@storybook/vue": "^3.3.8",
     "@types/node": "^9.3.0",
+    "babel-register": "^6.26.0",
+    "css-loader": "^0.28.8",
+    "file-loader": "^1.1.6",
     "rimraf": "^2.6.2",
     "rollup": "^0.54.0",
     "rollup-plugin-node-resolve": "^3.0.2",
-    "rollup-plugin-typescript2": "^0.9.0",
+    "rollup-plugin-typescript2": "^0.10.0",
     "rollup-plugin-uglify": "^2.0.1",
     "ts-loader": "^3.2.0",
     "tslint": "^5.9.1",
     "typescript": "^2.6.2",
     "vue-loader": "^13.7.0",
-    "vue-template-compiler": "^2.5.13"
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "^3.10.0"
   }
 }

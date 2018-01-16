@@ -11,23 +11,21 @@ export type CopyProps<T> = {
 };
 
 export interface IPropTypes {
+  apiKey: string;
+  cloudChannel: string;
   id: string;
-  inline: boolean;
   init: any;
   initialValue: string;
-  cloudChannel: string;
-  apiKey: string;
-  tagName: string;
-  onChange: string;
+  inline: boolean;
   modelEvents: string[] | string;
+  plugins: string[] | string;
+  tagName: string;
+  toolbar: string[] | string;
   value: string;
 }
 
 export const editorProps: CopyProps<IPropTypes> = {
-  inline: Boolean,
-  id: String,
-  init: Object,
-  initialValue: String,
+  apiKey: String,
   cloudChannel: {
     validator: (val: string) => {
       const validChannels = ['stable', 'testing', 'dev'];
@@ -40,9 +38,13 @@ export const editorProps: CopyProps<IPropTypes> = {
       }
     }
   },
-  apiKey: String,
-  tagName: String,
-  onChange: String,
+  id: String,
+  init: Object,
+  initialValue: String,
+  inline: Boolean,
   modelEvents: [String, Array],
+  plugins: [String, Array],
+  tagName: String,
+  toolbar: [String, Array],
   value: String
 };

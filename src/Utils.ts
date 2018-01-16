@@ -90,7 +90,18 @@ export const bindHandlers = (listeners: any, editor: any): void => {
 export const bindModelHandlers = (ctx: IEditor, editor: any) => {
   const modelEvents = ctx.$props.modelEvents ? ctx.$props.modelEvents : null;
   const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
-  editor.on(normalizedEvents ? normalizedEvents : 'change keyup', () => ctx.$emit('input', editor.getContent()));
+  let currentContent: any;
+
+  ctx.$watch('value', (val: string, prevVal: string) => {
+    if (editor && typeof val === 'string' && val !== currentContent && val !== prevVal) {
+      editor.setContent(val);
+    }
+  });
+
+  editor.on(normalizedEvents ? normalizedEvents : 'change keyup', () => {
+    currentContent = editor.getContent();
+    ctx.$emit('input', currentContent);
+  });
 };
 
 let unique = 0;
@@ -108,3 +119,14 @@ export const uuid = (prefix: string): string => {
 export const isTextarea = (element: Element | null): element is HTMLTextAreaElement => {
   return element !== null && element.tagName.toLowerCase() === 'textarea';
 };
+
+const normalizePluginArray = (plugins?: string | string[]): string[] => {
+  if (typeof plugins === 'undefined' || plugins === '') {
+    return [];
+  }
+
+  return Array.isArray(plugins) ? plugins : plugins.split(' ');
+};
+
+export const mergePlugins = (initPlugins: string | string[], inputPlugins?: string | string[]) =>
+  normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));

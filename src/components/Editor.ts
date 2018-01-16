@@ -6,29 +6,37 @@
  *
  */
 
-import Vue, { CreateElement, VNode, VueConstructor } from 'vue';
+// import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options';
+import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options';
+import { CreateElement, Vue} from 'vue/types/vue';
+
 import * as ScriptLoader from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
-import { bindHandlers, bindModelHandlers, isTextarea, uuid } from '../Utils';
+import { bindHandlers, bindModelHandlers, isTextarea, mergePlugins, uuid } from '../Utils';
 import { editorProps, IPropTypes } from './EditorPropTypes';
 
 const scriptState = ScriptLoader.create();
 
-export interface IEditor extends Vue {
-  $props: IPropTypes;
-  elementId: string;
-  element: Element | null;
-  editor: any;
+declare module 'vue/types/vue' {
+  interface Vue {
+    elementId: string;
+    element: Element | null;
+    editor: any;
+  }
 }
 
-const renderInline = (createElement: CreateElement, tagName: string, id: string): VNode => {
-  return createElement(tagName ? tagName : 'div', {
+export interface IEditor extends Vue {
+  $props: Partial<IPropTypes>;
+}
+
+const renderInline = (h: CreateElement, id: string, tagName?: string) => {
+  return h(tagName ? tagName : 'div', {
     attrs: { id }
   });
 };
 
-const renderIframe = (createElement: CreateElement, id: string): VNode => {
-  return createElement('textarea', {
+const renderIframe = (h: CreateElement, id: string) => {
+  return h('textarea', {
     attrs: { id },
     style: { visibility: 'hidden' }
   });
@@ -40,6 +48,8 @@ const initialise = (ctx: IEditor) => () => {
   const finalInit = {
     ...ctx.$props.init,
     selector: `#${ctx.elementId}`,
+    plugins: mergePlugins(ctx.$props.init && ctx.$props.init.plugins, ctx.$props.plugins),
+    toolbar: ctx.$props.toolbar || (ctx.$props.init && ctx.$props.init.toolbar),
     inline: ctx.$props.inline,
     setup: (editor: any) => {
       ctx.editor = editor;
@@ -66,11 +76,10 @@ const initialise = (ctx: IEditor) => () => {
   getTinymce().init(finalInit);
 };
 
-export const Editor: VueConstructor = Vue.extend({
-  name: 'editor',
+export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, IPropTypes> = {
   props: editorProps,
   created() {
-    this.elementId = this.$props.id || uuid('tiny-react');
+    this.elementId = this.$props.id || uuid('tiny-vue');
   },
   mounted() {
     this.element = this.$el;
@@ -91,8 +100,8 @@ export const Editor: VueConstructor = Vue.extend({
   beforeDestroy() {
     getTinymce().remove(this.editor);
   },
-  render(createElement: any) {
+  render(h: any) {
     const {inline, tagName} = this.$props;
-    return inline ? renderInline(createElement, tagName, this.elementId) : renderIframe(createElement, this.elementId);
+    return inline ? renderInline(h, this.elementId, tagName) : renderIframe(h, this.elementId);
   }
-});
+};

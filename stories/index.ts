@@ -1,5 +1,4 @@
 import { storiesOf } from '@storybook/vue';
-import Vue from 'vue';
 
 // Import your custom components.
 import { Editor } from '../src/components/Editor';
@@ -9,26 +8,42 @@ storiesOf('TestComponent', module)
   .add('inline', () => ({
     components: { Editor },
     data: () => ({content}),
-    template: '<editor inline :init="{theme: \'inlite\'}" :initialValue="content" />'
+    template: `<div>
+      <editor inline v-model="content" />
+      <textarea style="width: 100%;height:150px;" v-model="content"></textarea>
+      <div v-html="content"></div>
+    </div>`
+  }))
+  .add('inlite', () => ({
+    components: { Editor },
+    data: () => ({content}),
+    template: `<div>
+      <editor inline :init="{theme: 'inlite'}" v-model="content" />
+      <textarea style="width: 100%;height:150px;" v-model="content"></textarea>
+      <div v-html="content"></div>
+    </div>`
   }))
   .add('iframe', () => ({
     components: { Editor },
-    data: () => ({content}),
+    data: () => ({content, test: ''}),
     methods: {
       // tslint:disable-next-line:no-console
-      log: (e: any, editor: any) => console.log(editor.getContent()),
-      setup: (editor: any) => {
-        setTimeout(() => {
-          editor.setContent('hellooo');
-          editor.undoManager.add();
-        }, 2000);
-      }
+      log: (e: any, editor: any) => console.log(editor.getContent())
     },
     template: `<div>
       <editor
-        :init="{branding: false, height: 300, setup: setup}"
+        :init="{branding: false, height: 300}"
+        api-key="hello"
+        plugins="link"
+        toolbar="link bold italic"
         v-model="content"
-        :modelEvents="['change', 'keyup']" />
+      />
+      <editor
+        :init="{branding: false, height: 300}"
+        api-key="hello"
+        v-model="content"
+      />
+      <textarea style="width: 100%;height:150px;" v-model="content"></textarea>
       <div v-html="content"></div>
     </div>`
   }));

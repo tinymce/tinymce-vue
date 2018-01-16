@@ -10,7 +10,8 @@
       "object-literal-sort-keys": false,
       "indent": [true, "spaces", 2],
       "quotemark": [true, "single"],
-      "trailing-comma": [true, {"multiline": "never", "singleline": "never"}]
+      "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
+      "interface-name": false
     },
     "rulesDirectory": []
 }

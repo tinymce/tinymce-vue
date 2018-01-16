@@ -6,7 +6,7 @@ const uglify = require('rollup-plugin-uglify');
 const browserBuildOptions = { 
   file: 'lib/browser/tinymce-vue.js',
   format: 'iife',
-  name: 'TinymceVue', 
+  name: 'Editor', 
   globals: {
     vue: 'Vue'
   } 
