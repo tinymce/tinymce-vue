@@ -28,7 +28,7 @@ storiesOf('TestComponent', module)
     data: () => ({content, test: ''}),
     methods: {
       // tslint:disable-next-line:no-console
-      log: (e: any, editor: any) => console.log(editor.getContent())
+      log: (e: any, editor: any) => console.log(e.screenY, e.screenX)
     },
     template: `<div>
       <editor

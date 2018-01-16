@@ -4,8 +4,6 @@
 
 This package is a thin wrapper around `tinymce` to make it easier to use in a Vue application. 
 
-For some quick demos, check out the [storybook](https://tinymce.github.io/tinymce-vue/).
-
 ## Installation
 ```sh
 $ npm install @tinymce/tinymce-vue
@@ -29,7 +27,7 @@ If you aren't using a module loader and just adding the javascript file imports 
 <script src="path/to/tinymce-vue.min.js"></script>
 ```
 
-You would then add the editor to the `components` property of your app:
+You can then add the editor to the `components` property of your app:
 
 ```js
 // This might look different depending on how you have set up your app
@@ -46,7 +44,7 @@ var app = new Vue({
 
 ### Using the component in your templates
 
-You can then add the editor to your templates like this:
+Use the editor in your templates like this:
 
 ```js
 <editor api-key="API_KEY" :init="{plugins: 'wordcount'}" />
@@ -58,14 +56,96 @@ The editor accepts the following props:
 * `id`: An id for the editor so you can later grab the instance by using the `tinymce.get('ID')` method on tinymce, defaults to an automatically generated uuid. 
 * `init`: Object sent to the `tinymce.init` method used to initialize the editor.
 * `initialValue`: Initial value that the editor will be initialized with.
-* `inline`: Shorthand for setting that the editor should be inline, same as setting `{inline: true}` in the init.
+* `inline`: Shorthand for setting that the editor should be inline, `<editor inline></editor>` is the same as setting `{inline: true}` in the init.
 * `tagName`: Only used if the editor is inline, decides what element to initialize the editor on, defaults to `div`.
-* `plugins`: Shorthand for setting what plugins you want to use, same as setting `{plugins: 'foo bar'}` in the init.
-* `toolbar`: Shorthand for setting what toolbar items you want to show, same as setting `{toolbar: 'foo bar'}` in the init.
-* `modelEvents`: Change on what events you want to trigger the n-model events, defaults to `'change keyup'`. 
+* `plugins`: Shorthand for setting what plugins you want to use, `<editor plugins="foo bar"></editor>` is the same as setting `{plugins: 'foo bar'}` in the init.
+* `toolbar`: Shorthand for setting what toolbar items you want to show, `<editor toolbar="foo bar"></editor>` is the same as setting `{toolbar: 'foo bar'}` in the init.
+* `modelEvents`: Change on what events you want to trigger the v-model events, defaults to `'change keyup'`. 
 * `apiKey`: Api key for TinyMCE cloud, more info below.
 * `cloudChannel`: Cloud channel for TinyMCE Cloud, more info below.
 
+### `v-model`
+
+You can also use the `v-model` directive (more info in the [VueJS documentation](https://vuejs.org/v2/guide/forms.html)) on the editor to create a two-way data binding:
+
+```js
+<editor v-model="content"></editor>
+```
+
+### Event binding
+
+You bind editor events via a shorthand prop on the editor, for example:
+```js
+<editor @onSelectionChang="handlerFunction"></editor>
+```
+Here is a full list of the events available:
+<details>
+<summary>All available events</summary>
+
+* `onActivate`
+* `onAddUndo`
+* `onBeforeAddUndo`
+* `onBeforeExecCommand`
+* `onBeforeGetContent`
+* `onBeforeRenderUI`
+* `onBeforeSetContent`
+* `onBeforePaste`
+* `onBlur`
+* `onChange`
+* `onClearUndos`
+* `onClick`
+* `onContextMenu`
+* `onCopy`
+* `onCut`
+* `onDblclick`
+* `onDeactivate`
+* `onDirty`
+* `onDrag`
+* `onDragDrop`
+* `onDragEnd`
+* `onDragGesture`
+* `onDragOver`
+* `onDrop`
+* `onExecCommand`
+* `onFocus`
+* `onFocusIn`
+* `onFocusOut`
+* `onGetContent`
+* `onHide`
+* `onInit`
+* `onKeyDown`
+* `onKeyPress`
+* `onKeyUp`
+* `onLoadContent`
+* `onMouseDown`
+* `onMouseEnter`
+* `onMouseLeave`
+* `onMouseMove`
+* `onMouseOut`
+* `onMouseOver`
+* `onMouseUp`
+* `onNodeChange`
+* `onObjectResizeStart`
+* `onObjectResized`
+* `onObjectSelected`
+* `onPaste`
+* `onPostProcess`
+* `onPostRender`
+* `onPreInit`
+* `onPreProcess`
+* `onProgressState`
+* `onRedo`
+* `onRemove`
+* `onReset`
+* `onSaveContent`
+* `onSelectionChange`
+* `onSetAttrib`
+* `onSetContent`
+* `onShow`
+* `onSubmit`
+* `onUndo`
+* `onVisualAid`
+</details>
 
 ## Loading TinyMCE
 ### Auto-loading from TinyMCE Cloud
