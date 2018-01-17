@@ -55,14 +55,14 @@ Use the editor in your templates like this:
 The editor accepts the following props:
 * `id`: An id for the editor so you can later grab the instance by using the `tinymce.get('ID')` method on tinymce, defaults to an automatically generated uuid. 
 * `init`: Object sent to the `tinymce.init` method used to initialize the editor.
-* `initialValue`: Initial value that the editor will be initialized with.
+* `initial-value`: Initial value that the editor will be initialized with.
 * `inline`: Shorthand for setting that the editor should be inline, `<editor inline></editor>` is the same as setting `{inline: true}` in the init.
-* `tagName`: Only used if the editor is inline, decides what element to initialize the editor on, defaults to `div`.
+* `tag-name`: Only used if the editor is inline, decides what element to initialize the editor on, defaults to `div`.
 * `plugins`: Shorthand for setting what plugins you want to use, `<editor plugins="foo bar"></editor>` is the same as setting `{plugins: 'foo bar'}` in the init.
 * `toolbar`: Shorthand for setting what toolbar items you want to show, `<editor toolbar="foo bar"></editor>` is the same as setting `{toolbar: 'foo bar'}` in the init.
-* `modelEvents`: Change on what events you want to trigger the v-model events, defaults to `'change keyup'`. 
-* `apiKey`: Api key for TinyMCE cloud, more info below.
-* `cloudChannel`: Cloud channel for TinyMCE Cloud, more info below.
+* `model-events`: Change on what events you want to trigger the v-model events, defaults to `'change keyup'`. 
+* `api-key`: Api key for TinyMCE cloud, more info below.
+* `cloud-channel`: Cloud channel for TinyMCE Cloud, more info below.
 
 ### `v-model`
 
