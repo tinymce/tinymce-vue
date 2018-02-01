@@ -20,19 +20,15 @@ const build = async (input, output)  => {
 [
   browserBuildOptions,
   { ...browserBuildOptions,
-    file: 'lib/browser/tinymce-vue.min.js', 
-    minify: true
+    file: 'lib/browser/tinymce-vue.min.js'
   }
-].forEach(async function (o) {
-  console.log(o.file)
-  await build({
+].forEach((opts) => build({
     input: './src/index.ts',
     plugins: [
       typescript({
         tsconfig: './tsconfig.browser.json'
       }),
-      o.minify ? uglify() : {}
+      opts.file.endsWith('min.js') ? uglify() : {}
     ]
-  }, o);
-  console.log('done: ' + o.file)
-});
+  }, opts).then(() => console.log(`bundled: ${opts.file}`))
+);

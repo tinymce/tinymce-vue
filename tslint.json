@@ -11,7 +11,10 @@
       "indent": [true, "spaces", 2],
       "quotemark": [true, "single"],
       "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
-      "interface-name": false
+      "interface-name": false,
+      "prettier": [true, {"singleQuote": true, "arrowParens": "always"}]
     },
-    "rulesDirectory": []
+    "rulesDirectory": [
+      "tslint-plugin-prettier"
+    ]
 }

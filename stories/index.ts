@@ -7,7 +7,7 @@ import { content } from './fakeContent';
 storiesOf('TestComponent', module)
   .add('inline', () => ({
     components: { Editor },
-    data: () => ({content}),
+    data: () => ({ content }),
     template: `<div>
       <editor inline v-model="content" />
       <textarea style="width: 100%;height:150px;" v-model="content"></textarea>
@@ -16,7 +16,7 @@ storiesOf('TestComponent', module)
   }))
   .add('inlite', () => ({
     components: { Editor },
-    data: () => ({content}),
+    data: () => ({ content }),
     template: `<div>
       <editor inline :init="{theme: 'inlite'}" v-model="content" />
       <textarea style="width: 100%;height:150px;" v-model="content"></textarea>
@@ -25,7 +25,7 @@ storiesOf('TestComponent', module)
   }))
   .add('iframe', () => ({
     components: { Editor },
-    data: () => ({content, test: ''}),
+    data: () => ({ content, test: '' }),
     methods: {
       // tslint:disable-next-line:no-console
       log: (e: any, editor: any) => console.log(e.screenY, e.screenX)

@@ -6,13 +6,18 @@
  *
  */
 
-// import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options';
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options';
-import { CreateElement, Vue} from 'vue/types/vue';
+import { CreateElement, Vue } from 'vue/types/vue';
 
 import * as ScriptLoader from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
-import { bindHandlers, bindModelHandlers, isTextarea, mergePlugins, uuid } from '../Utils';
+import {
+  bindHandlers,
+  bindModelHandlers,
+  isTextarea,
+  mergePlugins,
+  uuid
+} from '../Utils';
 import { editorProps, IPropTypes } from './EditorPropTypes';
 
 const scriptState = ScriptLoader.create();
@@ -48,7 +53,10 @@ const initialise = (ctx: IEditor) => () => {
   const finalInit = {
     ...ctx.$props.init,
     selector: `#${ctx.elementId}`,
-    plugins: mergePlugins(ctx.$props.init && ctx.$props.init.plugins, ctx.$props.plugins),
+    plugins: mergePlugins(
+      ctx.$props.init && ctx.$props.init.plugins,
+      ctx.$props.plugins
+    ),
     toolbar: ctx.$props.toolbar || (ctx.$props.init && ctx.$props.init.toolbar),
     inline: ctx.$props.inline,
     setup: (editor: any) => {
@@ -76,7 +84,13 @@ const initialise = (ctx: IEditor) => () => {
   getTinymce().init(finalInit);
 };
 
-export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, IPropTypes> = {
+export const Editor: ThisTypedComponentOptionsWithRecordProps<
+  Vue,
+  {},
+  {},
+  {},
+  IPropTypes
+> = {
   props: editorProps,
   created() {
     this.elementId = this.$props.id || uuid('tiny-vue');
@@ -88,20 +102,22 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
       initialise(this)();
     } else if (this.element) {
       const doc = this.element.ownerDocument;
-      const channel = this.$props.cloudChannel ? this.$props.cloudChannel : 'stable';
+      const channel = this.$props.cloudChannel
+        ? this.$props.cloudChannel
+        : 'stable';
       const apiKey = this.$props.apiKey ? this.$props.apiKey : '';
       const url = `https://cloud.tinymce.com/${channel}/tinymce.min.js?apiKey=${apiKey}`;
 
-      ScriptLoader.load(
-        scriptState, doc, url, initialise(this)
-      );
+      ScriptLoader.load(scriptState, doc, url, initialise(this));
     }
   },
   beforeDestroy() {
     getTinymce().remove(this.editor);
   },
   render(h: any) {
-    const {inline, tagName} = this.$props;
-    return inline ? renderInline(h, this.elementId, tagName) : renderIframe(h, this.elementId);
+    const { inline, tagName } = this.$props;
+    return inline
+      ? renderInline(h, this.elementId, tagName)
+      : renderIframe(h, this.elementId);
   }
 };

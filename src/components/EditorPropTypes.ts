@@ -6,9 +6,7 @@
  *
  */
 
-export type CopyProps<T> = {
-  [P in keyof T]: any
-};
+export type CopyProps<T> = { [P in keyof T]: any };
 
 export interface IPropTypes {
   apiKey: string;
@@ -33,7 +31,11 @@ export const editorProps: CopyProps<IPropTypes> = {
         return true;
       } else {
         // tslint:disable-next-line:no-console
-        console.error(`VALIDATION ERROR! cloudChannel should be one of: ${validChannels.join(', ')}`);
+        console.error(
+          `VALIDATION ERROR! cloudChannel should be one of: ${validChannels.join(
+            ', '
+          )}`
+        );
         return false;
       }
     }
