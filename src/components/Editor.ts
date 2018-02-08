@@ -11,13 +11,7 @@ import { CreateElement, Vue } from 'vue/types/vue';
 
 import * as ScriptLoader from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
-import {
-  bindHandlers,
-  bindModelHandlers,
-  isTextarea,
-  mergePlugins,
-  uuid
-} from '../Utils';
+import { initEditor, isTextarea, mergePlugins, uuid } from '../Utils';
 import { editorProps, IPropTypes } from './EditorPropTypes';
 
 const scriptState = ScriptLoader.create();
@@ -48,8 +42,6 @@ const renderIframe = (h: CreateElement, id: string) => {
 };
 
 const initialise = (ctx: IEditor) => () => {
-  const initialValue = ctx.$props.initialValue ? ctx.$props.initialValue : '';
-  const value = ctx.$props.value ? ctx.$props.value : '';
   const finalInit = {
     ...ctx.$props.init,
     selector: `#${ctx.elementId}`,
@@ -61,15 +53,7 @@ const initialise = (ctx: IEditor) => () => {
     inline: ctx.$props.inline,
     setup: (editor: any) => {
       ctx.editor = editor;
-      editor.on('init', () => editor.setContent(initialValue || value));
-
-      // checks if the v-model shorthand is used (which sets an v-on:input listener) and then binds either
-      // specified the events or defaults to "change keyup" event and emits the editor content on that event
-      if (ctx.$listeners.input) {
-        bindModelHandlers(ctx, editor);
-      }
-
-      bindHandlers(ctx.$listeners, editor);
+      editor.on('init', () => initEditor(ctx, editor));
 
       if (ctx.$props.init && typeof ctx.$props.init.setup === 'function') {
         ctx.$props.init.setup(editor);
