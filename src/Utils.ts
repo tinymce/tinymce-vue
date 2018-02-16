@@ -89,18 +89,11 @@ export const bindHandlers = (listeners: any, editor: any): void => {
 
 export const bindModelHandlers = (ctx: IEditor, editor: any) => {
   const modelEvents = ctx.$props.modelEvents ? ctx.$props.modelEvents : null;
-  const normalizedEvents = Array.isArray(modelEvents)
-    ? modelEvents.join(' ')
-    : modelEvents;
+  const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
   let currentContent: any;
 
   ctx.$watch('value', (val: string, prevVal: string) => {
-    if (
-      editor &&
-      typeof val === 'string' &&
-      val !== currentContent &&
-      val !== prevVal
-    ) {
+    if (editor && typeof val === 'string' && val !== currentContent && val !== prevVal) {
       editor.setContent(val);
     }
   });
@@ -138,9 +131,7 @@ export const uuid = (prefix: string): string => {
   return prefix + '_' + random + unique + String(time);
 };
 
-export const isTextarea = (
-  element: Element | null
-): element is HTMLTextAreaElement => {
+export const isTextarea = (element: Element | null): element is HTMLTextAreaElement => {
   return element !== null && element.tagName.toLowerCase() === 'textarea';
 };
 
@@ -152,8 +143,5 @@ const normalizePluginArray = (plugins?: string | string[]): string[] => {
   return Array.isArray(plugins) ? plugins : plugins.split(' ');
 };
 
-export const mergePlugins = (
-  initPlugins: string | string[],
-  inputPlugins?: string | string[]
-) =>
+export const mergePlugins = (initPlugins: string | string[], inputPlugins?: string | string[]) =>
   normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));

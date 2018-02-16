@@ -15,12 +15,7 @@ export interface IStateObj {
   scriptLoaded: boolean;
 }
 
-const injectScriptTag = (
-  scriptId: string,
-  doc: Document,
-  url: string,
-  callback: callbackFn
-) => {
+const injectScriptTag = (scriptId: string, doc: Document, url: string, callback: callbackFn) => {
   const scriptTag = doc.createElement('script');
   scriptTag.type = 'application/javascript';
   scriptTag.id = scriptId;
@@ -37,12 +32,7 @@ export const create = (): IStateObj => {
   };
 };
 
-export const load = (
-  state: IStateObj,
-  doc: Document,
-  url: string,
-  callback: callbackFn
-) => {
+export const load = (state: IStateObj, doc: Document, url: string, callback: callbackFn) => {
   if (state.scriptLoaded) {
     callback();
   } else {

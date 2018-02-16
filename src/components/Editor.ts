@@ -21,6 +21,7 @@ declare module 'vue/types/vue' {
     elementId: string;
     element: Element | null;
     editor: any;
+    inlineEditor: boolean;
   }
 }
 
@@ -45,12 +46,9 @@ const initialise = (ctx: IEditor) => () => {
   const finalInit = {
     ...ctx.$props.init,
     selector: `#${ctx.elementId}`,
-    plugins: mergePlugins(
-      ctx.$props.init && ctx.$props.init.plugins,
-      ctx.$props.plugins
-    ),
+    plugins: mergePlugins(ctx.$props.init && ctx.$props.init.plugins, ctx.$props.plugins),
     toolbar: ctx.$props.toolbar || (ctx.$props.init && ctx.$props.init.toolbar),
-    inline: ctx.$props.inline,
+    inline: ctx.inlineEditor,
     setup: (editor: any) => {
       ctx.editor = editor;
       editor.on('init', () => initEditor(ctx, editor));
@@ -68,16 +66,11 @@ const initialise = (ctx: IEditor) => () => {
   getTinymce().init(finalInit);
 };
 
-export const Editor: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  {},
-  {},
-  {},
-  IPropTypes
-> = {
+export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, IPropTypes> = {
   props: editorProps,
   created() {
     this.elementId = this.$props.id || uuid('tiny-vue');
+    this.inlineEditor = (this.$props.init && this.$props.init.inline) || this.$props.inline;
   },
   mounted() {
     this.element = this.$el;
@@ -86,9 +79,7 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<
       initialise(this)();
     } else if (this.element) {
       const doc = this.element.ownerDocument;
-      const channel = this.$props.cloudChannel
-        ? this.$props.cloudChannel
-        : 'stable';
+      const channel = this.$props.cloudChannel ? this.$props.cloudChannel : 'stable';
       const apiKey = this.$props.apiKey ? this.$props.apiKey : '';
       const url = `https://cloud.tinymce.com/${channel}/tinymce.min.js?apiKey=${apiKey}`;
 
@@ -99,9 +90,6 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<
     getTinymce().remove(this.editor);
   },
   render(h: any) {
-    const { inline, tagName } = this.$props;
-    return inline
-      ? renderInline(h, this.elementId, tagName)
-      : renderIframe(h, this.elementId);
+    return this.inlineEditor ? renderInline(h, this.elementId, this.$props.tagName) : renderIframe(h, this.elementId);
   }
 };

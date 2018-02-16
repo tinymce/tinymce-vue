@@ -1,7 +1,8 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint:recommended"
+        "tslint:recommended",
+        "tslint-config-prettier"
     ],
     "jsRules": {
       "semicolon": true
@@ -12,7 +13,7 @@
       "quotemark": [true, "single"],
       "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
       "interface-name": false,
-      "prettier": [true, {"singleQuote": true, "arrowParens": "always"}]
+      "prettier": [true, { "singleQuote": true, "arrowParens": "always", "printWidth": 140 }]
     },
     "rulesDirectory": [
       "tslint-plugin-prettier"

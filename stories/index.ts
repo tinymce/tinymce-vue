@@ -5,6 +5,13 @@ import { Editor } from '../src/components/Editor';
 import { content } from './fakeContent';
 
 storiesOf('TestComponent', module)
+  .add('inline in init', () => ({
+    components: { Editor },
+    data: () => ({ content }),
+    template: `<div>
+    <editor :init="{inline: true}" v-model="content"></editor>
+  </div>`
+  }))
   .add('inline', () => ({
     components: { Editor },
     data: () => ({ content }),

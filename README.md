@@ -76,7 +76,7 @@ You can also use the `v-model` directive (more info in the [VueJS documentation]
 
 You bind editor events via a shorthand prop on the editor, for example:
 ```js
-<editor @onSelectionChang="handlerFunction"></editor>
+<editor @onSelectionChange="handlerFunction"></editor>
 ```
 Here is a full list of the events available:
 <details>
