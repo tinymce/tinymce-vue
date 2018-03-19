@@ -81,7 +81,8 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
       const doc = this.element.ownerDocument;
       const channel = this.$props.cloudChannel ? this.$props.cloudChannel : 'stable';
       const apiKey = this.$props.apiKey ? this.$props.apiKey : '';
-      const url = `https://cloud.tinymce.com/${channel}/tinymce.min.js?apiKey=${apiKey}`;
+      const cdnUrl = this.$props.cdnUrl ? this.$props.cdnUrl : `https://cloud.tinymce.com/${channel}`;
+      const url = `${cdnUrl}/${channel}/tinymce.min.js?apiKey=${apiKey}`;
 
       ScriptLoader.load(scriptState, doc, url, initialise(this));
     }
