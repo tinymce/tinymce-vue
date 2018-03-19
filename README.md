@@ -168,6 +168,15 @@ So using the `dev` channel would look like this:
 
 For more info on the different versions see the [documentation](https://www.tinymce.com/docs/get-started-cloud/editor-plugin-version/#devtestingandstablereleases).
 
+### Auto-loading from self-defined TinyMCE Cloud
+
+If you don't like the official TinyMCE Cloud, want to use prefer cloud url, you can add `cdn-url` for the component like this:
+
+```js
+<!-- https://cdn.bootcss.com is your prefer cdn url -->
+<editor cnd-url='https://cdn.bootcss.com' :init="{/* your settings */}>"</editor>
+```
+
 ### Loading TinyMCE by yourself
 
 To opt out of using TinyMCE cloud you have to make TinyMCE globally available yourself. This can be done either by hosting the `tinymce.min.js` file by youself and adding a script tag to you HTML or, if you are using a module loader, installing TinyMCE with npm. For info on how to get TinyMCE working with module loaders check out [this page in the documentation](https://www.tinymce.com/docs/advanced/usage-with-module-loaders/).
