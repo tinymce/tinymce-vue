@@ -1,3 +1,6 @@
+# 1.0.3
+* Fixed bug with value watcher getting out of sync.
+
 # 1.0.2
 * Fixed bug where is wasn't possible to set inline in the init object, only on the shorthand.
 
