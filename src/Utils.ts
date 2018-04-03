@@ -95,6 +95,7 @@ export const bindModelHandlers = (ctx: IEditor, editor: any) => {
   ctx.$watch('value', (val: string, prevVal: string) => {
     if (editor && typeof val === 'string' && val !== currentContent && val !== prevVal) {
       editor.setContent(val);
+      currentContent = val;
     }
   });
 
