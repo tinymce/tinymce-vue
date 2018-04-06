@@ -1,3 +1,6 @@
+# 1.0.5
+* Removed onPreInit shorthand as it never worked.
+
 # 1.0.4
 * Fixed bug with onInit never firing.
 

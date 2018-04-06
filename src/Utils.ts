@@ -58,7 +58,6 @@ const validEvents = [
   'onPaste',
   'onPostProcess',
   'onPostRender',
-  'onPreInit',
   'onPreProcess',
   'onProgressState',
   'onRedo',
