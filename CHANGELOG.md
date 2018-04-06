@@ -1,3 +1,6 @@
+# 1.0.4
+* Fixed bug with onInit never firing.
+
 # 1.0.3
 * Fixed bug with value watcher getting out of sync.
 

@@ -76,13 +76,17 @@ const validEvents = [
 
 const isValidKey = (key: string) => validEvents.indexOf(key) !== -1;
 
-export const bindHandlers = (listeners: any, editor: any): void => {
+export const bindHandlers = (initEvent: Event, listeners: any, editor: any): void => {
   Object.keys(listeners)
     .filter(isValidKey)
     .forEach((key: string) => {
       const handler = listeners[key];
       if (typeof handler === 'function') {
-        editor.on(key.substring(2), (e: any) => handler(e, editor));
+        if (key === 'onInit') {
+          handler(initEvent, editor);
+        } else {
+          editor.on(key.substring(2), (e: any) => handler(e, editor));
+        }
       }
     });
 };
@@ -105,7 +109,7 @@ export const bindModelHandlers = (ctx: IEditor, editor: any) => {
   });
 };
 
-export const initEditor = (ctx: IEditor, editor: any) => {
+export const initEditor = (initEvent: Event, ctx: IEditor, editor: any) => {
   const value = ctx.$props.value ? ctx.$props.value : '';
   const initialValue = ctx.$props.initialValue ? ctx.$props.initialValue : '';
 
@@ -117,7 +121,7 @@ export const initEditor = (ctx: IEditor, editor: any) => {
     bindModelHandlers(ctx, editor);
   }
 
-  bindHandlers(ctx.$listeners, editor);
+  bindHandlers(initEvent, ctx.$listeners, editor);
 };
 
 let unique = 0;

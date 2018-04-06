@@ -51,7 +51,7 @@ const initialise = (ctx: IEditor) => () => {
     inline: ctx.inlineEditor,
     setup: (editor: any) => {
       ctx.editor = editor;
-      editor.on('init', () => initEditor(ctx, editor));
+      editor.on('init', (e: Event) => initEditor(e, ctx, editor));
 
       if (ctx.$props.init && typeof ctx.$props.init.setup === 'function') {
         ctx.$props.init.setup(editor);
