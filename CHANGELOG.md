@@ -1,3 +1,6 @@
+# 1.0.6
+* Removed `cloudChannel` prop validation.
+
 # 1.0.5
 * Removed onPreInit shorthand as it never worked.
 
