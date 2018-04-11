@@ -24,18 +24,7 @@ export interface IPropTypes {
 
 export const editorProps: CopyProps<IPropTypes> = {
   apiKey: String,
-  cloudChannel: {
-    validator: (val: string) => {
-      const validChannels = ['stable', 'testing', 'dev'];
-      if (validChannels.indexOf(val.toLowerCase()) !== -1) {
-        return true;
-      } else {
-        // tslint:disable-next-line:no-console
-        console.error(`VALIDATION ERROR! cloudChannel should be one of: ${validChannels.join(', ')}`);
-        return false;
-      }
-    }
-  },
+  cloudChannel: String,
   id: String,
   init: Object,
   initialValue: String,
