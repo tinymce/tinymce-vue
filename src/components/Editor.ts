@@ -87,7 +87,9 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
     }
   },
   beforeDestroy() {
-    getTinymce().remove(this.editor);
+    if (getTinymce() !== null) {
+      getTinymce().remove(this.editor);
+    }
   },
   render(h: any) {
     return this.inlineEditor ? renderInline(h, this.elementId, this.$props.tagName) : renderIframe(h, this.elementId);

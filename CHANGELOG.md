@@ -1,3 +1,6 @@
+# 1.0.7
+* Added null check before removing editor to check that tinymce is actually available.
+
 # 1.0.6
 * Removed `cloudChannel` prop validation.
 
