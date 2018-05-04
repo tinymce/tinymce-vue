@@ -64,6 +64,8 @@ The editor accepts the following props:
 * `api-key`: Api key for TinyMCE cloud, more info below.
 * `cloud-channel`: Cloud channel for TinyMCE Cloud, more info below.
 
+None of the configuration props are **required** for the component to work - other than if you are using TinyMCE Cloud you will have to specify the `api-key` to get rid of the `This domain is not registered...` warning message.
+
 ### `v-model`
 
 You can also use the `v-model` directive (more info in the [VueJS documentation](https://vuejs.org/v2/guide/forms.html)) on the editor to create a two-way data binding:
