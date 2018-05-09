@@ -1,3 +1,6 @@
+# 1.0.8
+* Added `undo` and `redo` to the events triggering sending out content to `v-model`.
+
 # 1.0.7
 * Added null check before removing editor to check that tinymce is actually available.
 
