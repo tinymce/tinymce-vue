@@ -102,7 +102,7 @@ export const bindModelHandlers = (ctx: IEditor, editor: any) => {
     }
   });
 
-  editor.on(normalizedEvents ? normalizedEvents : 'change keyup', () => {
+  editor.on(normalizedEvents ? normalizedEvents : 'change keyup undo redo', () => {
     currentContent = editor.getContent();
     ctx.$emit('input', currentContent);
   });
