@@ -1,3 +1,6 @@
+# 1.0.9
+* Fixed broken links in readme.
+
 # 1.0.8
 * Added `undo` and `redo` to the events triggering sending out content to `v-model`.
 
