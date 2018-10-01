@@ -45,6 +45,7 @@ const renderIframe = (h: CreateElement, id: string) => {
 const initialise = (ctx: IEditor) => () => {
   const finalInit = {
     ...ctx.$props.init,
+    readonly: ctx.$props.disabled,
     selector: `#${ctx.elementId}`,
     plugins: mergePlugins(ctx.$props.init && ctx.$props.init.plugins, ctx.$props.plugins),
     toolbar: ctx.$props.toolbar || (ctx.$props.init && ctx.$props.init.toolbar),
@@ -71,6 +72,11 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
   created() {
     this.elementId = this.$props.id || uuid('tiny-vue');
     this.inlineEditor = (this.$props.init && this.$props.init.inline) || this.$props.inline;
+  },
+  watch: {
+    disabled() {
+      this.editor.setMode(this.disabled ? 'readonly' : 'design');
+    }
   },
   mounted() {
     this.element = this.$el;

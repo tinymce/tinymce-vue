@@ -30,6 +30,19 @@ storiesOf('TestComponent', module)
       <div v-html="content"></div>
     </div>`
   }))
+  .add('disable button', () => ({
+    components: { Editor },
+    data: () => ({ content, disabled: true }),
+    methods: {
+      toggleDisabled(e: any) {
+        this.disabled = !this.disabled;
+      }
+    } as any,
+    template: `<div>
+      <button @click="toggleDisabled">{{ disabled ? 'enable' : 'disable' }}</button>
+      <editor v-bind:disabled="disabled" v-model="content" />
+    </div>`
+  }))
   .add('iframe', () => ({
     components: { Editor },
     data: () => ({ content, test: '' }),

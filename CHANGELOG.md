@@ -1,3 +1,6 @@
+# 1.1.0 
+* Added functionality to bind to `disabled` property to set editor into readonly state.
+
 # 1.0.9
 * Fixed broken links in readme.
 

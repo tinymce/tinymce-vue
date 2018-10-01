@@ -20,6 +20,7 @@ export interface IPropTypes {
   tagName: string;
   toolbar: string[] | string;
   value: string;
+  disabled: boolean;
 }
 
 export const editorProps: CopyProps<IPropTypes> = {
@@ -33,5 +34,6 @@ export const editorProps: CopyProps<IPropTypes> = {
   plugins: [String, Array],
   tagName: String,
   toolbar: [String, Array],
-  value: String
+  value: String,
+  disabled: Boolean
 };
