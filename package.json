@@ -33,6 +33,7 @@
     "vue": "^2.5.13"
   },
   "devDependencies": {
+    "@storybook/storybook-deployer": "^2.3.0",
     "@storybook/vue": "^3.3.11",
     "@types/node": "^9.4.0",
     "babel-register": "^6.26.0",

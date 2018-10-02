@@ -4,6 +4,8 @@
 
 This package is a thin wrapper around `tinymce` to make it easier to use in a Vue application. 
 
+For some quick demos, check out the [storybook](https://tinymce.github.io/tinymce-vue/).
+
 ## Installation
 ```sh
 $ npm install @tinymce/tinymce-vue
