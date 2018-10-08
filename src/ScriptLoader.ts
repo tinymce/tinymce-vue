@@ -21,7 +21,9 @@ const injectScriptTag = (scriptId: string, doc: Document, url: string, callback:
   scriptTag.id = scriptId;
   scriptTag.addEventListener('load', callback);
   scriptTag.src = url;
-  doc.head.appendChild(scriptTag);
+  if (doc.head) {
+    doc.head.appendChild(scriptTag);
+  }
 };
 
 export const create = (): IStateObj => {

@@ -75,7 +75,7 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
   },
   watch: {
     disabled() {
-      this.editor.setMode(this.disabled ? 'readonly' : 'design');
+      (this as any).editor.setMode(this.disabled ? 'readonly' : 'design');
     }
   },
   mounted() {
@@ -83,7 +83,7 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
 
     if (getTinymce() !== null) {
       initialise(this)();
-    } else if (this.element) {
+    } else if (this.element && this.element.ownerDocument) {
       const doc = this.element.ownerDocument;
       const channel = this.$props.cloudChannel ? this.$props.cloudChannel : 'stable';
       const apiKey = this.$props.apiKey ? this.$props.apiKey : '';
