@@ -6,3 +6,4 @@ storybook-static
 .rpt2_cache
 tinymce-tinymce-vue-*.tgz
 .idea
+.cache

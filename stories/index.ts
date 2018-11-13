@@ -48,7 +48,7 @@ storiesOf('TestComponent', module)
     data: () => ({ content, test: '' }),
     methods: {
       // tslint:disable-next-line:no-console
-      log: (e: any, editor: any) => console.log(e.screenY, e.screenX)
+      log: (e: any, editor: any) => console.log(e)
     },
     template: `<div>
       <editor
@@ -57,6 +57,7 @@ storiesOf('TestComponent', module)
         plugins="link"
         toolbar="link bold italic"
         v-model="content"
+        @onBlur="log"
       />
       <editor
         :init="{branding: false, height: 300}"

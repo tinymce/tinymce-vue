@@ -1,7 +1,6 @@
 const rollup = require('rollup');
-const pkg = require('./package.json');
 const typescript = require('rollup-plugin-typescript2');
-const uglify = require('rollup-plugin-uglify');
+const { uglify } = require('rollup-plugin-uglify');
 
 const browserBuildOptions = { 
   file: 'lib/browser/tinymce-vue.js',
