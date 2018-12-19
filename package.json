@@ -29,9 +29,7 @@
     "CHANGELOG.md",
     "LICENSE.txt"
   ],
-  "dependencies": {
-    "vue": "^2.5.17"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.1.5",
     "@storybook/storybook-deployer": "^2.3.0",
@@ -53,6 +51,7 @@
     "tslint-config-prettier": "^1.16.0",
     "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.1.6",
+    "vue": "^2.5.21",
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",
     "webpack": "^4.25.1"
