@@ -126,8 +126,7 @@ export const initEditor = (initEvent: Event, ctx: IEditor, editor: any) => {
 let unique = 0;
 
 export const uuid = (prefix: string): string => {
-  const date = new Date();
-  const time = date.getTime();
+  const time = Date.now();
   const random = Math.floor(Math.random() * 1000000000);
 
   unique++;
