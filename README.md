@@ -21,7 +21,8 @@ First you have to load the component and how you do this depends on how the app 
 // es modules
 import Editor from '@tinymce/tinymce-vue';
 // commonjs require
-var Editor = require('@tinymce/tinymce-vue');
+// NOTE: default needed after require
+var Editor = require('@tinymce/tinymce-vue').default;
 ```
 If you aren't using a module loader and just adding the javascript file imports to your html files you will have to copy the `tinymce-vue.min.js` file, found in the `lib/browser` folder of the npm package, to your app and add something like this:
 

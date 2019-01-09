@@ -1,3 +1,6 @@
+# 1.1.2
+* Updated changelog to show how you have to add `.default` to commonjs require.
+
 # 1.1.1
 * Improved uuid function. Patch contributed by fureweb-com.
 
