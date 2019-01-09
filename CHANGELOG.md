@@ -1,4 +1,7 @@
-# 1.1.0 
+# 1.1.1
+* Improved uuid function. Patch contributed by fureweb-com.
+
+# 1.1.0
 * Added functionality to bind to `disabled` property to set editor into readonly state.
 
 # 1.0.9
