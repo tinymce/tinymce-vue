@@ -67,4 +67,22 @@ storiesOf('TestComponent', module)
       <textarea style="width: 100%;height:150px;" v-model="content"></textarea>
       <div v-html="content"></div>
     </div>`
-  }));
+  }))
+  .add(
+    'cloudChannel set to 5-dev',
+    () => ({
+      components: { Editor },
+      data: () => ({ content, test: '' }),
+      methods: {
+        // tslint:disable-next-line:no-console
+        log: (e: any, editor: any) => console.log(e)
+      },
+      template: `<div>
+      <editor
+        plugins="link code media table"
+        cloudChannel="5-dev"
+      />
+    </div>`
+    }),
+    { notes: 'Please make sure to reload page to load Tinymce 5.' }
+  );
