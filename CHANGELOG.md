@@ -1,3 +1,6 @@
+# 2.0.0
+* Changed default cloudChannel to `'5'`.
+
 # 1.1.2
 * Updated changelog to show how you have to add `.default` to commonjs require.
 

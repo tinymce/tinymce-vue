@@ -160,18 +160,7 @@ The `Editor` component needs TinyMCE to be globally available to work, but to ma
 <editor api-key='YOUR_API_KEY' :init="{/* your settings */}>"</editor>
 ```
 
-You can also define what cloud channel you want to use out these three
-* `stable` **Default**. The most stable and well tested version that has passed the Ephox quality assurance process.
-* `testing` This channel will deploy the current candidate for release to the `stable` channel.
-* `dev` The cutting edge version of TinyMCE updated daily for the daring users.
-
-So using the `dev` channel would look like this:
-
-```js
-<editor api-key='YOUR_API_KEY' cloud-channel='dev' :init="{/* your settings */}"></editor>
-```
-
-For more info on the different versions see the [documentation](https://www.tiny.cloud/docs/cloud-deployment-guide/editor-plugin-version/#devtestingandstablereleases).
+You can also define what cloud channel you want to use, for more info on the different versions see the [documentation](https://www.tiny.cloud/docs/cloud-deployment-guide/editor-plugin-version/#devtestingandstablereleases).
 
 ### Loading TinyMCE by yourself
 

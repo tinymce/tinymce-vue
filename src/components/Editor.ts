@@ -85,7 +85,7 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
       initialise(this)();
     } else if (this.element && this.element.ownerDocument) {
       const doc = this.element.ownerDocument;
-      const channel = this.$props.cloudChannel ? this.$props.cloudChannel : 'stable';
+      const channel = this.$props.cloudChannel ? this.$props.cloudChannel : '5';
       const apiKey = this.$props.apiKey ? this.$props.apiKey : '';
       const url = `https://cloud.tinymce.com/${channel}/tinymce.min.js?apiKey=${apiKey}`;
 
