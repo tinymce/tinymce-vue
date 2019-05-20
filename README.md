@@ -2,7 +2,7 @@
 
 ## About
 
-This package is a thin wrapper around `tinymce` to make it easier to use in a Vue application. 
+This package is a thin wrapper around [tinymce](https://github.com/tinymce/tinymce) to make it easier to use in a Vue application. If you need detailed documentation on TinyMCE itself head to the [Documentation Pages](https://www.tiny.cloud/docs/).
 
 For some quick demos, check out the [storybook](https://tinymce.github.io/tinymce-vue/).
 
@@ -26,7 +26,7 @@ var Editor = require('@tinymce/tinymce-vue').default;
 ```
 If you aren't using a module loader and just adding the javascript file imports to your html files you will have to copy the `tinymce-vue.min.js` file, found in the `lib/browser` folder of the npm package, to your app and add something like this:
 
-```js
+```html
 <script src="path/to/tinymce-vue.min.js"></script>
 ```
 
@@ -49,7 +49,7 @@ var app = new Vue({
 
 Use the editor in your templates like this:
 
-```js
+```html
 <editor api-key="API_KEY" :init="{plugins: 'wordcount'}"></editor>
 ```
 
@@ -74,14 +74,14 @@ None of the configuration props are **required** for the component to work - oth
 
 You can also use the `v-model` directive (more info in the [VueJS documentation](https://vuejs.org/v2/guide/forms.html)) on the editor to create a two-way data binding:
 
-```js
+```html
 <editor v-model="content"></editor>
 ```
 
 ### Event binding
 
 You bind editor events via a shorthand prop on the editor, for example:
-```js
+```html
 <editor @onSelectionChange="handlerFunction"></editor>
 ```
 Here is a full list of the events available:
@@ -156,7 +156,7 @@ Here is a full list of the events available:
 ### Auto-loading from TinyMCE Cloud
 The `Editor` component needs TinyMCE to be globally available to work, but to make it as easy as possible it will automatically load [TinyMCE Cloud](https://www.tiny.cloud/docs/cloud-deployment-guide/) if it can't find TinyMCE available when the component has mounted. To get rid of the `This domain is not registered...` warning, sign up for the cloud and enter the api key like this:
 
-```js
+```html
 <editor api-key='YOUR_API_KEY' :init="{/* your settings */}>"</editor>
 ```
 
@@ -166,3 +166,6 @@ You can also define what cloud channel you want to use, for more info on the dif
 
 To opt out of using TinyMCE cloud you have to make TinyMCE globally available yourself. This can be done either by hosting the `tinymce.min.js` file by youself and adding a script tag to you HTML or, if you are using a module loader, installing TinyMCE with npm. For info on how to get TinyMCE working with module loaders check out [this page in the documentation](https://www.tinymce.com/docs/advanced/usage-with-module-loaders/).
 
+### Issues
+
+Have you have found an issue with `tinymce-vue` or do you have a feature request? Open up an [issue](https://github.com/tinymce/tinymce-vue/issues) and let us know or submit a [pull request](https://github.com/tinymce/tinymce-vue/pulls). *Note: for issues related to TinyMCE please visit the [TinyMCE repository](https://github.com/tinymce/tinymce).*
