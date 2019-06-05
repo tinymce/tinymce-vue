@@ -1,3 +1,6 @@
+## 2.1.0
+* Changed the CDN URL to use `cdn.tiny.cloud`
+
 # 2.0.0
 * Changed default cloudChannel to `'5'`.
 
