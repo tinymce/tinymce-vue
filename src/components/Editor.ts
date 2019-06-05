@@ -86,10 +86,9 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
     } else if (this.element && this.element.ownerDocument) {
       const doc = this.element.ownerDocument;
       const channel = this.$props.cloudChannel ? this.$props.cloudChannel : '5';
-      const apiKey = this.$props.apiKey ? this.$props.apiKey : '';
-      const url = `https://cloud.tinymce.com/${channel}/tinymce.min.js?apiKey=${apiKey}`;
+      const apiKey = this.$props.apiKey ? this.$props.apiKey : 'no-api-key';
 
-      ScriptLoader.load(scriptState, doc, url, initialise(this));
+      ScriptLoader.load(scriptState, doc, `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js`, initialise(this));
     }
   },
   beforeDestroy() {
