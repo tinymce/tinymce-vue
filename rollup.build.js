@@ -22,7 +22,7 @@ const build = async (input, output)  => {
     file: 'lib/browser/tinymce-vue.min.js'
   }
 ].forEach((opts) => build({
-    input: './src/index.ts',
+    input: './src/main/ts/index.ts',
     plugins: [
       typescript({
         tsconfig: './tsconfig.browser.json'

@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue';
 
 // Import your custom components.
-import { Editor } from '../src/components/Editor';
+import { Editor } from '../src/main/ts/components/Editor';
 import { content } from './fakeContent';
 
 storiesOf('TestComponent', module)
