@@ -170,6 +170,10 @@ You can also define what cloud channel you want to use, for more info on the dif
 
 To opt out of using TinyMCE cloud you have to make TinyMCE globally available yourself. This can be done either by hosting the `tinymce.min.js` file by youself and adding a script tag to you HTML or, if you are using a module loader, installing TinyMCE with npm. For info on how to get TinyMCE working with module loaders check out [this page in the documentation](https://www.tinymce.com/docs/advanced/usage-with-module-loaders/).
 
+### Development
+
+This project uses [yarn](https://yarnpkg.com/en/) for development.
+
 ### Issues
 
 Have you found an issue with `tinymce-vue` or do you have a feature request? Open up an [issue](https://github.com/tinymce/tinymce-vue/issues) and let us know or submit a [pull request](https://github.com/tinymce/tinymce-vue/pulls). *Note: for issues related to TinyMCE please visit the [TinyMCE repository](https://github.com/tinymce/tinymce).*

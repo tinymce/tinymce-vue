@@ -13,8 +13,8 @@
     "test-manual": "bedrock -f src/test/ts/**/*Test.ts",
     "clean": "rimraf lib",
     "lint": "tslint src/**/*.ts",
-    "build": "npm run clean && npm run lint && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json && node rollup.build.js",
-    "prepare": "npm run build",
+    "build": "yarn run clean && yarn run lint && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json && node rollup.build.js",
+    "prepare": "yarn run build",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "keywords": [
