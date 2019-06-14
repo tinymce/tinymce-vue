@@ -11,7 +11,8 @@
     "preserveConstEnums": true,
     "strictNullChecks": true,
     "target": "es5",
-    "strict": true
+    "strict": true,
+    "baseUrl": "."
   },
   "include": [
     "src/**/*"

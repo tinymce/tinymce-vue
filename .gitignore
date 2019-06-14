@@ -1,9 +1,9 @@
 node_modules
 lib
 .DS_Store
-yarn.lock
 storybook-static
 .rpt2_cache
 tinymce-tinymce-vue-*.tgz
 .idea
 .cache
+scratch

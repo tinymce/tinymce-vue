@@ -1,21 +1,10 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended",
-        "tslint-config-prettier"
-    ],
-    "jsRules": {
-      "semicolon": true
-    },
-    "rules": {
-      "object-literal-sort-keys": false,
-      "indent": [true, "spaces", 2],
-      "quotemark": [true, "single"],
-      "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
-      "interface-name": false,
-      "prettier": [true, { "singleQuote": true, "arrowParens": "always", "printWidth": 140 }]
-    },
-    "rulesDirectory": [
-      "tslint-plugin-prettier"
-    ]
+  "defaultSeverity": "error",
+  "extends": ["@ephox/tslint-rules/tslint.json"],
+  "jsRules": {
+    "semicolon": true
+  },
+  "rules": {
+    "variable-name": false
+  }
 }
