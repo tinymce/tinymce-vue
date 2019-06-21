@@ -30,8 +30,8 @@
     "CHANGELOG.md",
     "LICENSE.txt"
   ],
-  "dependencies": {
-    "vue": "^2.5.17"
+  "peerDependencies": {
+    "vue": "^2.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -58,8 +58,9 @@
     "ts-node": "^7.0.1",
     "tslint": "^5.12.0",
     "typescript": "^3.2.2",
+    "vue": "^2.6.10",
     "vue-loader": "^15.5.1",
-    "vue-template-compiler": "^2.5.21",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.28.1"
   }
 }
