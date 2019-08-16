@@ -17,6 +17,7 @@ export interface IStateObj {
 
 const injectScriptTag = (scriptId: string, doc: Document, url: string, callback: callbackFn) => {
   const scriptTag = doc.createElement('script');
+  scriptTag.referrerPolicy = 'origin';
   scriptTag.type = 'application/javascript';
   scriptTag.id = scriptId;
   scriptTag.addEventListener('load', callback);
