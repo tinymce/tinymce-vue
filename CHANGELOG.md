@@ -1,3 +1,6 @@
+# 3.0.1 (TBA)
+* Fixed incorrect module paths
+
 # 3.0.0 (2019-08-16)
 * Removed Vue as a dependency and added vue@^2.4.3 as a peer dependency
 * Changed referrer policy to origin to allow cloud caching
