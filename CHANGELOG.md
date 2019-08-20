@@ -1,4 +1,4 @@
-# 3.0.1 (TBA)
+# 3.0.1 (2019-08-19)
 * Fixed incorrect module paths
 
 # 3.0.0 (2019-08-16)
