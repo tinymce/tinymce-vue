@@ -4,12 +4,14 @@ import { storiesOf } from '@storybook/vue';
 import { Editor } from '../src/main/ts/components/Editor';
 import { content } from './fakeContent';
 
+const apiKey = 'qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc';
+
 storiesOf('TestComponent', module)
   .add('inline', () => ({
     components: { Editor },
     data: () => ({ content }),
     template: `<div>
-      <editor inline v-model="content" />
+      <editor api-key="${apiKey}" inline v-model="content" />
       <textarea style="width: 100%;height:150px;" v-model="content"></textarea>
       <div v-html="content"></div>
     </div>`
@@ -24,7 +26,7 @@ storiesOf('TestComponent', module)
     } as any,
     template: `<div>
       <button @click="toggleDisabled">{{ disabled ? 'enable' : 'disable' }}</button>
-      <editor v-bind:disabled="disabled" v-model="content" />
+      <editor api-key="${apiKey}" v-bind:disabled="disabled" v-model="content" />
     </div>`
   }))
   .add('iframe', () => ({
@@ -37,7 +39,7 @@ storiesOf('TestComponent', module)
     template: `<div>
       <editor
         :init="{branding: false, height: 300}"
-        api-key="hello"
+        api-key="${apiKey}"
         plugins="link"
         toolbar="link bold italic"
         v-model="content"
@@ -45,7 +47,7 @@ storiesOf('TestComponent', module)
       />
       <editor
         :init="{branding: false, height: 300}"
-        api-key="hello"
+        api-key="${apiKey}"
         v-model="content"
       />
       <textarea style="width: 100%;height:150px;" v-model="content"></textarea>
@@ -63,6 +65,7 @@ storiesOf('TestComponent', module)
       },
       template: `<div>
       <editor
+        api-key="${apiKey}"
         plugins="link code media table"
         cloudChannel="5-dev"
       />
