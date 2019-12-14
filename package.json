@@ -36,7 +36,8 @@
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@ephox/agar": "^4.13.10",
-    "@ephox/bedrock": "^4.3.0",
+    "@ephox/bedrock-client": "^9.3.2",
+    "@ephox/bedrock-server": "^9.3.2",
     "@ephox/sugar": "^4.6.21",
     "@ephox/tslint-rules": "^1.0.11",
     "@storybook/addon-notes": "^5.1.11",
