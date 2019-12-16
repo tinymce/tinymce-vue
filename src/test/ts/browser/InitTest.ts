@@ -1,5 +1,5 @@
 import { Assertions, GeneralSteps, Logger, Pipeline } from '@ephox/agar';
-import { UnitTest } from '@ephox/bedrock';
+import { UnitTest } from '@ephox/bedrock-client';
 import { setup } from '../alien/Setup';
 
 UnitTest.asynctest('InitTest', (success, failure) => {
