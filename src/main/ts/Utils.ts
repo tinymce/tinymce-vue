@@ -93,18 +93,15 @@ export const bindHandlers = (initEvent: Event, listeners: any, editor: any): voi
 export const bindModelHandlers = (ctx: IEditor, editor: any) => {
   const modelEvents = ctx.$props.modelEvents ? ctx.$props.modelEvents : null;
   const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
-  let currentContent: any;
 
   ctx.$watch('value', (val: string, prevVal: string) => {
-    if (editor && typeof val === 'string' && val !== currentContent && val !== prevVal) {
+    if (editor && typeof val === 'string' && val !== prevVal && val !== editor.getContent()) {
       editor.setContent(val);
-      currentContent = val;
     }
   });
 
   editor.on(normalizedEvents ? normalizedEvents : 'change keyup undo redo', () => {
-    currentContent = editor.getContent();
-    ctx.$emit('input', currentContent);
+    ctx.$emit('input', editor.getContent({ format: ctx.$props.outputFormat }));
   });
 };
 

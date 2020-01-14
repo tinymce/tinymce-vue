@@ -1,3 +1,6 @@
+# 3.1.0 (TBA)
+* Added new `outputFormat` prop for specifying the format of the content emitted via the `input` event
+
 # 3.0.1 (2019-08-19)
 * Fixed incorrect module paths
 
