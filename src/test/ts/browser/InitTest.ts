@@ -79,5 +79,5 @@ UnitTest.asynctest('InitTest', (success, failure) => {
   Pipeline.async({}, [
     sTestVersion('4'),
     sTestVersion('5')
-  ], () => success(), failure);
+  ], success, failure);
 });
