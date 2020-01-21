@@ -787,6 +787,19 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.4.tgz#622a72bebd1e3f48d921563b4b60a762295a81fc"
   integrity sha512-6PYY5DVdAY1ifaQW6XYTnOMihmBVT27elqSjEoodchsGjzYlEsTQMcEhSud99kVawatyTZRTiVkJ/c6lwbQ7nA==
 
+"@ephox/agar@^4.11.4", "@ephox/agar@^4.14.8":
+  version "4.14.8"
+  resolved "https://registry.yarnpkg.com/@ephox/agar/-/agar-4.14.8.tgz#8c345f5e395ad1971bbb2434a44652bad28d7243"
+  integrity sha512-caoHmhkTe5t8x7jWGzp2Z54p7bWmKr87UBllE7RBGQ+WEfwOG6HLw3dScIDoHkpXp9ZBHpe1vL53ATUmbAUyGQ==
+  dependencies:
+    "@ephox/bedrock" "^8.0.1"
+    "@ephox/dom-globals" "^1.1.2"
+    "@ephox/jax" "^4.1.28"
+    "@ephox/sand" "^3.1.2"
+    "@ephox/sugar" "^5.0.19"
+    "@ephox/wrap-jsverify" "^2.0.1"
+    "@ephox/wrap-sizzle" "^4.0.0"
+
 "@ephox/agar@^4.13.10":
   version "4.14.6"
   resolved "https://registry.yarnpkg.com/@ephox/agar/-/agar-4.14.6.tgz#63f2e2686f152d4a08b895948e89cd87b28d1f0c"
@@ -929,7 +942,7 @@
     "@ephox/wrap-promise-polyfill" "^2.2.0"
     tslib "^1.9.3"
 
-"@ephox/katamari@^4.0.5":
+"@ephox/katamari@^4.0.0", "@ephox/katamari@^4.0.5":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@ephox/katamari/-/katamari-4.0.5.tgz#7fc11889bcd1ec92e5d709b3806915bdb427b4c7"
   integrity sha512-hCGYoiCGmtFdup9y1JIXaLnWk/cUfVqkllPoHH3V2pIS/P4X3QbMgg55ul9Hm/yrat/z5erD+BKQuwuYe6vANw==
@@ -937,6 +950,18 @@
     "@ephox/dom-globals" "^1.1.2"
     "@ephox/wrap-promise-polyfill" "^2.2.0"
     tslib "^1.9.3"
+
+"@ephox/mcagar@^4.0.0":
+  version "4.0.50"
+  resolved "https://registry.yarnpkg.com/@ephox/mcagar/-/mcagar-4.0.50.tgz#da2c7212f73c892df7da2c9a54ae4e0627324345"
+  integrity sha512-JS/Y0TsNOjAGy/y7XcvPf6EG/qAzErfrsEUpnMX94Lv3SHIiTpeZPfJoX0zV3tYaCTF1XTbbUN1B2SW2BLDQJw==
+  dependencies:
+    "@ephox/agar" "^4.14.8"
+    "@ephox/dom-globals" "^1.1.2"
+    "@ephox/katamari" "^4.0.5"
+    "@ephox/sand" "^3.1.2"
+    "@ephox/sugar" "^5.0.19"
+    "@ephox/wrap-jsverify" "^2.0.1"
 
 "@ephox/sand@^3.0.2":
   version "3.0.4"
@@ -962,6 +987,15 @@
     "@ephox/dom-globals" "^1.1.2"
     "@ephox/katamari" "^2.4.27"
     "@ephox/sand" "^3.0.2"
+
+"@ephox/sugar@^5.0.0", "@ephox/sugar@^5.0.19":
+  version "5.0.19"
+  resolved "https://registry.yarnpkg.com/@ephox/sugar/-/sugar-5.0.19.tgz#d0378e6eb1c225a786d9075ae671b935840bbe0f"
+  integrity sha512-bEUD5d52YkZY1RhC0ZvChUK6+HIdIEFO5Q4UrU7JcsOreK5cZPXFJLrY0mZygkzkBhahQc2UpkkmyNbHI1fw1Q==
+  dependencies:
+    "@ephox/dom-globals" "^1.1.2"
+    "@ephox/katamari" "^4.0.5"
+    "@ephox/sand" "^3.1.2"
 
 "@ephox/sugar@^5.0.18":
   version "5.0.18"
@@ -1336,6 +1370,17 @@
     global "^4.3.2"
     regenerator-runtime "^0.12.1"
     webpack "^4.33.0"
+
+"@tinymce/miniature@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/miniature/-/miniature-2.2.0.tgz#66592ce6fe8a3d692432cc731ab7c2e2fdaf9b91"
+  integrity sha512-2Hc5OmHDnvee3H5n1dwbA2yWTWz8UBZAQY2BKUA+kbLDzlhh44JiaJrs9SkZKK2pzalbsvReG9Qz+p1l+VH6AA==
+  dependencies:
+    "@ephox/agar" "^4.11.4"
+    "@ephox/dom-globals" "^1.1.2"
+    "@ephox/katamari" "^4.0.0"
+    "@ephox/mcagar" "^4.0.0"
+    "@ephox/sugar" "^5.0.0"
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
@@ -9680,10 +9725,15 @@ tiny-emitter@^2.0.0:
   resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
   integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
 
-tinymce@^5.0.7:
-  version "5.1.4"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.1.4.tgz#a45282a68e66d0959bcae19a972f8ae52a358667"
-  integrity sha512-Y7JYnByNF2A4BzR2KIbKEQV90PHZ5OwsU5An1Qj1zbSI8aXCOOhffL04LqlGw5UP/ookaC/V9V41H5XJbp/l9w==
+"tinymce-4@npm:tinymce@^4.9.7":
+  version "4.9.7"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.9.7.tgz#74ce54f07cfc0268a5ac5e34f610044658c92f47"
+  integrity sha512-cj0HvUuniTuIjOAJdRt5BUfeQqM5yHjbA2NOub9HUHXlCrT9OwD9WBPU6tGlaPC2l2I4eGoOnT8llosZRdQU5Q==
+
+"tinymce-5@npm:tinymce@^5.0.0", tinymce@^5.1.5:
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.1.5.tgz#08a4815bcefd33fb5f654b0b82b066f788a8ddf4"
+  integrity sha512-xl7rMhjxtDLWGXJF2ZNGv6Dxqy64HAQKSCvfcbfFuF+oJYRA1JqfNLfgS3yqG4D/V30adFWOZUv9Eng6l5BWOA==
 
 tmp@^0.0.33:
   version "0.0.33"

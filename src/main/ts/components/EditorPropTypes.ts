@@ -14,6 +14,7 @@ export interface IPropTypes {
   id: string;
   init: any;
   initialValue: string;
+  outputFormat: 'html' | 'text';
   inline: boolean;
   modelEvents: string[] | string;
   plugins: string[] | string;
@@ -35,5 +36,9 @@ export const editorProps: CopyProps<IPropTypes> = {
   tagName: String,
   toolbar: [String, Array],
   value: String,
-  disabled: Boolean
+  disabled: Boolean,
+  outputFormat: {
+    type: String,
+    validator: (prop: string) => prop === 'html' || prop === 'text'
+  },
 };
