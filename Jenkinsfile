@@ -1,5 +1,5 @@
 #!groovy
-@Library('waluigi') _
+@Library('waluigi@v1.0.0') _
 
 properties([
   disableConcurrentBuilds(),
