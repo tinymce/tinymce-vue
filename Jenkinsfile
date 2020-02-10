@@ -1,5 +1,5 @@
 #!groovy
-@Library('waluigi@v1.0.0') _
+@Library('waluigi@v2.0.0') _
 
 properties([
   disableConcurrentBuilds(),
@@ -17,7 +17,7 @@ node("primary") {
   }
 
   stage("Building") {
-    npmInstall()
+    yarnInstall()
     exec "yarn run build"
   }
 
@@ -41,7 +41,7 @@ node("primary") {
         checkout scm
 
         echo "Installing tools"
-        npmInstall()
+        yarnInstall()
 
         echo "Platform: browser tests for " + permutation.name
         bedrockTests(permutation.name, permutation.browser, "src/test/ts/browser")
