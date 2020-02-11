@@ -1,12 +1,7 @@
 #!groovy
-@Library('waluigi@v1.0.0') _
+@Library('waluigi@v3.0.0') _
 
-properties([
-  disableConcurrentBuilds(),
-  pipelineTriggers([
-    pollSCM('H 0 1 1 1')
-  ])
-])
+standardProperties()
 
 node("primary") {
   echo "Clean workspace"
@@ -17,7 +12,7 @@ node("primary") {
   }
 
   stage("Building") {
-    npmInstall()
+    yarnInstall()
     exec "yarn run build"
   }
 
@@ -41,7 +36,7 @@ node("primary") {
         checkout scm
 
         echo "Installing tools"
-        npmInstall()
+        yarnInstall()
 
         echo "Platform: browser tests for " + permutation.name
         bedrockTests(permutation.name, permutation.browser, "src/test/ts/browser")
