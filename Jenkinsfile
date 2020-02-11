@@ -1,12 +1,7 @@
 #!groovy
-@Library('waluigi@v2.0.0') _
+@Library('waluigi@v3.0.0') _
 
-properties([
-  disableConcurrentBuilds(),
-  pipelineTriggers([
-    pollSCM('H 0 1 1 1')
-  ])
-])
+standardProperties()
 
 node("primary") {
   echo "Clean workspace"
