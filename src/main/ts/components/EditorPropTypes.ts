@@ -22,6 +22,7 @@ export interface IPropTypes {
   toolbar: string[] | string;
   value: string;
   disabled: boolean;
+  tinymceScriptSrc: string;
 }
 
 export const editorProps: CopyProps<IPropTypes> = {
@@ -37,6 +38,7 @@ export const editorProps: CopyProps<IPropTypes> = {
   toolbar: [String, Array],
   value: String,
   disabled: Boolean,
+  tinymceScriptSrc: String,
   outputFormat: {
     type: String,
     validator: (prop: string) => prop === 'html' || prop === 'text'
