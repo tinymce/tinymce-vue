@@ -34,7 +34,6 @@ const cRender = (data: Record<string, any> = {}, template: string = `<editor :in
         outputFormat: 'text',
         init: {
           ...originalInit,
-          base_url: '/project/node_modules/tinymce',
           setup: (editor: any) => {
             originalSetup(editor);
 
