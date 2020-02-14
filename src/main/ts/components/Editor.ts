@@ -9,13 +9,11 @@
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options';
 import { CreateElement, Vue } from 'vue/types/vue';
 
-import * as ScriptLoader from '../ScriptLoader';
+import { ScriptLoader } from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
 import { initEditor, isTextarea, mergePlugins, uuid } from '../Utils';
 import { editorProps, IPropTypes } from './EditorPropTypes';
 import { isNullOrUndefined } from 'util';
-
-const scriptState = ScriptLoader.create();
 
 declare module 'vue/types/vue' {
   interface Vue {
@@ -93,7 +91,6 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
         this.$props.tinymceScriptSrc;
 
       ScriptLoader.load(
-        scriptState,
         this.element.ownerDocument,
         scriptSrc,
         initialise(this)
