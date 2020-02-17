@@ -11,9 +11,8 @@ import { CreateElement, Vue } from 'vue/types/vue';
 
 import { ScriptLoader } from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
-import { initEditor, isTextarea, mergePlugins, uuid } from '../Utils';
+import { initEditor, isTextarea, mergePlugins, uuid, isNullOrUndefined } from '../Utils';
 import { editorProps, IPropTypes } from './EditorPropTypes';
-import { isNullOrUndefined } from 'util';
 
 declare module 'vue/types/vue' {
   interface Vue {
