@@ -39,8 +39,8 @@ const CreateScriptLoader = (): ScriptLoader => {
     scriptTag.src = url;
 
     const handler = () => {
-      callback();
       scriptTag.removeEventListener('load', handler);
+      callback();
     };
     scriptTag.addEventListener('load', handler);
     if (doc.head) {
