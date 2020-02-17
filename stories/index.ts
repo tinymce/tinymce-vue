@@ -112,5 +112,5 @@ storiesOf('tinymce-vue', module)
         />
       `
     }),
-    { notes: 'Editor with cloudChannel set to 5-dev, please make sure to reload page to load tinymce 5.' }
+    { notes: 'Editor with cloudChannel set to 5-dev, please make sure to reload page to load TinyMCE 5.' }
   );
