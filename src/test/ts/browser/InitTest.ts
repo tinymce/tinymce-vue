@@ -47,7 +47,7 @@ UnitTest.asynctest('InitTest', (success, failure) => {
             <editor
               :init="init"
               v-on:input="content = $event"
-              outputFormat="text"
+              output-format="text"
             ></editor>
           `),
           cFakeType('A'),
@@ -63,7 +63,7 @@ UnitTest.asynctest('InitTest', (success, failure) => {
             <editor
               :init="init"
               v-on:input="content = $event"
-              outputFormat="html"
+              output-format="html"
             ></editor>
           `),
           cFakeType('A'),
