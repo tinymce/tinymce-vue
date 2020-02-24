@@ -1,4 +1,4 @@
-## 3.2.0 (TBA)
+## 3.2.0 (2020-02-24)
 * Added new `tinymceScriptSrc` prop for specifying an external version of TinyMCE to lazy load
 
 ## 3.1.0 (2020-01-31)
