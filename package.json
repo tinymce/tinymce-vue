@@ -58,7 +58,7 @@
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-typescript2": "^0.22.1",
     "rollup-plugin-uglify": "^6.0.0",
-    "tinymce": "^5.1.5",
+    "tinymce": "npm:tinymce@^5.0.0",
     "tinymce-4": "npm:tinymce@^4.9.7",
     "tinymce-5": "npm:tinymce@^5.0.0",
     "ts-loader": "^5.3.3",
