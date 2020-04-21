@@ -55,4 +55,10 @@ node("primary") {
       }
     }
   }
+
+  if (isReleaseBranch()) {
+    stage("Publish") {
+      sh 'yarn publish'
+    }
+  }
 }
