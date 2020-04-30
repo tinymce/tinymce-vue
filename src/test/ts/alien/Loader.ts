@@ -1,6 +1,6 @@
 import { Chain } from '@ephox/agar';
 import { Fun } from '@ephox/katamari';
-import { Body, Element, Insert, Remove, SelectorFind } from '@ephox/sugar';
+import { Attr, Body, Element, Insert, Remove, SelectorFind } from '@ephox/sugar';
 import Editor from 'src/main/ts/index';
 
 // @ts-ignore
@@ -13,7 +13,8 @@ export interface Context {
 
 const getRoot = () => {
   return SelectorFind.descendant(Body.body(), '#root').getOrThunk(() => {
-    const root = Element.fromHtml('<div id="root"></div>');
+    const root = Element.fromTag('div');
+    Attr.set(root, 'id', 'root')
     Insert.append(Body.body(), root);
     return root;
   });

@@ -1,3 +1,6 @@
+## 3.2.1 (2020-04-30)
+* Upgraded jquery in dev dependencies in response to security alert.
+
 ## 3.2.0 (2020-02-24)
 * Added new `tinymceScriptSrc` prop for specifying an external version of TinyMCE to lazy load
 
