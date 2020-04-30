@@ -1,5 +1,5 @@
 #!groovy
-@Library('waluigi@v3.0.0') _
+@Library('waluigi@v3.2.0') _
 
 standardProperties()
 
@@ -56,9 +56,9 @@ node("primary") {
     }
   }
 
-  if (isReleaseBranch()) {
+  if (isReleaseBranch() && isPackageNewerVersion()) {
     stage("Publish") {
-      sh 'yarn publish'
+      sh 'npm publish'
     }
   }
 }
