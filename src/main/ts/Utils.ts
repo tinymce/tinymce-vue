@@ -95,7 +95,7 @@ const bindModelHandlers = (ctx: IEditor, editor: any) => {
   const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
 
   ctx.$watch('value', (val: string, prevVal: string) => {
-    if (editor && typeof val === 'string' && val !== prevVal && val !== editor.getContent()) {
+    if (editor && typeof val === 'string' && val !== prevVal && val !== editor.getContent({ format: ctx.$props.outputFormat })) {
       editor.setContent(val);
     }
   });
