@@ -1,3 +1,6 @@
+## 3.2.2 (2020-05-22)
+* Fixed v-model `outputFormat` resetting the editor content on every change
+
 ## 3.2.1 (2020-04-30)
 * Upgraded jquery in dev dependencies in response to security alert.
 
