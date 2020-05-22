@@ -1,4 +1,4 @@
-## 3.2.2 (TBD)
+## 3.2.2 (2020-05-22)
 * Fixed v-model `outputFormat` resetting the editor content on every change
 
 ## 3.2.1 (2020-04-30)
