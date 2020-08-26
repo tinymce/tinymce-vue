@@ -7,7 +7,7 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "declaration": true,
-    "outDir": "./lib",
+    "outDir": "./dist",
     "preserveConstEnums": true,
     "strictNullChecks": true,
     "target": "es5",

@@ -1,4 +1,4 @@
-import { IEditor } from './components/Editor';
+import { ComponentPublicInstance } from 'vue';
 
 const validEvents = [
   'onActivate',
@@ -82,7 +82,7 @@ const bindHandlers = (initEvent: Event, listeners: any, editor: any): void => {
     });
 };
 
-const bindModelHandlers = (ctx: IEditor, editor: any) => {
+const bindModelHandlers = (ctx: ComponentPublicInstance, editor: any) => {
   const modelEvents = ctx.$props.modelEvents ? ctx.$props.modelEvents : null;
   const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
   // @ts-ignore
@@ -97,7 +97,7 @@ const bindModelHandlers = (ctx: IEditor, editor: any) => {
   });
 };
 
-const initEditor = (initEvent: Event, ctx: IEditor, editor: any) => {
+const initEditor = (initEvent: Event, ctx: ComponentPublicInstance, editor: any) => {
   const value = ctx.$props.modelValue ? ctx.$props.modelValue : '';
   const initialValue = ctx.$props.initialValue ? ctx.$props.initialValue : '';
 

@@ -1,29 +1,32 @@
 {
-  "name": "@tinymce/tinymce-vue",
+  "name": "@tinymce/tinymce-vue-next",
   "version": "3.2.2",
-  "description": "Official TinyMCE Vue Component",
+  "description": "Vue3 TinyMCE Vue Component",
   "private": false,
   "repository": {
     "url": "https://github.com/tinymce/tinymce-vue"
   },
-  "main": "lib/cjs/main/ts/index.js",
-  "module": "lib/es2015/main/ts/index.js",
+  "main": "dist/tinymce-vue-next.cjs.js",
+  "browser": "dist/tinymce-vue-next.esm.js",
+  "unpkg": "dist/tinymce-vue-next.global.js",
+  "jsdelivr": "dist/tinymce-vue-next.global.js",
+  "module": "dist/tinymce-vue-next.esm-bundler.js",
+  "types": "dist/tinymce-vue-next.d.ts",
   "scripts": {
     "dev": "vite",
-    "test": "bedrock-auto -b chrome-headless -f src/test/ts/**/*Test.ts",
-    "test-manual": "bedrock -f src/test/ts/**/*Test.ts",
     "clean": "rimraf lib",
     "lint": "tslint src/**/*.ts",
-    "build": "yarn run clean && yarn run lint && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json && node rollup.build.js",
-    "prepare": "yarn run build",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "build": "rollup -c rollup.config.js"
   },
   "keywords": [
     "tinymce",
     "vue",
     "component"
   ],
-  "author": "Ephox Inc",
+  "author": {
+    "name": "Anish George",
+    "email": "anishgeorge2690@gmail.com"
+  },
   "license": "Apache-2.0",
   "files": [
     "lib/*/**",
@@ -36,6 +39,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-replace": "^2.3.3",
     "@tinymce/miniature": "^2.2.0",
     "@types/node": "^13.13.4",
     "babel-loader": "^8.0.5",
@@ -43,11 +49,11 @@
     "babel-register": "^6.26.0",
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",
+    "pascalcase": "^1.0.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.7.5",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.27.0",
-    "rollup-plugin-uglify": "^6.0.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "rollup-plugin-typescript2": "^0.27.2",
     "tinymce": "npm:tinymce@^5.0.0",
     "tinymce-4": "npm:tinymce@^4.9.7",
     "tinymce-5": "npm:tinymce@^5.0.0",

@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "declaration": false,
-    "module": "es2015",
-    "target": "es5",
-    "outDir": "./lib/browser"
-  }
-}

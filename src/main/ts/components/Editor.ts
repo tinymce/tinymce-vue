@@ -13,10 +13,10 @@ import { ScriptLoader } from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
 import { initEditor, isTextarea, mergePlugins, uuid, isNullOrUndefined } from '../Utils';
 import { editorProps, IPropTypes } from './EditorPropTypes';
-import { h, defineComponent, ComponentCustomProperties, ComponentPublicInstance } from 'vue'
+import { h, defineComponent, ComponentPublicInstance } from 'vue'
 
 
-export interface IEditor extends ComponentPublicInstance {
+export interface IEditor {
   $props: Partial<IPropTypes>
 }
 
@@ -44,7 +44,7 @@ const renderIframe = (id: string) => {
   });
 };
 
-const initialise = (ctx: ComponentCustomProperties) => () => {
+const initialise = (ctx: ComponentPublicInstance) => () => {
   const finalInit = {
     ...ctx.$props.init,
     readonly: ctx.$props.disabled,
