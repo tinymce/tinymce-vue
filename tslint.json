@@ -1,6 +1,5 @@
 {
   "defaultSeverity": "error",
-  "extends": ["@ephox/tslint-rules/tslint.json"],
   "jsRules": {
     "semicolon": true
   },

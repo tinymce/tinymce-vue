@@ -1,11 +1,3 @@
-/**
- * Copyright (c) 2018-present, Ephox, Inc.
- *
- * This source code is licensed under the Apache 2 license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 import { IEditor } from './components/Editor';
 
 const validEvents = [
@@ -93,31 +85,31 @@ const bindHandlers = (initEvent: Event, listeners: any, editor: any): void => {
 const bindModelHandlers = (ctx: IEditor, editor: any) => {
   const modelEvents = ctx.$props.modelEvents ? ctx.$props.modelEvents : null;
   const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
-
-  ctx.$watch('value', (val: string, prevVal: string) => {
+  // @ts-ignore
+  ctx.$watch('modelValue', (val: string, prevVal: string) => {
     if (editor && typeof val === 'string' && val !== prevVal && val !== editor.getContent({ format: ctx.$props.outputFormat })) {
       editor.setContent(val);
     }
   });
 
   editor.on(normalizedEvents ? normalizedEvents : 'change keyup undo redo', () => {
-    ctx.$emit('input', editor.getContent({ format: ctx.$props.outputFormat }));
+    ctx.$emit('update:modelValue', editor.getContent({ format: ctx.$props.outputFormat }));
   });
 };
 
 const initEditor = (initEvent: Event, ctx: IEditor, editor: any) => {
-  const value = ctx.$props.value ? ctx.$props.value : '';
+  const value = ctx.$props.modelValue ? ctx.$props.modelValue : '';
   const initialValue = ctx.$props.initialValue ? ctx.$props.initialValue : '';
 
   editor.setContent(value || initialValue);
 
   // checks if the v-model shorthand is used (which sets an v-on:input listener) and then binds either
   // specified the events or defaults to "change keyup" event and emits the editor content on that event
-  if (ctx.$listeners.input) {
+  if (ctx.$attrs['onUpdate:modelValue']) {
     bindModelHandlers(ctx, editor);
   }
 
-  bindHandlers(initEvent, ctx.$listeners, editor);
+  bindHandlers(initEvent, ctx.$attrs, editor);
 };
 
 let unique = 0;
