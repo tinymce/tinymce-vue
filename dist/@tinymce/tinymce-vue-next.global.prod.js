@@ -1,5 +1,5 @@
 /*!
-  * @tinymce/tinymce-vue-next v3.2.2
+  * @tinymce/tinymce-vue-next v1.0.0
   * (c) 2020 Anish George
   * @license MIT
   */
