@@ -1,3 +1,7 @@
+## 3.2.3 (TBD)
+* Update dependencies
+* Changed `keyup` to `input` for the events triggering sending out content to `v-model`.
+
 ## 3.2.2 (2020-05-22)
 * Fixed v-model `outputFormat` resetting the editor content on every change
 
