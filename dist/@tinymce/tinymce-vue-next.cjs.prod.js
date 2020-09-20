@@ -296,7 +296,7 @@ var Editor = vue.defineComponent({
             ScriptLoader.load(this.element.ownerDocument, scriptSrc, initialise(this));
         }
     },
-    beforeDestroy: function () {
+    beforeUnmount: function () {
         if (getTinymce() !== null) {
             getTinymce().remove(this.editor);
         }
