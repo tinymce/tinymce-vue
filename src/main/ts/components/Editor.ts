@@ -100,7 +100,7 @@ export const Editor = defineComponent({
       );
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (getTinymce() !== null) {
       getTinymce().remove(this.editor);
     }
