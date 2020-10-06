@@ -7,16 +7,16 @@
   <div class="story blue">
     <h2>Disabling editor</h2>
     <button @click="toggleDisabled">{{ disabled ? 'enable' : 'disable' }}</button>
-    <editor :api-key="apiKey" :disabled="disabled"/>
+    <editor :api-key="apiKey" :disabled="disabled" :initialValue="content"/>
   </div>
   <div class="story red">
     <h2>Simple iframe editor</h2>
-    <editor :api-key="apiKey"/>
+    <editor :api-key="apiKey" :initialValue="content"/>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, watchEffect, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import Editor from "/@/main/ts/index";
 const apiKey = "qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc";
 const content = `
@@ -33,24 +33,13 @@ export default defineComponent({
   setup() {
     const value = ref(content);
     const disabled = ref(false);
-    onMounted(() => {
-      console.log(Editor);
-    });
-    watchEffect(() => {
-      console.log('watch: ', value);
-    });
     const toggleDisabled = () => {
-      console.log('disabling: ', disabled);
       disabled.value = !disabled.value;
-      // console.log('disabling:', disabledEditor);
-      // if (disabledEditor !== null) {
-      //   disabledEditor.disabled;
-      //   console.log(disabledEditor);
-      // }
     }
     return {
       apiKey,
       value,
+      content,
       disabled,
       toggleDisabled
     };
