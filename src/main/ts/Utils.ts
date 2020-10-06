@@ -6,7 +6,6 @@
  *
  */
 
-import { IEditor } from './components/Editor';
 import { Ref, watch, SetupContext } from 'vue';
 import { IPropTypes } from './components/EditorPropTypes';
 
