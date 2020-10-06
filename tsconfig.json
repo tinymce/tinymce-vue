@@ -10,9 +10,11 @@
     "outDir": "./lib",
     "preserveConstEnums": true,
     "strictNullChecks": true,
-    "target": "es5",
+    "target": "esnext",
+    // "lib": ["es2020.string"] // fix the mathAll issue
     "strict": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "skipLibCheck": true // -> https://github.com/vuejs/vue-next/issues/1102
   },
   "include": [
     "src/**/*"

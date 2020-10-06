@@ -32,7 +32,7 @@
     "LICENSE.txt"
   ],
   "peerDependencies": {
-    "vue": "^2.4.3"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -66,12 +66,10 @@
     "ts-node": "^8.9.1",
     "tslint": "^6.1.2",
     "typescript": "^3.2.2",
+    "vite": "^1.0.0-rc.4",
     "vue": "^3.0.0",
     "vue-loader": "^15.7.0",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.43.0"
-  },
-  "dependencies": {
-    "vite": "^1.0.0-rc.4"
   }
 }
