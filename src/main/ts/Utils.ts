@@ -7,6 +7,8 @@
  */
 
 import { IEditor } from './components/Editor';
+import { Ref, watch, SetupContext } from 'vue';
+import { IPropTypes } from './components/EditorPropTypes';
 
 const validEvents = [
   'onActivate',
@@ -90,34 +92,29 @@ const bindHandlers = (initEvent: Event, listeners: any, editor: any): void => {
     });
 };
 
-const bindModelHandlers = (ctx: IEditor, editor: any) => {
-  const modelEvents = ctx.$props.modelEvents ? ctx.$props.modelEvents : null;
+const bindModelHandlers = (props: IPropTypes, ctx: SetupContext, editor: any, modelValue: Ref<any>) => {
+  const modelEvents = props.modelEvents ? props.modelEvents : null;
   const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
 
-  ctx.$watch('value', (val: string, prevVal: string) => {
-    if (editor && typeof val === 'string' && val !== prevVal && val !== editor.getContent({ format: ctx.$props.outputFormat })) {
+  watch(modelValue, (val: string, prevVal: string) => {
+    if (editor && typeof val === 'string' && val !== prevVal && val !== editor.getContent({ format: props.outputFormat })) {
       editor.setContent(val);
     }
   });
 
   editor.on(normalizedEvents ? normalizedEvents : 'change input undo redo', () => {
-    ctx.$emit('input', editor.getContent({ format: ctx.$props.outputFormat }));
+    ctx.emit('update:modelValue', editor.getContent({ format: props.outputFormat }));
   });
 };
 
-const initEditor = (initEvent: Event, ctx: IEditor, editor: any) => {
-  const value = ctx.$props.value ? ctx.$props.value : '';
-  const initialValue = ctx.$props.initialValue ? ctx.$props.initialValue : '';
-
+const initEditor = (initEvent: Event, props: IPropTypes, ctx: SetupContext, editor: any, modelValue: Ref<any>) => {
+  const value = props.modelValue ? props.modelValue : '';
+  const initialValue = props.initialValue ? props.initialValue : '';
   editor.setContent(value || initialValue);
-
-  // checks if the v-model shorthand is used (which sets an v-on:input listener) and then binds either
-  // specified the events or defaults to "change keyup" event and emits the editor content on that event
-  if (ctx.$listeners.input) {
-    bindModelHandlers(ctx, editor);
+  if (ctx.attrs['onUpdate:modelValue']) {
+    bindModelHandlers(props, ctx, editor, modelValue);
   }
-
-  bindHandlers(initEvent, ctx.$listeners, editor);
+  bindHandlers(initEvent, ctx.attrs, editor);
 };
 
 let unique = 0;
@@ -155,5 +152,6 @@ export {
   uuid,
   isTextarea,
   mergePlugins,
-  isNullOrUndefined
+  isNullOrUndefined,
+  isValidKey
 };
