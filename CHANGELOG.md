@@ -1,3 +1,6 @@
+## 4.0.0 (TBD)
+* Vue3 support
+
 ## 3.2.3 (2020-09-16)
 * Update dependencies
 * Changed `keyup` to `input` for the events triggering sending out content to `v-model`.

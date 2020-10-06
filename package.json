@@ -1,7 +1,7 @@
 {
   "name": "@tinymce/tinymce-vue",
-  "version": "3.2.3",
-  "description": "Official TinyMCE Vue Component",
+  "version": "4.0.0",
+  "description": "Official TinyMCE Vue 3 Component",
   "private": false,
   "repository": {
     "url": "https://github.com/tinymce/tinymce-vue"

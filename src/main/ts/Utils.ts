@@ -151,6 +151,5 @@ export {
   uuid,
   isTextarea,
   mergePlugins,
-  isNullOrUndefined,
-  isValidKey
+  isNullOrUndefined
 };
