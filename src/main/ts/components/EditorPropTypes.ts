@@ -20,7 +20,7 @@ export interface IPropTypes {
   plugins: string[] | string;
   tagName: string;
   toolbar: string[] | string;
-  value: string;
+  modelValue: string;
   disabled: boolean;
   tinymceScriptSrc: string;
 }
@@ -36,7 +36,7 @@ export const editorProps: CopyProps<IPropTypes> = {
   plugins: [String, Array],
   tagName: String,
   toolbar: [String, Array],
-  value: String,
+  modelValue: String,
   disabled: Boolean,
   tinymceScriptSrc: String,
   outputFormat: {
