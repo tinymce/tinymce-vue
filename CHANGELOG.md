@@ -1,4 +1,4 @@
-## 3.2.4 (TBA)
+## 3.2.4 (2020-10-16)
 * Fixed handling of inline template event bindings
 
 ## 3.2.3 (2020-09-16)
