@@ -152,6 +152,7 @@ export {
   bindHandlers,
   bindModelHandlers,
   initEditor,
+  isValidKey,
   uuid,
   isTextarea,
   mergePlugins,
