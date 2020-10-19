@@ -73,7 +73,7 @@ const validEvents = [
   'onVisualAid'
 ];
 
-const isValidKey = (key: string) => validEvents.indexOf(key) !== -1;
+const isValidKey = (key: string) => validEvents.map(event => event.toLowerCase()).indexOf(key.toLowerCase()) !== -1;
 
 const bindHandlers = (initEvent: Event, listeners: any, editor: any): void => {
   Object.keys(listeners)
@@ -152,6 +152,7 @@ export {
   bindHandlers,
   bindModelHandlers,
   initEditor,
+  isValidKey,
   uuid,
   isTextarea,
   mergePlugins,
