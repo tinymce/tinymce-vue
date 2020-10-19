@@ -10,7 +10,7 @@
     "outDir": "./lib",
     "preserveConstEnums": true,
     "strictNullChecks": true,
-    "target": "esnext",
+    "target": "es5",
     // "lib": ["es2020.string"] // fix the mathAll issue
     "strict": true,
     "baseUrl": ".",
@@ -21,6 +21,7 @@
   ],
   "exclude": [
     "**/*.test.tsx",
+    "src/demo/*",
     "node_modules"
   ]
 }
