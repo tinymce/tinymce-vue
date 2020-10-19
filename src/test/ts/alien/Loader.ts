@@ -4,7 +4,7 @@ import { Attr, Body, Element, Insert, Remove, SelectorFind } from '@ephox/sugar'
 import Editor from 'src/main/ts/index';
 
 // @ts-ignore
-import Vue from 'vue/dist/vue.esm.js'; // Use runtime compiler
+import Vue from 'vue/dist/vue.runtime.global.js'; // Use runtime compiler
 
 export interface Context {
   editor: any;
