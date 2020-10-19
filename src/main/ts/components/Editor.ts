@@ -44,7 +44,7 @@ export const Editor = defineComponent({
       return modelBind ? modelValue.value : mounting ? initialValue : cache;
     };
 
-    const initWrapper = () => {
+    const initWrapper = (): void => {
       const finalInit = {
         ...props.init,
         readonly: props.disabled,
@@ -99,7 +99,9 @@ export const Editor = defineComponent({
         }
       });
       onDeactivated(() => {
-        cache = vueEditor.getContent({ format: props.outputFormat })
+        if (!modelBind) {
+          cache = vueEditor.getContent({ format: props.outputFormat });
+        }
         getTinymce()?.remove(vueEditor);
       });
     }
