@@ -10,7 +10,7 @@ import { ScriptLoader } from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
 import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '../Utils';
 import { editorProps } from './EditorPropTypes';
-import { h, defineComponent, onMounted, ref, Ref, toRefs, watch, onBeforeUnmount } from 'vue';
+import { h, defineComponent, onMounted, ref, Ref, toRefs, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
 
 const renderInline = (ce: any, id: string, elementRef: Ref<Element|null>, tagName?: string) => {
   return ce(tagName ? tagName : 'div', {
@@ -34,9 +34,17 @@ export const Editor = defineComponent({
     const element: Ref<Element | null> = ref(null);
     let vueEditor: any = null;
     const elementId: string = props.id || uuid('tiny-vue');
-    const inlineEditor = (props.init && props.init.inline) || props.inline;
+    const inlineEditor: boolean = (props.init && props.init.inline) || props.inline;
+    const modelBind: boolean = ctx.attrs['onUpdate:modelValue'] ? true : false;
+    let mounting: boolean = true;
+    const initialValue: string = props.initialValue ? props.initialValue : '';
+    let cache: string = '';
 
-    const initWrapper = () => () => {
+    const getContent = (): string => {
+      return modelBind ? modelValue.value : mounting ? initialValue : cache;
+    };
+
+    const initWrapper = () => {
       const finalInit = {
         ...props.init,
         readonly: props.disabled,
@@ -46,7 +54,7 @@ export const Editor = defineComponent({
         inline: inlineEditor,
         setup: (editor: any) => {
           vueEditor = editor;
-          editor.on('init', (e: Event) => initEditor(e, props, ctx, editor, modelValue));
+          editor.on('init', (e: Event) => initEditor(e, props, ctx, editor, modelValue, getContent()));
           if (props.init && typeof props.init.setup === 'function') {
             props.init.setup(editor);
           }
@@ -56,6 +64,7 @@ export const Editor = defineComponent({
         element.value.style.visibility = '';
       }
       getTinymce().init(finalInit);
+      mounting = false;
     };
     watch(disabled, (disable) => {
       if (vueEditor !== null) {
@@ -64,7 +73,7 @@ export const Editor = defineComponent({
     });
     onMounted(() => {
       if (getTinymce() !== null) {
-        initWrapper()();
+        initWrapper();
       } else if (element.value && element.value.ownerDocument) {
         const channel = props.cloudChannel ? props.cloudChannel : '5';
         const apiKey = props.apiKey ? props.apiKey : 'no-api-key';
@@ -74,7 +83,7 @@ export const Editor = defineComponent({
         ScriptLoader.load(
           element.value.ownerDocument,
           scriptSrc,
-          initWrapper()
+          initWrapper
         );
       }
     });
@@ -83,6 +92,17 @@ export const Editor = defineComponent({
         getTinymce().remove(vueEditor);
       }
     });
+    if (!inlineEditor) {
+      onActivated(() => {
+        if (!mounting) {
+          initWrapper();
+        }
+      });
+      onDeactivated(() => {
+        cache = vueEditor.getContent({ format: props.outputFormat })
+        getTinymce()?.remove(vueEditor);
+      });
+    }
     return () => {
       return inlineEditor ?
         renderInline(h, elementId, element, props.tagName) :

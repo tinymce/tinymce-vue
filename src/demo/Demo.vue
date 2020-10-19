@@ -13,11 +13,24 @@
     <h2>Simple iframe editor</h2>
     <editor :api-key="apiKey" :initialValue="content"/>
   </div>
+  <div class="story cyan">
+    <div>
+      <span :class="['tab', {active:comp==='ContentTab'}]" @click="toggleTab">About</span>
+      <span :class="['tab', {active:comp==='EditorTab'}]" @click="toggleTab">Editor</span>
+    </div>
+    <div>
+      <keep-alive>
+        <component :is="comp"/>
+      </keep-alive>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import Editor from "/@/main/ts/index";
+import ContentTab from "/ContentTab.vue";
+import EditorTab from "/EditorTab.vue";
 const apiKey = "qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc";
 const content = `
 <h2 style="text-align: center;">
@@ -29,19 +42,33 @@ const content = `
 export default defineComponent({
   components: {
     Editor,
+    ContentTab,
+    EditorTab
   },
   setup() {
     const value = ref(content);
     const disabled = ref(false);
+    const tab = ref('ContentTab');
+    let comp = computed(() => tab.value);
     const toggleDisabled = () => {
       disabled.value = !disabled.value;
-    }
+    };
+    const toggleTab = () => {
+      console.log('clicked', comp);
+      if (tab.value === 'ContentTab') {
+        tab.value = 'EditorTab';
+      } else {
+        tab.value = 'ContentTab';
+      }
+    };
     return {
       apiKey,
       value,
       content,
       disabled,
-      toggleDisabled
+      toggleDisabled,
+      toggleTab,
+      comp
     };
   },
 });

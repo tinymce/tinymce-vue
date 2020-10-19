@@ -106,10 +106,8 @@ const bindModelHandlers = (props: IPropTypes, ctx: SetupContext, editor: any, mo
   });
 };
 
-const initEditor = (initEvent: Event, props: IPropTypes, ctx: SetupContext, editor: any, modelValue: Ref<any>) => {
-  const value = props.modelValue ? props.modelValue : '';
-  const initialValue = props.initialValue ? props.initialValue : '';
-  editor.setContent(value || initialValue);
+const initEditor = (initEvent: Event, props: IPropTypes, ctx: SetupContext, editor: any, modelValue: Ref<any>, content: string) => {
+  editor.setContent(content);
   if (ctx.attrs['onUpdate:modelValue']) {
     bindModelHandlers(props, ctx, editor, modelValue);
   }
