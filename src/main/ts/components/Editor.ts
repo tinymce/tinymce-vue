@@ -35,13 +35,15 @@ export const Editor = defineComponent({
     let vueEditor: any = null;
     const elementId: string = props.id || uuid('tiny-vue');
     const inlineEditor: boolean = (props.init && props.init.inline) || props.inline;
-    const modelBind: boolean = ctx.attrs['onUpdate:modelValue'] ? true : false;
+    const modelBind: boolean = !!ctx.attrs['onUpdate:modelValue'];
     let mounting: boolean = true;
     const initialValue: string = props.initialValue ? props.initialValue : '';
     let cache: string = '';
 
     const getContent = (): string => {
-      return modelBind ? modelValue.value : mounting ? initialValue : cache;
+      return modelBind ?
+        (modelValue?.value ? modelValue.value : '')
+        : mounting ? initialValue : cache;
     };
 
     const initWrapper = (): void => {
@@ -100,7 +102,7 @@ export const Editor = defineComponent({
       });
       onDeactivated(() => {
         if (!modelBind) {
-          cache = vueEditor.getContent({ format: props.outputFormat });
+          cache = vueEditor.getContent();
         }
         getTinymce()?.remove(vueEditor);
       });

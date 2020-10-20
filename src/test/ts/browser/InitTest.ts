@@ -46,7 +46,7 @@ UnitTest.asynctest('InitTest', (success, failure) => {
           }, `
             <editor
               :init="init"
-              v-on:input="content = $event"
+              @update:modelValue="content = $event"
               output-format="text"
             ></editor>
           `),
@@ -62,7 +62,7 @@ UnitTest.asynctest('InitTest', (success, failure) => {
           }, `
             <editor
               :init="init"
-              v-on:input="content = $event"
+              v-model="content"
               output-format="html"
             ></editor>
           `),
