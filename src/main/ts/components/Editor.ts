@@ -47,6 +47,7 @@ export const Editor = defineComponent({
     };
 
     const initWrapper = (): void => {
+      const content = getContent();
       const finalInit = {
         ...props.init,
         readonly: props.disabled,
@@ -56,7 +57,7 @@ export const Editor = defineComponent({
         inline: inlineEditor,
         setup: (editor: any) => {
           vueEditor = editor;
-          editor.on('init', (e: Event) => initEditor(e, props, ctx, editor, modelValue, getContent()));
+          editor.on('init', (e: Event) => initEditor(e, props, ctx, editor, modelValue, content));
           if (props.init && typeof props.init.setup === 'function') {
             props.init.setup(editor);
           }

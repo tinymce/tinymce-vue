@@ -1,5 +1,5 @@
 <template>
-  <div>The editor content?</div>
+  <div>Not much going on here tbh...</div>
 </template>
 
 <script>
