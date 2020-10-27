@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent } from "vue";
 export default defineComponent({
   name: 'Demo',
 })

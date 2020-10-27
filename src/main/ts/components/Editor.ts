@@ -40,14 +40,13 @@ export const Editor = defineComponent({
     const initialValue: string = props.initialValue ? props.initialValue : '';
     let cache: string = '';
 
-    const getContent = (): string => {
-      return modelBind ?
-        (modelValue?.value ? modelValue.value : '')
-        : mounting ? initialValue : cache;
+    const getContent = (isMounting: boolean): () => string => {
+      return modelBind ? () => (modelValue?.value ? modelValue.value : '')
+        : () => isMounting ? initialValue : cache;
     };
 
     const initWrapper = (): void => {
-      const content = getContent();
+      const content = getContent(mounting);
       const finalInit = {
         ...props.init,
         readonly: props.disabled,

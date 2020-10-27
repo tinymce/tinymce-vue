@@ -28,7 +28,7 @@ const content = `
   <strong><span style="font-size: 14pt;"><span style="color: #7e8c8d; font-weight: 600;">No matter what you're building, TinyMCE has got you covered.</span></span></strong>
 </p>`;
 
-export default {
+export default defineComponent({
   name: "Keepalive",
   components: {
     Editor,
@@ -53,5 +53,5 @@ export default {
       computedTab
     }
   }
-};
+});
 </script>
