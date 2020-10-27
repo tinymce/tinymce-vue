@@ -20,6 +20,8 @@ declare module 'vue/types/vue' {
     element: Element | null;
     editor: any;
     inlineEditor: boolean;
+    mounted: boolean;
+    cache: string;
   }
 }
 
@@ -70,6 +72,7 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
   created() {
     this.elementId = this.$props.id || uuid('tiny-vue');
     this.inlineEditor = (this.$props.init && this.$props.init.inline) || this.$props.inline;
+    this.mounted = false;
   },
   watch: {
     disabled() {
@@ -99,6 +102,17 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
   beforeDestroy() {
     if (getTinymce() !== null) {
       getTinymce().remove(this.editor);
+    }
+  },
+  deactivated() {
+    if (!this.inlineEditor) {
+      this.cache = this.editor.getContent();
+      getTinymce()?.remove(this.editor);
+    }
+  },
+  activated() {
+    if (!this.inlineEditor && this.mounted) {
+      initialise(this)();
     }
   },
   render(h: any) {

@@ -113,4 +113,41 @@ storiesOf('tinymce-vue', module)
       `
     }),
     { notes: 'Editor with cloudChannel set to 5-dev, please make sure to reload page to load TinyMCE 5.' }
+  )
+  .add(
+    'keep-alive component',
+    () => ({
+      components: {
+        Editor,
+        contentTab: {
+          name: 'contentTab',
+          template: `<div>Hello world</div>`
+        },
+        editorTab: {
+          name: 'editorTab',
+          components: {Editor},
+          data: () => ({ content }),
+          template: `<editor v-model="content" :init="{height: 500}" />`
+        }
+
+      },
+      data: () => ({ currentPage: 'contentTab' }),
+      methods: {
+        switchPage(page: any) {
+          this.currentPage = page;
+        }
+      } as any,
+      template: `
+        <div>
+          <div class="navigation">
+            <span @click="switchPage('contentTab')">Content</span>
+            <span @click="switchPage('editorTab')">Editor</span>
+          </div>
+          <div class="view">
+            <keep-alive><component :is="currentPage"></component></keep-alive>
+          </div>
+        </div>
+      `
+    }),
+    { notes: 'Example with a keep-alive component'}
   );
