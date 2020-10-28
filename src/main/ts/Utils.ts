@@ -109,7 +109,7 @@ const initEditor = (initEvent: Event, ctx: IEditor, editor: any) => {
   const value = ctx.$props.value ? ctx.$props.value : '';
   const initialValue = ctx.$props.initialValue ? ctx.$props.initialValue : '';
 
-  editor.setContent(value || initialValue);
+  editor.setContent(value || (ctx.mounted ? ctx.cache : initialValue));
 
   // checks if the v-model shorthand is used (which sets an v-on:input listener) and then binds either
   // specified the events or defaults to "change keyup" event and emits the editor content on that event
@@ -118,6 +118,7 @@ const initEditor = (initEvent: Event, ctx: IEditor, editor: any) => {
   }
 
   bindHandlers(initEvent, ctx.$listeners, editor);
+  ctx.mounted = true;
 };
 
 let unique = 0;
