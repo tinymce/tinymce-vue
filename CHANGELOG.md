@@ -1,4 +1,4 @@
-## 3.2.5 (TBD)
+## 3.2.5 (2020-10-29)
 * Workaround for keep-alive tag
 
 ## 3.2.4 (2020-10-16)
