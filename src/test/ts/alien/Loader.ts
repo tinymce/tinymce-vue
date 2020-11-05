@@ -4,7 +4,7 @@ import { Attr, Body, Element, Insert, Remove, SelectorFind } from '@ephox/sugar'
 import Editor from 'src/main/ts/index';
 
 // @ts-ignore
-import Vue from 'vue/dist/vue.esm.js'; // Use runtime compiler
+import { createApp } from 'vue/dist/vue.esm-bundler.js'; // Use runtime compiler
 
 export interface Context {
   editor: any;
@@ -29,38 +29,33 @@ const cRender = (data: Record<string, any> = {}, template: string = `<editor :in
     const originalInit = data.init || {};
     const originalSetup = originalInit.setup || Fun.noop;
 
-    const vm = new Vue({
-      data: {
-        ...data,
-        outputFormat: 'text',
-        init: {
-          ...originalInit,
-          setup: (editor: any) => {
-            originalSetup(editor);
-
-            editor.on('SkinLoaded', () => {
-              setTimeout(() => {
-                next({
-                  editor,
-                  vm
-                });
-              }, 0);
-            });
-          }
-        }
-      },
-      render: Vue.compile(template).render,
+    const vm = createApp({
+      template,
       components: {
-        editor: Editor
+        Editor
+      },
+      data() {
+        return {
+          ...data,
+          outputFormat: 'text',
+          init: {
+            ...originalInit,
+            setup: (editor: any) => {
+              originalSetup(editor);
+              editor.on('SkinLoaded', () => {
+                setTimeout(() => {
+                  next({editor, vm});
+                }, 0);
+              });
+            }
+          }
+        };
       }
-    });
-
-    vm.$mount(mountPoint.dom());
+    }).mount(mountPoint.dom());
   });
 };
 
-const cRemove = Chain.op((context: Context) => {
-  context.vm.$destroy();
+const cRemove = Chain.op(() => {
   Remove.remove(getRoot());
 });
 

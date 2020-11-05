@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TinyMCE-vue demo page</title>
+  </head>
+  <style>
+    .nav a {
+      margin: 5px;
+      padding: 3px;
+      text-decoration: none;
+      border-radius: 5px;
+      background-color: #336699;
+      color:white;
+    }
+    .nav a:hover {
+      text-decoration: none;
+      cursor: pointer;
+      background-color: #0099cc;
+    }
+    .nav a.active {
+      background-color: #85a3e0;
+    }
+
+    .tabs {
+      margin: 10px;
+    }
+    .tabs span {
+      margin: 5px;
+      padding: 6px;
+      border-radius: 5px;
+      background-color: #00cc99;
+    }
+    .tabs span:hover {
+      cursor: pointer;
+    }
+    .tabs span.active {
+      background-color: #00ff99;
+    }
+  </style>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="./demo.ts"></script>
+  </body>
+</html>
