@@ -7,7 +7,6 @@ This package is a thin wrapper around [TinyMCE](https://github.com/tinymce/tinym
 * If you need detailed documentation on TinyMCE, see: [TinyMCE Documentation](https://www.tiny.cloud/docs/).
 * For the TinyMCE Vue Quick Start, see: [TinyMCE Documentation - Vue Integration](https://www.tiny.cloud/docs/integrations/vue/#tinymcevuejsintegrationquickstartguide).
 * For the TinyMCE Vue Technical Reference, see: [TinyMCE Documentation - TinyMCE Vue Technical Reference](https://www.tiny.cloud/docs/integrations/vue/#tinymcevuejstechnicalreference).
-* For our quick demos, check out the TinyMCE Vue [Storybook](https://tinymce.github.io/tinymce-vue/).
 
 ### Issues
 
