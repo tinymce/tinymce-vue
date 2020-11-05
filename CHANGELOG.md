@@ -1,5 +1,5 @@
-## 4.0.0 (TBD)
-* Vue3 support
+## 4.0.0 (2020-11-05)
+* Vue 3 support
 
 ## 3.2.4 (2020-10-16)
 * Fixed handling of inline template event bindings
