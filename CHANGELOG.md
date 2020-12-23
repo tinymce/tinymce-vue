@@ -1,4 +1,4 @@
-## 3.2.7 (TBD)
+## 3.2.7 (2020-12-23)
 * Keep-alive support for TinyMCE v4
 
 ## 3.2.6 (2020-10-30)
