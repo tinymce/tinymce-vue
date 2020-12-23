@@ -62,6 +62,7 @@ const initialise = (ctx: IEditor) => () => {
 
   if (isTextarea(ctx.element)) {
     ctx.element.style.visibility = '';
+    ctx.element.style.display = '';
   }
 
   getTinymce().init(finalInit);

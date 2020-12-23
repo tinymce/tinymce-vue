@@ -1,3 +1,6 @@
+## 3.2.7 (TBD)
+* Keep-alive support for TinyMCE v4
+
 ## 3.2.6 (2020-10-30)
 * Change internal attribute naming to avoid conflicts
 
