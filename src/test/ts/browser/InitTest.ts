@@ -12,6 +12,12 @@ UnitTest.asynctest('InitTest', (success, failure) => {
     });
   };
 
+  const cChangeVar = (varName: string, value: string) => {
+    return Chain.op((context: any) => {
+      context.vm[varName] = value;
+    });
+  };
+
   const sTestVersion = (version: '4' | '5') => VersionLoader.sWithVersion(
     version,
     GeneralSteps.sequence([
@@ -69,6 +75,21 @@ UnitTest.asynctest('InitTest', (success, failure) => {
           cFakeType('A'),
           Chain.op((context) => {
             Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', context.vm.content);
+          }),
+          cRemove
+        ])),
+        Logger.t('Test :value binding without :input', Chain.asStep({}, [
+          cRender({
+            content: 'initial content'
+          }, `
+            <editor
+              :init="init"
+              :value="content"
+            ></editor>
+          `),
+          cChangeVar('content', 'changed'),
+          Chain.op((context) => {
+            Assertions.assertEq('Editor content should match variable changes', '<p>changed</p>', context.editor.getContent());
           }),
           cRemove
         ])),
