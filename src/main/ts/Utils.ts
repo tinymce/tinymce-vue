@@ -74,7 +74,8 @@ const validEvents = [
   'onVisualAid'
 ];
 
-const isValidKey = (key: string) => validEvents.map(event => event.toLowerCase()).indexOf(key.toLowerCase()) !== -1;
+const isValidKey = (key: string) =>
+  validEvents.map((event) => event.toLowerCase()).indexOf(key.toLowerCase()) !== -1;
 
 const bindHandlers = (initEvent: Event, listeners: any, editor: any): void => {
   Object.keys(listeners)
@@ -125,9 +126,8 @@ const uuid = (prefix: string): string => {
   return prefix + '_' + random + unique + String(time);
 };
 
-const isTextarea = (element: Element | null): element is HTMLTextAreaElement => {
-  return element !== null && element.tagName.toLowerCase() === 'textarea';
-};
+const isTextarea = (element: Element | null): element is HTMLTextAreaElement =>
+  element !== null && element.tagName.toLowerCase() === 'textarea';
 
 const normalizePluginArray = (plugins?: string | string[]): string[] => {
   if (typeof plugins === 'undefined' || plugins === '') {
@@ -140,7 +140,8 @@ const normalizePluginArray = (plugins?: string | string[]): string[] => {
 const mergePlugins = (initPlugins: string | string[], inputPlugins?: string | string[]) =>
   normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
 
-const isNullOrUndefined = (value: any): value is null | undefined => value === null || value === undefined;
+const isNullOrUndefined = (value: any): value is null | undefined =>
+  value === null || value === undefined;
 
 export {
   bindHandlers,

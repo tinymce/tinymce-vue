@@ -3,6 +3,7 @@ import { Fun } from '@ephox/katamari';
 import { Attr, Body, Element, Insert, Remove, SelectorFind } from '@ephox/sugar';
 import Editor from 'src/main/ts/index';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { createApp } from 'vue/dist/vue.esm-bundler.js'; // Use runtime compiler
 
@@ -11,17 +12,15 @@ export interface Context {
   vm: any;
 }
 
-const getRoot = () => {
-  return SelectorFind.descendant(Body.body(), '#root').getOrThunk(() => {
-    const root = Element.fromTag('div');
-    Attr.set(root, 'id', 'root')
-    Insert.append(Body.body(), root);
-    return root;
-  });
-};
+const getRoot = () => SelectorFind.descendant(Body.body(), '#root').getOrThunk(() => {
+  const root = Element.fromTag('div');
+  Attr.set(root, 'id', 'root');
+  Insert.append(Body.body(), root);
+  return root;
+});
 
-const cRender = (data: Record<string, any> = {}, template: string = `<editor :init="init" ></editor>`) => {
-  return Chain.async<Context, Context>((_, next, die) => {
+const cRender = (data: Record<string, any> = {}, template: string = `<editor :init="init" ></editor>`) =>
+  Chain.async<Context, Context>((_value, next, _die) => {
     const root = getRoot();
     const mountPoint = Element.fromTag('div');
     Insert.append(root, mountPoint);
@@ -34,26 +33,23 @@ const cRender = (data: Record<string, any> = {}, template: string = `<editor :in
       components: {
         Editor
       },
-      data() {
-        return {
-          ...data,
-          outputFormat: 'text',
-          init: {
-            ...originalInit,
-            setup: (editor: any) => {
-              originalSetup(editor);
-              editor.on('SkinLoaded', () => {
-                setTimeout(() => {
-                  next({editor, vm});
-                }, 0);
-              });
-            }
+      data: () => ({
+        ...data,
+        outputFormat: 'text',
+        init: {
+          ...originalInit,
+          setup: (editor: any) => {
+            originalSetup(editor);
+            editor.on('SkinLoaded', () => {
+              setTimeout(() => {
+                next({ editor, vm });
+              }, 0);
+            });
           }
-        };
-      }
+        }
+      }),
     }).mount(mountPoint.dom());
   });
-};
 
 const cRemove = Chain.op(() => {
   Remove.remove(getRoot());

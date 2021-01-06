@@ -5,12 +5,10 @@ import { cRender, cRemove } from '../alien/Loader';
 import { Element } from '@ephox/sugar';
 
 UnitTest.asynctest('InitTest', (success, failure) => {
-  const cFakeType = (str: string) => {
-    return Chain.op((context: any) => {
-      context.editor.getBody().innerHTML = '<p>' + str + '</p>';
-      Keyboard.keystroke(Keys.space(), {}, Element.fromDom(context.editor.getBody()));
-    });
-  };
+  const cFakeType = (str: string) => Chain.op((context: any) => {
+    context.editor.getBody().innerHTML = '<p>' + str + '</p>';
+    Keyboard.keystroke(Keys.space(), {}, Element.fromDom(context.editor.getBody()));
+  });
 
   const sTestVersion = (version: '4' | '5') => VersionLoader.sWithVersion(
     version,
@@ -32,7 +30,7 @@ UnitTest.asynctest('InitTest', (success, failure) => {
       ])),
 
       Logger.t('Should be able to setup editor', Chain.asStep({}, [
-        cRender({ init: { inline: true } }),
+        cRender({ init: { inline: true }}),
         Chain.op((context) => {
           Assertions.assertEq('Editor should be inline', true, context.editor.inline);
         }),

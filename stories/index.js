@@ -49,8 +49,7 @@ storiesOf('tinymce-vue', module)
       components: { Editor },
       data: () => ({ content }),
       methods: {
-        // tslint:disable-next-line:no-console
-        log: (e: any, editor: any) => console.log(e)
+        log: (e, _editor) => console.log(e)
       },
       template: `
         <div>
@@ -76,10 +75,10 @@ storiesOf('tinymce-vue', module)
       components: { Editor },
       data: () => ({ content, disabled: true }),
       methods: {
-        toggleDisabled(e: any) {
+        toggleDisabled(_e) {
           this.disabled = !this.disabled;
         }
-      } as any,
+      },
       template: `
         <div>
           <button @click="toggleDisabled">{{ disabled ? 'enable' : 'disable' }}</button>
@@ -100,8 +99,7 @@ storiesOf('tinymce-vue', module)
       components: { Editor },
       data: () => ({ content }),
       methods: {
-        // tslint:disable-next-line:no-console
-        log: (e: any, editor: any) => console.log(e)
+        log: (e, _editor) => console.log(e)
       },
       template: `
         <editor

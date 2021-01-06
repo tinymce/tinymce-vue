@@ -1,0 +1,45 @@
+{
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+      ],
+      "excludedFiles": [
+        "src/demo/demo.ts"
+      ],
+      "extends": "plugin:@tinymce/standard",
+      "parserOptions": {
+        "project": "tsconfig.json",
+        "sourceType": "module"
+      },
+      "rules": {
+        "@tinymce/prefer-fun": "off"
+      }
+    },
+    {
+      "files": [
+        "**/*.js"
+      ],
+      "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+      },
+      "extends": "eslint:recommended",
+      "parser": "espree",
+      "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+      },
+      "rules": {
+        "indent": [ "error", 2, { "SwitchCase": 1 } ],
+        "no-shadow": "error",
+        "no-unused-vars": [ "error", { "argsIgnorePattern": "^_" } ],
+        "object-curly-spacing": [ "error", "always", { "arraysInObjects": false, "objectsInObjects": false } ],
+        "quotes": [ "error", "single" ],
+        "semi": "error"
+      }
+    }
+  ]
+}

@@ -14,7 +14,7 @@ const browserBuildOptions = {
 const build = async (input, output)  => {
   const bundle = await rollup.rollup(input);
   await bundle.write(output);
-}
+};
 
 [
   browserBuildOptions,
@@ -22,12 +22,13 @@ const build = async (input, output)  => {
     file: 'lib/browser/tinymce-vue.min.js'
   }
 ].forEach((opts) => build({
-    input: './src/main/ts/index.ts',
-    plugins: [
-      typescript({
-        tsconfig: './tsconfig.browser.json'
-      }),
-      opts.file.endsWith('min.js') ? uglify() : {}
-    ]
-  }, opts).then(() => console.log(`bundled: ${opts.file}`))
+  input: './src/main/ts/index.ts',
+  plugins: [
+    typescript({
+      tsconfig: './tsconfig.browser.json'
+    }),
+    opts.file.endsWith('min.js') ? uglify() : {}
+  ]
+}, opts).then(
+  () => console.log(`bundled: ${opts.file}`))
 );
