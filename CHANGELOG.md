@@ -1,3 +1,6 @@
+## 3.2.8 (TBD)
+* Fix `:value` not binding when `:input` or `v-model` not present
+
 ## 3.2.7 (2020-12-23)
 * Keep-alive support for TinyMCE v4
 
