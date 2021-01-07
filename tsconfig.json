@@ -17,11 +17,9 @@
     "skipLibCheck": true // -> https://github.com/vuejs/vue-next/issues/1102
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts"
   ],
   "exclude": [
-    "**/*.test.tsx",
-    "src/demo/*",
-    "node_modules"
+    "src/demo/*"
   ]
 }

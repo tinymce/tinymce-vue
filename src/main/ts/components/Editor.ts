@@ -12,38 +12,35 @@ import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '.
 import { editorProps } from './EditorPropTypes';
 import { h, defineComponent, onMounted, ref, Ref, toRefs, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
 
-const renderInline = (ce: any, id: string, elementRef: Ref<Element|null>, tagName?: string) => {
-  return ce(tagName ? tagName : 'div', {
+const renderInline = (ce: any, id: string, elementRef: Ref<Element|null>, tagName?: string) =>
+  ce(tagName ? tagName : 'div', {
     id,
     ref: elementRef
   });
-};
 
-const renderIframe = (ce: any, id: string, elementRef: Ref<Element|null>) => {
-  return ce('textarea', {
+const renderIframe = (ce: any, id: string, elementRef: Ref<Element|null>) =>
+  ce('textarea', {
     id,
     visibility: 'hidden',
     ref: elementRef
   });
-};
 
 export const Editor = defineComponent({
   props: editorProps,
-  setup (props, ctx) {
+  setup: (props, ctx) => {
     const { disabled, modelValue } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
     let vueEditor: any = null;
     const elementId: string = props.id || uuid('tiny-vue');
     const inlineEditor: boolean = (props.init && props.init.inline) || props.inline;
-    const modelBind: boolean = !!ctx.attrs['onUpdate:modelValue'];
-    let mounting: boolean = true;
+    const modelBind = !!ctx.attrs['onUpdate:modelValue'];
+    let mounting = true;
     const initialValue: string = props.initialValue ? props.initialValue : '';
-    let cache: string = '';
+    let cache = '';
 
-    const getContent = (isMounting: boolean): () => string => {
-      return modelBind ? () => (modelValue?.value ? modelValue.value : '')
-        : () => isMounting ? initialValue : cache;
-    };
+    const getContent = (isMounting: boolean): () => string => modelBind ?
+      () => (modelValue?.value ? modelValue.value : '') :
+      () => isMounting ? initialValue : cache;
 
     const initWrapper = (): void => {
       const content = getContent(mounting);
@@ -107,10 +104,8 @@ export const Editor = defineComponent({
         getTinymce()?.remove(vueEditor);
       });
     }
-    return () => {
-      return inlineEditor ?
-        renderInline(h, elementId, element, props.tagName) :
-        renderIframe(h, elementId, element);
-    }
+    return () => inlineEditor ?
+      renderInline(h, elementId, element, props.tagName) :
+      renderIframe(h, elementId, element);
   }
 });

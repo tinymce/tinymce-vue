@@ -4,6 +4,11 @@
     "declaration": false,
     "module": "es2015",
     "target": "es5",
-    "outDir": "./lib/browser"
-  }
+    "outDir": "./lib/browser",
+    "rootDir": "src"
+  },
+  "include": [
+    "src/main/**/*.ts"
+  ],
+  "exclude": []
 }
