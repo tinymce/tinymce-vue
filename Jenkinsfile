@@ -3,6 +3,24 @@
 
 standardProperties()
 
+def isSupportedBranch() {
+  def branchName = env.BRANCH_NAME ? env.BRANCH_NAME : env.GIT_BRANCH
+  return branchName == 'v3.x' || branchName == 'origin/v3.x';
+}
+
+def isNewerTaggedVersion(tagName) {
+  def packageName = sh(script: 'node -p -e "require(\'./package.json\').name"', returnStdout: true).trim()
+  if (packageName && tagName) {
+    def remoteVersion = sh(script: "npm view ${packageName}@${tagName} version", returnStdout: true)
+    echo "Validating remote version: " + remoteVersion
+    def localVersion = sh(script: 'node -p -e "require(\'./package.json\').version"', returnStdout: true)
+    if (localVersion) {
+      return isNewerVersion(remoteVersion, localVersion)
+    }
+  }
+  return false
+}
+
 node("primary") {
   echo "Clean workspace"
   cleanWs()
@@ -56,9 +74,13 @@ node("primary") {
     }
   }
 
-  if (isReleaseBranch() && isPackageNewerVersion()) {
-    stage("Publish") {
+  stage("Publish") {
+    if (isReleaseBranch() && isPackageNewerVersion()) {
       sh 'npm publish'
+    } else if (isSupportedBranch() && isNewerTaggedVersion('vue2')) {
+      sh 'npm publish --tag vue2'
+    } else {
+      echo "Nothing to publish"
     }
   }
 }
