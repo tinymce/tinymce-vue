@@ -943,7 +943,15 @@
     "@ephox/wrap-jsverify" "^2.0.1"
     "@ephox/wrap-sizzle" "^4.0.0"
 
-"@ephox/bedrock-client@^9.3.2", "@ephox/bedrock-client@^9.6.1":
+"@ephox/bedrock-client@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@ephox/bedrock-client/-/bedrock-client-11.0.0.tgz#99b61623d9b4ca78142776c90ad1e5b402a5d6ac"
+  integrity sha512-e12u6NUk3o1pe7rmXKXhNlAtgN1763vicV6tH9QUGWa9N9pglicLhVzB+/d/GnVZ728FfptBISV9lUkcOBXhHQ==
+  dependencies:
+    "@ephox/bedrock-common" "^11.0.0"
+    "@ephox/dispute" "^1.0.3"
+
+"@ephox/bedrock-client@^9.3.2":
   version "9.6.1"
   resolved "https://registry.yarnpkg.com/@ephox/bedrock-client/-/bedrock-client-9.6.1.tgz#51b34012035911da11270872a5ab49e168cb7e65"
   integrity sha512-IQlp+NzxC+oQ017WdU5w/Gesc13qmdqJJLwA5mhpOW5j+KSyCyD1oOxaBQ8f5qUTa5jEFFHe2uw6gAOvjSOCkQ==
@@ -951,29 +959,36 @@
     "@ephox/bedrock-common" "^9.3.2"
     "@ephox/dispute" "^1.0.3"
 
+"@ephox/bedrock-common@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@ephox/bedrock-common/-/bedrock-common-11.0.0.tgz#a0c39dd37979b52818bf11ceb448c3b1a628c819"
+  integrity sha512-Fu7XTRfE0Nidw6caOC2dOThmgWp6xKDhHLIzrh//kRivB3q+2AqQC1sc/5iKyZKjXZIFeA0nM/OF8qAX8y5BVA==
+  dependencies:
+    diff "^4.0.1"
+
 "@ephox/bedrock-common@^9.3.2":
   version "9.3.2"
   resolved "https://registry.yarnpkg.com/@ephox/bedrock-common/-/bedrock-common-9.3.2.tgz#e17352766133089c77af475d5b8add5095eccd58"
   integrity sha512-Ilmsn6Il5UULthq0fl39W1256a3tS+33vnO46TTqiijrkE87BswJ+Kp2ZKddNWlaY2l+wQCOgPLra9x5l/Q/Cg==
 
-"@ephox/bedrock-runner@^9.7.0":
-  version "9.7.0"
-  resolved "https://registry.yarnpkg.com/@ephox/bedrock-runner/-/bedrock-runner-9.7.0.tgz#3aa2d341ea5cb1e6e3ec786174b42f76dd1b15d1"
-  integrity sha512-eALt1i38NPmqqsyBltzwlrtqhut17GjMpeA++aSxvgCq0/BtleLjb5PkV5K5P5YRvxhpSiqmRYi9T6c9qlm/5Q==
+"@ephox/bedrock-runner@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@ephox/bedrock-runner/-/bedrock-runner-11.0.0.tgz#15ae7df80d1ec2f1eaeaf717300321480dd1a88a"
+  integrity sha512-1yCMX0eGps7Z9L8wxJ/AsYKqJaloRCTpKXZlrxKKyD1caD/NrzYIQI2pr2n31a1jgz/Z2Xrb9VLq4oMnSenZKw==
   dependencies:
-    "@ephox/bedrock-common" "^9.3.2"
-    diff "^4.0.1"
+    "@ephox/bedrock-common" "^11.0.0"
+    "@ephox/wrap-promise-polyfill" "^2.2.0"
     jquery "^3.4.1"
     querystringify "^2.1.1"
 
-"@ephox/bedrock-server@^9.7.1":
-  version "9.7.1"
-  resolved "https://registry.yarnpkg.com/@ephox/bedrock-server/-/bedrock-server-9.7.1.tgz#d2df1b9d2ecae134f483345a57510fc32b3d612d"
-  integrity sha512-vdaQbwVwjYGc1KRZyqOin9NAMVHgj7/6EQv/8hXqe0aozNdKsudZ1atFgLF28KRXLVv5HSFJz5QczbQ4gng0Ng==
+"@ephox/bedrock-server@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@ephox/bedrock-server/-/bedrock-server-11.0.0.tgz#89241ea3b468c87c75d4afbac67f14ea0522a9c3"
+  integrity sha512-lCwqOcoqKY4qEAWIMA8uXE9Nv0tJv3I5/14wZeogLMQCOWoWsyvNu9oFSepOTbVRN1PumlG+Ye4gXMvm2I7Jpw==
   dependencies:
-    "@ephox/bedrock-client" "^9.6.1"
-    "@ephox/bedrock-common" "^9.3.2"
-    "@ephox/bedrock-runner" "^9.7.0"
+    "@ephox/bedrock-client" "^11.0.0"
+    "@ephox/bedrock-common" "^11.0.0"
+    "@ephox/bedrock-runner" "^11.0.0"
     async "^3.0.0"
     command-line-args "^5.0.0"
     command-line-usage "^6.0.0"
