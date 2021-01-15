@@ -24,7 +24,7 @@ node("primary") {
     [ os: "macos", browser: "firefox" ],
     [ os: "macos", browser: "safari" ]
   ]
-  bedrockBrowsers(platforms: platforms)
+  bedrockBrowsers(platforms: platforms, testDirs: [ "src/main/test/ts/atomic/ts", "src/main/test/ts/browser" ])
 
   stage("Deploying storybook to github") {
     if (isReleaseBranch()) {
