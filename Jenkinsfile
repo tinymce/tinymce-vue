@@ -24,7 +24,7 @@ node("primary") {
     [ os: "macos", browser: "firefox" ],
     [ os: "macos", browser: "safari" ]
   ]
-  bedrockBrowsers platforms: platforms
+  bedrockBrowsers(platforms: platforms)
 
   stage("Deploying storybook to github") {
     if (isReleaseBranch()) {
