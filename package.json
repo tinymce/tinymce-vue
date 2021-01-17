@@ -37,8 +37,8 @@
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@ephox/agar": "^4.13.10",
-    "@ephox/bedrock-client": "^9.3.2",
-    "@ephox/bedrock-server": "^9.7.1",
+    "@ephox/bedrock-client": "^11.0.0",
+    "@ephox/bedrock-server": "^11.0.0",
     "@ephox/katamari": "^5.0.2",
     "@ephox/sugar": "^5.1.3",
     "@storybook/addon-notes": "^5.1.11",
