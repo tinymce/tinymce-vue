@@ -3,17 +3,37 @@
 
 standardProperties()
 
+def shJson(String script) {
+  def s = sh(script: script, returnStdout: true);
+  return readJSON(text: s);
+}
+
+def beehiveFlowStatus() {
+  return shJson("yarn run --silent beehive-flow status");
+}
+
 node("primary") {
   echo "Clean workspace"
   cleanWs()
 
-  stage ("Checkout SCM") {
+  stage("checkout") {
     checkout localBranch(scm)
   }
 
-  stage("Building") {
+  stage("dependencies") {
     yarnInstall()
-    exec "yarn run build"
+  }
+
+  stage("stamp") {
+    sh "yarn beehive-flow stamp"
+  }
+
+  stage("build") {
+    sh "yarn build"
+  }
+
+  stage("lint") {
+    sh "yarn lint"
   }
 
   def platforms = [
@@ -26,17 +46,21 @@ node("primary") {
   ]
   bedrockBrowsers(platforms: platforms, testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ])
 
-  stage("Deploying storybook to github") {
-    if (isReleaseBranch()) {
+  stage("storybook") {
+    def status = beehiveFlowStatus();
+    if (status.branchState == 'releaseReady' && status.isLatest) {
       sshagent (credentials: ['3e856116-029e-4c8d-b57d-593b2fba3cb2']) {
         sh 'yarn storybook-to-ghpages'
       }
+    } else {
+      echo "Skipping as is not latest release"
     }
   }
 
-  if (isReleaseBranch() && isPackageNewerVersion()) {
-    stage("Publish") {
-      sh 'npm publish'
+  stage("publish") {
+    sshagent(credentials: ['jenkins2-github']) {
+      sh "yarn beehive-flow publish"
+      sh "yarn beehive-flow advance-ci"
     }
   }
 }
