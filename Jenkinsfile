@@ -17,7 +17,7 @@ node("primary") {
   cleanWs()
 
   stage("checkout") {
-    ccheckout localBranch(scm)
+    checkout localBranch(scm)
   }
 
   stage("dependencies") {
