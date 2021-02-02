@@ -1,6 +1,6 @@
 {
   "name": "@tinymce/tinymce-vue",
-  "version": "4.0.0",
+  "version": "4.0.1-rc",
   "description": "Official TinyMCE Vue 3 Component",
   "private": false,
   "repository": {
@@ -14,7 +14,6 @@
     "clean": "rimraf lib",
     "lint": "eslint src/{main,test}/**/*.ts",
     "build": "yarn run clean && yarn run lint && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json && node rollup.build.js",
-    "prepare": "yarn run build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "demo": "vite"
   },
@@ -44,6 +43,7 @@
     "@storybook/addon-notes": "^5.1.11",
     "@storybook/storybook-deployer": "^2.8.1",
     "@storybook/vue": "^5.1.11",
+    "@tinymce/beehive-flow": "^0.10.1",
     "@tinymce/eslint-plugin": "^1.7.2",
     "@tinymce/miniature": "^2.2.0",
     "@types/node": "^13.13.4",
