@@ -1,16 +1,7 @@
 #!groovy
-@Library('waluigi@v4.0.0') _
+@Library('waluigi@v4.1.0') _
 
 standardProperties()
-
-def shJson(String script) {
-  def s = sh(script: script, returnStdout: true);
-  return readJSON(text: s);
-}
-
-def beehiveFlowStatus() {
-  return shJson("yarn run --silent beehive-flow status");
-}
 
 node("primary") {
   echo "Clean workspace"
