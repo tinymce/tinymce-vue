@@ -1,156 +1,76 @@
-# Changelog
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
 ## Unreleased
-- Adopt beehive-flow release process
+* Adopt beehive-flow release process
 
-## 4.0.0 - 2020-11-05
+## 4.0.0 (2020-11-05)
+* Vue 3 support
 
-### Added
+## 3.2.4 (2020-10-16)
+* Fixed handling of inline template event bindings
 
-- Vue 3 support
+## 3.2.3 (2020-09-16)
+* Update dependencies
+* Changed `keyup` to `input` for the events triggering sending out content to `v-model`.
 
-## 3.2.4 - 2020-10-16
+## 3.2.2 (2020-05-22)
+* Fixed v-model `outputFormat` resetting the editor content on every change
 
-### Fixed
+## 3.2.1 (2020-04-30)
+* Upgraded jquery in dev dependencies in response to security alert.
 
-- Fixed handling of inline template event bindings
+## 3.2.0 (2020-02-24)
+* Added new `tinymceScriptSrc` prop for specifying an external version of TinyMCE to lazy load
 
-## 3.2.3 - 2020-09-16
+## 3.1.0 (2020-01-31)
+* Added new `outputFormat` prop for specifying the format of the content emitted via the `input` event
 
-### Changed
+## 3.0.1 (2019-08-19)
+* Fixed incorrect module paths
 
-- Update dependencies
-- Changed `keyup` to `input` for the events triggering sending out content to `v-model`.
+## 3.0.0 (2019-08-16)
+* Removed Vue as a dependency and added vue@^2.4.3 as a peer dependency
+* Changed referrer policy to origin to allow cloud caching
 
-## 3.2.2 - 2020-05-22
+## 2.1.0 (2019-06-05)
+* Changed the CDN URL to use `cdn.tiny.cloud`
 
-### Fixed
+## 2.0.0 (2019-02-11)
+* Changed default cloudChannel to `'5'`.
 
-- Fixed v-model `outputFormat` resetting the editor content on every change
-
-## 3.2.1 - 2020-04-30
-
-### Fixed
-
-- Upgraded jquery in dev dependencies in response to security alert.
-
-## 3.2.0 - 2020-02-24
-
-### Added
-
-- Added new `tinymceScriptSrc` prop for specifying an external version of TinyMCE to lazy load
-
-## 3.1.0 - 2020-01-31
-
-### Added
-
-- Added new `outputFormat` prop for specifying the format of the content emitted via the `input` event
-
-## 3.0.1 - 2019-08-19
-
-### Fixed
-
-- Fixed incorrect module paths
-
-## 3.0.0 - 2019-08-16
-
-### Added
-
-- Changed referrer policy to origin to allow cloud caching
-
-### Changed
-
-- Removed Vue as a dependency and added vue@^2.4.3 as a peer dependency
-
-## 2.1.0 - 2019-06-05
-
-### Changed
-
-- Changed the CDN URL to use `cdn.tiny.cloud`
-
-## 2.0.0 - 2019-02-11
-
-### Changed
-
-- Changed default cloudChannel to `'5'`.
-
-## 1.1.2 - 2019-01-09
-
-### Added
-
+## 1.1.2 (2019-01-09)
 * Updated changelog to show how you have to add `.default` to commonjs require.
 
-## 1.1.1 - 2019-01-09
+## 1.1.1 (2019-01-09)
+* Improved uuid function. Patch contributed by fureweb-com.
 
-### Changed
-
-- Improved uuid function. Patch contributed by fureweb-com.
-
-## 1.1.0 - 2018-10-01
-
-### Added
-
-- Added functionality to bind to `disabled` property to set editor into readonly state.
+## 1.1.0 (2018-10-01)
+* Added functionality to bind to `disabled` property to set editor into readonly state.
 
 ## 1.0.9 (2018-09-03)
+* Fixed broken links in readme.
 
-### Fixed
-- Fixed broken links in readme.
+## 1.0.8 (2018-05-10)
+* Added `undo` and `redo` to the events triggering sending out content to `v-model`.
 
-## 1.0.8 - 2018-05-10
+## 1.0.7 (2018-04-26)
+* Added null check before removing editor to check that tinymce is actually available.
 
-### Added
+## 1.0.6 (2018-04-11)
+* Removed `cloudChannel` prop validation.
 
-- Added `undo` and `redo` to the events triggering sending out content to `v-model`.
+## 1.0.5 (2018-04-06)
+* Removed onPreInit shorthand as it never worked.
 
-## 1.0.7 - 2018-04-26
+## 1.0.4 (2018-04-06)
+* Fixed bug with onInit never firing.
 
-### Fixed
+## 1.0.3 (2018-04-03)
+* Fixed bug with value watcher getting out of sync.
 
-- Added null check before removing editor to check that tinymce is actually available.
+## 1.0.2 (2018-02-16)
+* Fixed bug where is wasn't possible to set inline in the init object, only on the shorthand.
 
-## 1.0.6 - 2018-04-11
+## 1.0.1 (2018-02-08)
+* Fixed binding timing issues by moving the binding to after the editor has initialized. 
 
-### Removed
-
-- Removed `cloudChannel` prop validation.
-
-## 1.0.5 - 2018-04-06
-
-### Removed
-
-- Removed onPreInit shorthand as it never worked.
-
-## 1.0.4 - 2018-04-06
-
-### Fixed
-
-- Fixed bug with onInit never firing.
-
-## 1.0.3 - 2018-04-03
-
-### Fixed
-
-- Fixed bug with value watcher getting out of sync.
-
-## 1.0.2 - 2018-02-16
-
-### Fixed
-
-- Fixed bug where is wasn't possible to set inline in the init object, only on the shorthand.
-
-## 1.0.1 - 2018-02-08
-
-### Fixed
-
-- Fixed binding timing issues by moving the binding to after the editor has initialized. 
-
-## 1.0.0 - 2018-01-16
-
-### Added
-
-- Initial release
+## 1.0.0 (2018-01-16)
+* Initial release
