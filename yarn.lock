@@ -930,18 +930,20 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@ephox/agar@^4.13.10", "@ephox/agar@^4.15.2", "@ephox/agar@^4.17.2":
-  version "4.17.2"
-  resolved "https://registry.yarnpkg.com/@ephox/agar/-/agar-4.17.2.tgz#d137de3b048dc5f35e0373d3fe80655699c3b26f"
-  integrity sha512-H/RiNpU0TNthyOLB7MW3ggP47s2wlSkPClUm9H3bxO+ur0fXVyWKhxuLIcjY2IjAS8JH+74q1e2rL1jpc5Hh5w==
+"@ephox/agar@^5.2.1", "@ephox/agar@^5.3.1":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@ephox/agar/-/agar-5.3.1.tgz#e9bdb09c13d79acaf2b48df8e3786e35856633cf"
+  integrity sha512-KpcBXTcz/ijvlb/IrhJd99d7HQDsxuHYBwgeEPXwfzsVChzua3DARLrMaUblaeBXNuHnJw7rZduVUAw6k8Zv7Q==
   dependencies:
-    "@ephox/bedrock-client" "^9.3.2"
-    "@ephox/dom-globals" "^1.1.2"
-    "@ephox/jax" "^4.1.36"
-    "@ephox/sand" "^3.1.11"
-    "@ephox/sugar" "^6.1.3"
+    "@ephox/bedrock-client" "^11.0.0"
+    "@ephox/bedrock-common" "^11.0.0"
+    "@ephox/jax" "^5.0.7"
+    "@ephox/sand" "^4.0.7"
+    "@ephox/sugar" "^7.1.3"
     "@ephox/wrap-jsverify" "^2.0.1"
+    "@ephox/wrap-promise-polyfill" "^2.2.0"
     "@ephox/wrap-sizzle" "^4.0.0"
+    tslib "^2.0.0"
 
 "@ephox/bedrock-client@^11.0.0":
   version "11.0.0"
@@ -951,12 +953,12 @@
     "@ephox/bedrock-common" "^11.0.0"
     "@ephox/dispute" "^1.0.3"
 
-"@ephox/bedrock-client@^9.3.2":
-  version "9.6.1"
-  resolved "https://registry.yarnpkg.com/@ephox/bedrock-client/-/bedrock-client-9.6.1.tgz#51b34012035911da11270872a5ab49e168cb7e65"
-  integrity sha512-IQlp+NzxC+oQ017WdU5w/Gesc13qmdqJJLwA5mhpOW5j+KSyCyD1oOxaBQ8f5qUTa5jEFFHe2uw6gAOvjSOCkQ==
+"@ephox/bedrock-client@^11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@ephox/bedrock-client/-/bedrock-client-11.1.1.tgz#a240da955302a5d0d1842ead7116d8ecbf9f20c9"
+  integrity sha512-i3i66gggQFYgdUrKuBQjv9zixEvKDQ8mjYH06bb0sNSBYqbS9o+COnkgrqgiMkMILSO4ccVjEnTXRawTK5zOoA==
   dependencies:
-    "@ephox/bedrock-common" "^9.3.2"
+    "@ephox/bedrock-common" "^11.1.1"
     "@ephox/dispute" "^1.0.3"
 
 "@ephox/bedrock-common@^11.0.0":
@@ -966,29 +968,31 @@
   dependencies:
     diff "^4.0.1"
 
-"@ephox/bedrock-common@^9.3.2":
-  version "9.3.2"
-  resolved "https://registry.yarnpkg.com/@ephox/bedrock-common/-/bedrock-common-9.3.2.tgz#e17352766133089c77af475d5b8add5095eccd58"
-  integrity sha512-Ilmsn6Il5UULthq0fl39W1256a3tS+33vnO46TTqiijrkE87BswJ+Kp2ZKddNWlaY2l+wQCOgPLra9x5l/Q/Cg==
-
-"@ephox/bedrock-runner@^11.0.1":
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/@ephox/bedrock-runner/-/bedrock-runner-11.0.1.tgz#7ffd899546473d7b28129c39fb9ef19b23f894e6"
-  integrity sha512-LVR4qU3XVzrJvPJJcmqLstZ1TXi0FWOqOcHqNPkbVUkHUgEQ9ndSyUyzFGRys/g1rz5YJ/LsTYVaQGs6JFcPWQ==
+"@ephox/bedrock-common@^11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@ephox/bedrock-common/-/bedrock-common-11.1.1.tgz#08660864d07d65879c0373e081c34c359c29dfea"
+  integrity sha512-NtvvbVh0hjR/bppcsn/0eySkZ45zqRGsvYXnqrsXS4AuVIVKYDZPqbACd+i8XVOOlnIiCG96KzXQpCvaYaiMvg==
   dependencies:
-    "@ephox/bedrock-common" "^11.0.0"
+    diff "^4.0.1"
+
+"@ephox/bedrock-runner@^11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@ephox/bedrock-runner/-/bedrock-runner-11.1.1.tgz#d107c94ccbae88916342d7bcadbc5a6477d76724"
+  integrity sha512-twa467d0FMp6BFFTlCBNAF+Um+oCdjtYs1BkhesHVW+n37WicWPignBpvJAaeIBTWkgL6Bcu7/WQzHO55EtOJg==
+  dependencies:
+    "@ephox/bedrock-common" "^11.1.1"
     "@ephox/wrap-promise-polyfill" "^2.2.0"
     jquery "^3.4.1"
     querystringify "^2.1.1"
 
-"@ephox/bedrock-server@^11.0.0":
-  version "11.0.2"
-  resolved "https://registry.yarnpkg.com/@ephox/bedrock-server/-/bedrock-server-11.0.2.tgz#fc8fbfbb6a011e8e779c9f8fd5080a40147aafff"
-  integrity sha512-epwQr6RrqM9VWcmzpnnCSiLiwO3suubEN8I06U7BgQrAIaMsPquZiGWhkkiluMjKP17gVKfiYjvQ0xmRekED2g==
+"@ephox/bedrock-server@^11.2.0":
+  version "11.2.0"
+  resolved "https://registry.yarnpkg.com/@ephox/bedrock-server/-/bedrock-server-11.2.0.tgz#edf5d6cbb945dc0fec848e022e39c184a0598da5"
+  integrity sha512-dbOrwKix9E9WK2Alkv0P5ydLtUBbsLTxOp+9Xi6SoSTdlDVXcozJISjx3pLmuvXYs7VHxPFXTa7SKp4ry78w8Q==
   dependencies:
-    "@ephox/bedrock-client" "^11.0.0"
-    "@ephox/bedrock-common" "^11.0.0"
-    "@ephox/bedrock-runner" "^11.0.1"
+    "@ephox/bedrock-client" "^11.1.1"
+    "@ephox/bedrock-common" "^11.1.1"
+    "@ephox/bedrock-runner" "^11.1.1"
     async "^3.0.0"
     command-line-args "^5.0.0"
     command-line-usage "^6.0.0"
@@ -1027,77 +1031,50 @@
   dependencies:
     tslib "^2.0.0"
 
-"@ephox/dom-globals@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@ephox/dom-globals/-/dom-globals-1.1.2.tgz#cb181a7652c1f097c9920fcf551c1fe202f70041"
-  integrity sha512-wTcfYP5FH4n5tzVMaE8a7T6XqdTFiGfGAC6LiuCYPBh4mOeIEN5WkiPuAy+trJBl0wRdlwKl+XmhIW06Xf4tpg==
-
-"@ephox/jax@^4.1.36":
-  version "4.1.36"
-  resolved "https://registry.yarnpkg.com/@ephox/jax/-/jax-4.1.36.tgz#135beb0eab53b79bb693a7395462cb841ccb7226"
-  integrity sha512-cgmUEpcaDcvpr8t9y2YQW70VUi4rGULLBqDGkTdnSQV9D4WSgKJOF5Ow6b5RLElBMHlYgLI/ZslJ1MSBXfBN6A==
+"@ephox/jax@^5.0.7":
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/@ephox/jax/-/jax-5.0.7.tgz#0eccf168f9acf7f87533e8a2dc0f72c3abb26316"
+  integrity sha512-jU8ddcnX5b/ugn0cEaJTwRzXoFA3Wp75872bJ8bh4/vj7ChGjRna2JFHvtBRLFRD9WQvDKpGaVusnghimtbwWQ==
   dependencies:
-    "@ephox/dom-globals" "^1.1.2"
-    "@ephox/katamari" "^6.1.2"
-    tslib "^1.9.3"
+    "@ephox/katamari" "^7.2.1"
+    tslib "^2.0.0"
 
-"@ephox/katamari@^5.0.1", "@ephox/katamari@^5.0.2":
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/@ephox/katamari/-/katamari-5.0.2.tgz#f88e9c8b6519b21eec8b7590980c98d0be51dd66"
-  integrity sha512-NtcDvFp296PXB9gtKlfYh8ZtSphyPeEOQpFcwsi2V7LFmhH3YyKpTstIvijo6rDwztZckWSNcXPW6/FKQ2gSNQ==
+"@ephox/katamari@^7.1.3", "@ephox/katamari@^7.2.1":
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/@ephox/katamari/-/katamari-7.2.1.tgz#ed94878bcc237958dc35321326462f59c6ff2e44"
+  integrity sha512-NdQuwRoIWlvAN2SBGPiXI6p+JcWKnJAZIE0IKdaIcVM0nhQHRnvo5KV16XxKVbmIf3TJXbBw/YfiphGBIDXGmA==
   dependencies:
     "@ephox/dispute" "^1.0.3"
-    "@ephox/dom-globals" "^1.1.2"
     "@ephox/wrap-promise-polyfill" "^2.2.0"
-    tslib "^1.9.3"
+    tslib "^2.0.0"
 
-"@ephox/katamari@^6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@ephox/katamari/-/katamari-6.1.2.tgz#677693a182c58cdd7c1f318fdf8b728a93bb3e7d"
-  integrity sha512-Q1mlZV6a/WVuaeiDP9E+sK/711y0YsDdtf3MCfLQQXgfb7xp9Q2/CZd/LDuoEGTFueNmrAc092/7KSpfYnmHww==
+"@ephox/mcagar@^6.0.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@ephox/mcagar/-/mcagar-6.1.1.tgz#02724c710c35715c8a42784b5be491b0d2c1635b"
+  integrity sha512-a3PWRWkWtHN/IkjGky/qgsUe8FElcfaXhdWESBc8NDh64V8cRmhPo1jSqS1nronCBCvHh/JmzLvcsBVQnlHvWg==
   dependencies:
-    "@ephox/dispute" "^1.0.3"
-    "@ephox/dom-globals" "^1.1.2"
-    "@ephox/wrap-promise-polyfill" "^2.2.0"
-    tslib "^1.9.3"
-
-"@ephox/mcagar@^4.1.2":
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/@ephox/mcagar/-/mcagar-4.2.4.tgz#a0d954f49f5bab46a0d4c4908ffe418ff4879bf1"
-  integrity sha512-RDRz2xKqx+kAuGLRi05JgIW0ZaWF/DGBnP3MZQEHfAhid8PE0wPkuR8opHjk+IvvblXJn0nz5GFMC1msy+Xaow==
-  dependencies:
-    "@ephox/agar" "^4.17.2"
-    "@ephox/dom-globals" "^1.1.2"
-    "@ephox/katamari" "^6.1.2"
-    "@ephox/sand" "^3.1.11"
-    "@ephox/sugar" "^6.1.3"
+    "@ephox/agar" "^5.3.1"
+    "@ephox/katamari" "^7.2.1"
+    "@ephox/sand" "^4.0.7"
+    "@ephox/sugar" "^7.1.3"
     "@ephox/wrap-jsverify" "^2.0.1"
+    tslib "^2.0.0"
 
-"@ephox/sand@^3.1.11", "@ephox/sand@^3.1.6":
-  version "3.1.11"
-  resolved "https://registry.yarnpkg.com/@ephox/sand/-/sand-3.1.11.tgz#fea7d99c900b84528ed4e8bf3b716dc0fc67262c"
-  integrity sha512-Od1e6utAXG4NzBFO6XIr8mHNQPgCJqHC3loMHtuzupjIfkTd60gH5cNVf3pxrrTf2SnGSGSqfjrsgtMcupyiPg==
+"@ephox/sand@^4.0.7":
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/@ephox/sand/-/sand-4.0.7.tgz#b8749db8ea1efa189511e7f3ce61f0c1de4d0146"
+  integrity sha512-FurHISb5or/h/WVU0f8DRikHjKfuRZC8OmrbcbXfnq5oPAU3iUZS0Hh5kMsGP9/sLeSIM5h2PSL96tzdiISslA==
   dependencies:
-    "@ephox/dom-globals" "^1.1.2"
-    "@ephox/katamari" "^6.1.2"
+    "@ephox/katamari" "^7.2.1"
+    tslib "^2.0.0"
 
-"@ephox/sugar@^5.1.2", "@ephox/sugar@^5.1.3":
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/@ephox/sugar/-/sugar-5.1.3.tgz#73a4d856afb570d8013d72fcec860ca00109c588"
-  integrity sha512-Ln/5zFV24xqyX0G2tBZDhD+gKxMEIbr0I4bZvuloEcfmzIsCFhTX8WSHH5RWOMMsEXWyxxYUfKhyKevwamw5vw==
+"@ephox/sugar@^7.1.1", "@ephox/sugar@^7.1.3":
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/@ephox/sugar/-/sugar-7.1.3.tgz#4589af2ebdb6d6afd4abd7098ccb2ed5a0d07efe"
+  integrity sha512-42bAqOpZwtZQOGatJk7E3zQ1y0bKYcz7s9WimD3k8j6nEw48RUFGYiwXMOgkgGZ/OXAHQhk3ePe95qIItajb5w==
   dependencies:
-    "@ephox/dom-globals" "^1.1.2"
-    "@ephox/katamari" "^5.0.2"
-    "@ephox/sand" "^3.1.6"
-
-"@ephox/sugar@^6.1.3":
-  version "6.1.3"
-  resolved "https://registry.yarnpkg.com/@ephox/sugar/-/sugar-6.1.3.tgz#95505e2d514b37f0616eda34f9bfb3228b1c90f3"
-  integrity sha512-+EdmTI0mxt/iW3XicFVCsRDMWEMnA0olTHlbqdgRE8dClCVJuE4bOR3pkbHwgaN7ye02Q7AW/0rcDFuAf35iUg==
-  dependencies:
-    "@ephox/dom-globals" "^1.1.2"
-    "@ephox/katamari" "^6.1.2"
-    "@ephox/sand" "^3.1.11"
+    "@ephox/katamari" "^7.2.1"
+    "@ephox/sand" "^4.0.7"
 
 "@ephox/wrap-jsverify@^2.0.1":
   version "2.0.1"
@@ -1590,25 +1567,26 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@tinymce/beehive-flow@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@tinymce/beehive-flow/-/beehive-flow-0.12.0.tgz#f50927771b18a7c02e08de9a2545c4cfa3817f2d"
-  integrity sha512-zxdAlsevxiXTbJixiUTNi/zw3Of3zqLHHx80oA7STosNu4o1DtyUrQ9J8hKIgZaw58IlKSkDjkhglUG7aZaHWw==
+"@tinymce/beehive-flow@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/beehive-flow/-/beehive-flow-0.15.0.tgz#f5736c1a41313d0b000b51bbfd51404d88f79482"
+  integrity sha512-MBv/0M+Yib9BKH8KZhWeTq+LX57CrL410Wv/k9ugkjKS10ZSoQszlt3o/xbVEFgV8wRlNaIY8hlukStBUgoHXQ==
   dependencies:
     cross-spawn-promise "^0.10.2"
-    fp-ts "^2.9.3"
-    luxon "^1.25.0"
+    fp-ts "^2.9.5"
+    io-ts "^2.2.14"
+    luxon "^1.26.0"
     properties-reader "^2.2.0"
     read-pkg "^5.2.0"
-    simple-git "^2.31.0"
+    simple-git "^2.35.1"
     tmp "^0.2.1"
     tslib "^2.1.0"
     yargs "^16.2.0"
 
-"@tinymce/eslint-plugin@^1.7.2":
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/@tinymce/eslint-plugin/-/eslint-plugin-1.7.2.tgz#112ea7e8b341e5d34929ee7fd244cb11f4405e62"
-  integrity sha512-+Cu32nMwS4ceuqkoFkBD701BozIxLmZdTK0SZCutjb4ktKfdY55QeufShsCIbfMQdh3fbxx1J3MtytuE9kxG/Q==
+"@tinymce/eslint-plugin@^1.7.4":
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/@tinymce/eslint-plugin/-/eslint-plugin-1.7.4.tgz#4bede3610d0da10cc27bbff18c23b3a82a6e7998"
+  integrity sha512-XcPCZnCnw93VNx5TlRxg8bHuCJEZdVFwDRh2/cCDHzclNoueSkOuMAZySSenJkfqXwYQNmra51qxuewReEM+lw==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.0.0"
     "@typescript-eslint/parser" "^4.0.0"
@@ -1618,16 +1596,15 @@
     resolve "^1.17.0"
     typescript "^4.0.0"
 
-"@tinymce/miniature@^2.2.0":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@tinymce/miniature/-/miniature-2.2.2.tgz#c6b6f3675df64d4bdb3787d7a0154205402e3f4c"
-  integrity sha512-uvFyPG1M1j5Tghq0H7izqUYvINgaoPQRF7bplDSLAz86nw2kvuUJD5+nnSAO2FAFIrhMr3MBet3NffflbCZ87g==
+"@tinymce/miniature@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@tinymce/miniature/-/miniature-3.1.1.tgz#4428d99edbd7a6a699f2f3f4f34f6b35b02eb002"
+  integrity sha512-Gdcj53rsCj3jy9UpCewbWgQzgtJYHwH8SdS4COLldjYC7kXOWr5k2Iv4GwDBRuPrSb71DBdLrzqkZ9b/X3jzdg==
   dependencies:
-    "@ephox/agar" "^4.15.2"
-    "@ephox/dom-globals" "^1.1.2"
-    "@ephox/katamari" "^5.0.1"
-    "@ephox/mcagar" "^4.1.2"
-    "@ephox/sugar" "^5.1.2"
+    "@ephox/agar" "^5.2.1"
+    "@ephox/katamari" "^7.1.3"
+    "@ephox/mcagar" "^6.0.1"
+    "@ephox/sugar" "^7.1.1"
 
 "@types/accepts@*":
   version "1.3.5"
@@ -5745,10 +5722,10 @@ forwarded@~0.1.2:
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
   integrity sha1-mMI9qxF1ZXuMBXPozszZGw/xjIQ=
 
-fp-ts@^2.9.3:
-  version "2.9.3"
-  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.9.3.tgz#419b9103018ddf7c785acf2b3fecb2662afab5af"
-  integrity sha512-NjzcHYgigcbPQ6yJ52zwgsVDwKz3vwy9sjbxyzcvfXQm+j1BGeOPRuzLKEwsLyE4Xut6gG1FXJtsU9/gUB7tXg==
+fp-ts@^2.9.5:
+  version "2.10.5"
+  resolved "https://registry.yarnpkg.com/fp-ts/-/fp-ts-2.10.5.tgz#7c77868fe8bd9b229743303c1bec505b959f631b"
+  integrity sha512-X2KfTIV0cxIk3d7/2Pvp/pxL/xr2MV1WooyEzKtTWYSc1+52VF4YzjBTXqeOlSiZsPCxIBpDGfT9Dyo7WEY0DQ==
 
 fragment-cache@^0.2.1:
   version "0.2.1"
@@ -6811,6 +6788,11 @@ invariant@^2.2.2, invariant@^2.2.3, invariant@^2.2.4:
   dependencies:
     loose-envify "^1.0.0"
 
+io-ts@^2.2.14:
+  version "2.2.16"
+  resolved "https://registry.yarnpkg.com/io-ts/-/io-ts-2.2.16.tgz#597dffa03db1913fc318c9c6df6931cb4ed808b2"
+  integrity sha512-y5TTSa6VP6le0hhmIyN0dqEXkrZeJLeC5KApJq6VLci3UEKF80lZ+KuoUs02RhBxNWlrqSNxzfI7otLX1Euv8Q==
+
 ip-regex@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ip-regex/-/ip-regex-2.1.0.tgz#fa78bf5d2e6913c911ce9f819ee5146bb6d844e9"
@@ -7814,10 +7796,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-luxon@^1.25.0:
-  version "1.25.0"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.25.0.tgz#d86219e90bc0102c0eb299d65b2f5e95efe1fe72"
-  integrity sha512-hEgLurSH8kQRjY6i4YLey+mcKVAWXbDNlZRmM6AgWDJ1cY3atl8Ztf5wEY7VBReFbmGnwQPz7KYJblL8B2k0jQ==
+luxon@^1.26.0:
+  version "1.26.0"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.26.0.tgz#d3692361fda51473948252061d0f8561df02b578"
+  integrity sha512-+V5QIQ5f6CDXQpWNICELwjwuHdqeJM1UenlZWx5ujcRMc9venvluCjFb4t5NYLhb6IhkbMVOxzVuOqkgMxee2A==
 
 magic-string@^0.25.7:
   version "0.25.7"
@@ -10427,10 +10409,10 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
 
-simple-git@^2.31.0:
-  version "2.31.0"
-  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-2.31.0.tgz#3e5954c1e36c76fb382c08eaa2749a206db9f613"
-  integrity sha512-/+rmE7dYZMbRAfEmn8EUIOwlM2G7UdzpkC60KF86YAfXGnmGtsPrKsym0hKvLBdFLLW019C+aZld1+6iIVy5xA==
+simple-git@^2.35.1:
+  version "2.38.1"
+  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-2.38.1.tgz#6c3ce211777a65482598f4bd93c66443465228c0"
+  integrity sha512-SeMgUEA6Cmk7Ta57ZzMbkBcAfh8A+DZ6ACZ2onfCp/9UklC9yMJgvcH+GGI3QDTv0lTDIbWtl5LSbBk1UtEfeg==
   dependencies:
     "@kwsites/file-exists" "^1.1.1"
     "@kwsites/promise-deferred" "^1.1.1"
@@ -11359,9 +11341,9 @@ typical@^5.0.0, typical@^5.2.0:
   integrity sha512-dvdQgNDNJo+8B2uBQoqdb11eUCE1JQXhvjC/CZtgvZseVd5TYMXnq0+vuUemXbd/Se29cTaUuPX3YIc2xgbvIg==
 
 ua-parser-js@^0.7.21:
-  version "0.7.23"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.23.tgz#704d67f951e13195fbcd3d78818577f5bc1d547b"
-  integrity sha512-m4hvMLxgGHXG3O3fQVAyyAQpZzDOvwnhOTjYz5Xmr7r/+LpkNy3vJXdVRWgd1TkAb7NGROZuSy96CrlNVjA7KA==
+  version "0.7.28"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.28.tgz#8ba04e653f35ce210239c64661685bf9121dec31"
+  integrity sha512-6Gurc1n//gjp9eQNXjD9O3M/sMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420w/e0se7Vs+sIg+g==
 
 uglify-js@^3.4.9:
   version "3.12.6"
@@ -11501,9 +11483,9 @@ url-loader@^2.0.1:
     schema-utils "^2.5.0"
 
 url-parse@^1.4.3, url-parse@^1.4.7:
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.7.tgz#a8a83535e8c00a316e403a5db4ac1b9b853ae278"
-  integrity sha512-d3uaVyzDB9tQoSXFvuSUNFibTd9zxd2bkVrDRvF5TmvWWQwqE4lgYJ5m+x1DbecWkw+LK4RNl2CU1hHuOKPVlg==
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.1.tgz#d5fa9890af8a5e1f274a2c98376510f6425f6e3b"
+  integrity sha512-HOfCOUJt7iSYzEx/UqgtwKRMC6EU91NFhsCHMv9oM03VJcVo2Qrp8T8kI9D7amFf1cu+/3CEhgb3rF9zL7k85Q==
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"

@@ -2,12 +2,12 @@ import { GeneralSteps, Logger, Pipeline, Assertions, Chain, Keyboard, Keys } fro
 import { UnitTest } from '@ephox/bedrock-client';
 import { VersionLoader } from '@tinymce/miniature';
 import { cRender, cRemove } from '../alien/Loader';
-import { Element } from '@ephox/sugar';
+import { SugarElement } from '@ephox/sugar';
 
 UnitTest.asynctest('InitTest', (success, failure) => {
   const cFakeType = (str: string) => Chain.op((context: any) => {
     context.editor.getBody().innerHTML = '<p>' + str + '</p>';
-    Keyboard.keystroke(Keys.space(), {}, Element.fromDom(context.editor.getBody()));
+    Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(context.editor.getBody()));
   });
 
   const sTestVersion = (version: '4' | '5') => VersionLoader.sWithVersion(
