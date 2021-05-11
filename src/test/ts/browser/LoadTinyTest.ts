@@ -1,7 +1,7 @@
 import { Chain, Log, Pipeline, Assertions } from '@ephox/agar';
 import { UnitTest } from '@ephox/bedrock-client';
 import { Arr, Strings, Global } from '@ephox/katamari';
-import { SelectorFilter, Attr, Element, Remove } from '@ephox/sugar';
+import { SelectorFilter, Attribute, SugarElement, Remove } from '@ephox/sugar';
 
 import { cRender, cRemove } from '../alien/Loader';
 import { ScriptLoader } from '../../../main/ts/ScriptLoader';
@@ -13,8 +13,8 @@ UnitTest.asynctest('LoadTinyTest', (success, failure) => {
     delete Global.tinymce;
     delete Global.tinyMCE;
 
-    const hasTinymceUri = (attrName: string) => (elm: Element) =>
-      Attr.getOpt(elm, attrName).exists((src) => Strings.contains(src, 'tinymce'));
+    const hasTinymceUri = (attrName: string) => (elm: SugarElement) =>
+      Attribute.getOpt(elm, attrName).exists((src) => Strings.contains(src, 'tinymce'));
 
     const elements = Arr.flatten([
       Arr.filter(SelectorFilter.all('script'), hasTinymceUri('src')),
