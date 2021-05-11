@@ -1,6 +1,6 @@
 import { Chain } from '@ephox/agar';
 import { Fun } from '@ephox/katamari';
-import { Attr, Body, Element, Insert, Remove, SelectorFind } from '@ephox/sugar';
+import { Attribute, SugarBody, SugarElement, Insert, Remove, SelectorFind } from '@ephox/sugar';
 import Editor from 'src/main/ts/index';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -12,17 +12,17 @@ export interface Context {
   vm: any;
 }
 
-const getRoot = () => SelectorFind.descendant(Body.body(), '#root').getOrThunk(() => {
-  const root = Element.fromTag('div');
-  Attr.set(root, 'id', 'root');
-  Insert.append(Body.body(), root);
+const getRoot = () => SelectorFind.descendant(SugarBody.body(), '#root').getOrThunk(() => {
+  const root = SugarElement.fromTag('div');
+  Attribute.set(root, 'id', 'root');
+  Insert.append(SugarBody.body(), root);
   return root;
 });
 
 const cRender = (data: Record<string, any> = {}, template: string = `<editor :init="init" ></editor>`) =>
   Chain.async<Context, Context>((_value, next, _die) => {
     const root = getRoot();
-    const mountPoint = Element.fromTag('div');
+    const mountPoint = SugarElement.fromTag('div');
     Insert.append(root, mountPoint);
 
     const originalInit = data.init || {};
@@ -48,7 +48,7 @@ const cRender = (data: Record<string, any> = {}, template: string = `<editor :in
           }
         }
       }),
-    }).mount(mountPoint.dom());
+    }).mount(mountPoint.dom);
   });
 
 const cRemove = Chain.op(() => {
