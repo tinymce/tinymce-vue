@@ -31,7 +31,6 @@ export const Iframe: Story = () => ({
   },
   template: '<div><editor :api-key="apiKey" :initialValue="content" /></div>'
 });
-Iframe.storyName = 'Default Iframe based editor';
 
 export const Inline: Story = () => ({
   components: { Editor },
