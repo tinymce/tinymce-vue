@@ -14,8 +14,9 @@
     "clean": "rimraf lib",
     "lint": "eslint src/{main,test}/**/*.ts",
     "build": "yarn run clean && yarn run lint && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json && node rollup.build.js",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "demo": "vite"
+    "storybook": "start-storybook -p 6006",
+    "demo": "vite",
+    "build-storybook": "build-storybook"
   },
   "keywords": [
     "tinymce",
@@ -36,16 +37,19 @@
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@ephox/agar": "^5.3.1",
-    "@ephox/bedrock-client": "^11.1.1",
-    "@ephox/bedrock-server": "^11.2.0",
+    "@ephox/bedrock-client": "^11.3.0",
+    "@ephox/bedrock-server": "^11.3.1",
     "@ephox/katamari": "^7.2.1",
     "@ephox/sugar": "^7.1.3",
-    "@storybook/addon-notes": "^5.1.11",
-    "@storybook/storybook-deployer": "^2.8.1",
-    "@storybook/vue": "^5.1.11",
+    "@storybook/addon-actions": "^6.4.0-alpha.9",
+    "@storybook/addon-essentials": "^6.4.0-alpha.9",
+    "@storybook/addon-links": "^6.4.0-alpha.9",
+    "@storybook/addon-notes": "^5.3.21",
+    "@storybook/storybook-deployer": "^2.8.10",
+    "@storybook/vue3": "^6.4.0-alpha.9",
     "@tinymce/beehive-flow": "^0.15.0",
-    "@tinymce/eslint-plugin": "^1.7.4",
-    "@tinymce/miniature": "^3.1.1",
+    "@tinymce/eslint-plugin": "^1.9.1",
+    "@tinymce/miniature": "^3.2.0",
     "@types/node": "^13.13.4",
     "babel-loader": "^8.0.5",
     "babel-preset-vue": "^2.0.2",
@@ -65,11 +69,13 @@
     "ts-loader": "^7.0.1",
     "ts-node": "^8.9.1",
     "typescript": "^3.2.2",
+    "tsconfig-paths-webpack-plugin": "^3.5.1",
     "vite": "^1.0.0-rc.4",
-    "vue": "^3.0.0",
-    "vue-loader": "^15.9.5",
+    "vue-loader": "^15.2.1",
     "vue-router": "^4.0.0-beta.13",
-    "vue-template-compiler": "^2.6.10",
+    "vue-template-compiler": "^2.6.14",
     "webpack": "^4.43.0"
+  },
+  "dependencies": {
   }
 }
