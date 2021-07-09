@@ -1,6 +1,6 @@
 {
   "name": "@tinymce/tinymce-vue",
-  "version": "4.0.4-rc",
+  "version": "4.0.4",
   "description": "Official TinyMCE Vue 3 Component",
   "private": false,
   "repository": {
@@ -76,6 +76,5 @@
     "vue-template-compiler": "^2.6.14",
     "webpack": "^4.43.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
