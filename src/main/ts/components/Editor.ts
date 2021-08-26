@@ -12,13 +12,13 @@ import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '.
 import { editorProps } from './EditorPropTypes';
 import { h, defineComponent, onMounted, ref, Ref, toRefs, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
 
-const renderInline = (ce: any, id: string, elementRef: Ref<Element|null>, tagName?: string) =>
+const renderInline = (ce: any, id: string, elementRef: Ref<Element | null>, tagName?: string) =>
   ce(tagName ? tagName : 'div', {
     id,
     ref: elementRef
   });
 
-const renderIframe = (ce: any, id: string, elementRef: Ref<Element|null>) =>
+const renderIframe = (ce: any, id: string, elementRef: Ref<Element | null>) =>
   ce('textarea', {
     id,
     visibility: 'hidden',
