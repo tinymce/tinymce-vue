@@ -11,6 +11,7 @@ import { getTinymce } from '../TinyMCE';
 import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '../Utils';
 import { editorProps } from './EditorPropTypes';
 import { h, defineComponent, onMounted, ref, Ref, toRefs, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
+import { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
 
 const renderInline = (ce: any, id: string, elementRef: Ref<Element | null>, tagName?: string) =>
   ce(tagName ? tagName : 'div', {
@@ -51,9 +52,9 @@ export const Editor = defineComponent({
         plugins: mergePlugins(props.init && props.init.plugins, props.plugins),
         toolbar: props.toolbar || (props.init && props.init.toolbar),
         inline: inlineEditor,
-        setup: (editor: any) => {
+        setup: (editor: TinyMCEEditor) => {
           vueEditor = editor;
-          editor.on('init', (e: Event) => initEditor(e, props, ctx, editor, modelValue, content));
+          editor.on('init', (e: EditorEvent<any>) => initEditor(e, props, ctx, editor, modelValue, content));
           if (props.init && typeof props.init.setup === 'function') {
             props.init.setup(editor);
           }

@@ -65,7 +65,6 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript2": "^0.30.0",
     "rollup-plugin-uglify": "^6.0.0",
-    "tinymce": "npm:tinymce@^5",
     "tinymce-4": "npm:tinymce@^4",
     "tinymce-5": "npm:tinymce@^5",
     "ts-loader": "^9.2.5",
@@ -79,5 +78,7 @@
     "vue-template-compiler": "^2.6.14",
     "webpack": "^5.51.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "tinymce": "^5.5.0"
+  }
 }
