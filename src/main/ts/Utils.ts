@@ -8,6 +8,7 @@
 
 import { Ref, watch, SetupContext } from 'vue';
 import { IPropTypes } from './components/EditorPropTypes';
+import { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
 
 const validEvents = [
   'onActivate',
@@ -77,7 +78,7 @@ const validEvents = [
 const isValidKey = (key: string) =>
   validEvents.map((event) => event.toLowerCase()).indexOf(key.toLowerCase()) !== -1;
 
-const bindHandlers = (initEvent: Event, listeners: any, editor: any): void => {
+const bindHandlers = (initEvent: EditorEvent<any>, listeners: any, editor: TinyMCEEditor): void => {
   Object.keys(listeners)
     .filter(isValidKey)
     .forEach((key: string) => {
@@ -86,13 +87,13 @@ const bindHandlers = (initEvent: Event, listeners: any, editor: any): void => {
         if (key === 'onInit') {
           handler(initEvent, editor);
         } else {
-          editor.on(key.substring(2), (e: any) => handler(e, editor));
+          editor.on(key.substring(2), (e: EditorEvent<any>) => handler(e, editor));
         }
       }
     });
 };
 
-const bindModelHandlers = (props: IPropTypes, ctx: SetupContext, editor: any, modelValue: Ref<any>) => {
+const bindModelHandlers = (props: IPropTypes, ctx: SetupContext, editor: TinyMCEEditor, modelValue: Ref<any>) => {
   const modelEvents = props.modelEvents ? props.modelEvents : null;
   const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
 
@@ -107,7 +108,13 @@ const bindModelHandlers = (props: IPropTypes, ctx: SetupContext, editor: any, mo
   });
 };
 
-const initEditor = (initEvent: Event, props: IPropTypes, ctx: SetupContext, editor: any, modelValue: Ref<any>, content: () => string) => {
+const initEditor = (
+  initEvent: EditorEvent<any>,
+  props: IPropTypes,
+  ctx: SetupContext,
+  editor: TinyMCEEditor,
+  modelValue: Ref<any>,
+  content: () => string) => {
   editor.setContent(content());
   if (ctx.attrs['onUpdate:modelValue']) {
     bindModelHandlers(props, ctx, editor, modelValue);
