@@ -10,8 +10,8 @@ import { ScriptLoader } from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
 import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '../Utils';
 import { editorProps } from './EditorPropTypes';
-import { h, defineComponent, onMounted, ref, Ref, toRefs, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
-import { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
+import { h, defineComponent, onMounted, ref, Ref, toRefs, nextTick, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
+import { Editor as TinyMCEEditor, EditorEvent, RawEditorSettings } from 'tinymce';
 
 const renderInline = (ce: any, id: string, elementRef: Ref<Element | null>, tagName?: string) =>
   ce(tagName ? tagName : 'div', {
@@ -29,7 +29,8 @@ const renderIframe = (ce: any, id: string, elementRef: Ref<Element | null>) =>
 export const Editor = defineComponent({
   props: editorProps,
   setup: (props, ctx) => {
-    const { disabled, modelValue } = toRefs(props);
+    let conf = props.init ? {...props.init} : {};
+    const { disabled, modelValue, tagName } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
     let vueEditor: any = null;
     const elementId: string = props.id || uuid('tiny-vue');
@@ -46,17 +47,17 @@ export const Editor = defineComponent({
     const initWrapper = (): void => {
       const content = getContent(mounting);
       const finalInit = {
-        ...props.init,
+        ...conf,
         readonly: props.disabled,
         selector: `#${elementId}`,
-        plugins: mergePlugins(props.init && props.init.plugins, props.plugins),
-        toolbar: props.toolbar || (props.init && props.init.toolbar),
+        plugins: mergePlugins(conf.plugins, props.plugins),
+        toolbar: props.toolbar || (conf.toolbar),
         inline: inlineEditor,
         setup: (editor: TinyMCEEditor) => {
           vueEditor = editor;
           editor.on('init', (e: EditorEvent<any>) => initEditor(e, props, ctx, editor, modelValue, content));
-          if (props.init && typeof props.init.setup === 'function') {
-            props.init.setup(editor);
+          if (typeof conf.setup === 'function') {
+            conf.setup(editor);
           }
         }
       };
@@ -70,6 +71,13 @@ export const Editor = defineComponent({
       if (vueEditor !== null) {
         vueEditor.setMode(disable ? 'readonly' : 'design');
       }
+    });
+    watch(tagName, (tagName) => {
+      if (!modelBind) {
+        cache = vueEditor.getContent();
+      }
+      getTinymce()?.remove(vueEditor);
+      nextTick(() => initWrapper());
     });
     onMounted(() => {
       if (getTinymce() !== null) {
@@ -105,6 +113,15 @@ export const Editor = defineComponent({
         getTinymce()?.remove(vueEditor);
       });
     }
+    const rerender = (init: RawEditorSettings) => {
+      cache = vueEditor.getContent();
+      getTinymce()?.remove(vueEditor);
+      conf = {...conf, ...init};
+      nextTick(() => initWrapper());
+    };
+    ctx.expose({
+      rerender
+    });
     return () => inlineEditor ?
       renderInline(h, elementId, element, props.tagName) :
       renderIframe(h, elementId, element);
