@@ -1,4 +1,6 @@
 import { Story } from '@storybook/vue3';
+import { onBeforeMount, ref } from 'vue';
+import { ScriptLoader } from '../main/ts/ScriptLoader';
 
 import { Editor } from '../main/ts/components/Editor';
 
@@ -11,9 +13,33 @@ const content = `
   <strong><span style="font-size: 14pt;"><span style="color: #7e8c8d; font-weight: 600;">No matter what you're building, TinyMCE has got you covered.</span></span></strong>
 </p>`;
 
+let lastChannel = '5';
+const getConf = (stringConf) => {
+  let conf  = {};
+  console.log('parsing: ', stringConf);
+  try {
+    conf = JSON.parse(stringConf);
+  } catch (err) {
+    console.error('failed to parse configuration: ', err);
+  }
+  return conf;
+}
+
+
 export default {
   title: 'Editor',
   component: Editor,
+  argTypes: {
+    channel: {
+      defaultValue: '5',
+      options: ['5', '5-dev', '6-dev', '6-testing', '6-stable'],
+      control: { type: 'select'}
+    },
+    conf: {
+      defaultValue: '{"height": 300}',
+      control: { type: 'text' }
+    }
+  },
   parameters: {
     controls: {
       hideNoControlsWarning: true
@@ -21,43 +47,96 @@ export default {
   }
 };
 
-export const Iframe: Story = () => ({
+export const Iframe: Story = (args) => ({
   components: {Editor},
   setup() {
+    onBeforeMount(() => {
+      if (args.channel !== lastChannel) {
+        delete (window as any).tinymce;
+        ScriptLoader.reinitialize();
+        ScriptLoader.load(document, `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${args.channel}/tinymce.min.js`, () => {
+          console.log('script ready');
+        });
+        lastChannel = args.channel;
+      }
+    });
+    const cc = args.channel || lastChannel;
+    const conf = getConf(args.conf);
     return {
       apiKey,
-      content
+      content,
+      cloudChannel: cc,
+      conf
     }
   },
-  template: '<div><editor :api-key="apiKey" :initialValue="content" /></div>'
+  template: '<div ><p>Ready</p><editor :api-key="apiKey" :initialValue="content" :cloud-channel="cloudChannel" :init="conf" /></div>'
 });
 
-export const Inline: Story = () => ({
+export const Inline: Story = (args) => ({
   components: { Editor },
-  data: () => ({ content }),
+  setup() {
+    onBeforeMount(() => {
+      if (args.channel !== lastChannel) {
+        delete (window as any).tinymce;
+        ScriptLoader.reinitialize();
+        ScriptLoader.load(document, `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${args.channel}/tinymce.min.js`, () => {
+          console.log('script ready');
+        });
+        lastChannel = args.channel;
+      }
+    });
+    const cc = args.channel || lastChannel;
+    const conf = getConf(args.conf);
+    return {
+      apiKey,
+      content,
+      cloudChannel: cc,
+      conf
+    }
+  },
   template: `
     <div style="padding-top: 100px;">
       <editor
         api-key="${apiKey}"
         v-model="content"
         inline
+        :init="conf"
       />
     </div>`
 });
 
-export const Controlled: Story = () => ({
+export const Controlled: Story = (args) => ({
   components: { Editor },
-  data: () => ({ content }),
-  methods: {
-    log: (e, _editor) => console.log(e)
+  setup() {
+    onBeforeMount(() => {
+      if (args.channel !== lastChannel) {
+        delete (window as any).tinymce;
+        ScriptLoader.reinitialize();
+        ScriptLoader.load(document, `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${args.channel}/tinymce.min.js`, () => {
+          console.log('script ready');
+        });
+        lastChannel = args.channel;
+      }
+    });
+    const cc = args.channel || lastChannel;
+    const conf = getConf(args.conf);
+    const log = (e, editor) => {console.log(e);};
+    const controlledContent = ref(content);
+    return {
+      apiKey,
+      content: controlledContent,
+      cloudChannel: cc,
+      conf,
+      log
+    }
   },
   template: `
     <div>
       <editor
         api-key="${apiKey}"
-        :init="{height: 300}"
         v-model="content"
         @onBlur="log"
+        :init="conf"
       />
       <textarea
         style="width: 100%;
@@ -68,12 +147,32 @@ export const Controlled: Story = () => ({
     </div>`
 });
 
-export const Disable: Story = () => ({
+export const Disable: Story = (args) => ({
   components: { Editor },
-  data: () => ({ content, disabled: false }),
-  methods: {
-    toggleDisabled(_e) {
-      this.disabled = !this.disabled;
+  setup() {
+    onBeforeMount(() => {
+      if (args.channel !== lastChannel) {
+        delete (window as any).tinymce;
+        ScriptLoader.reinitialize();
+        ScriptLoader.load(document, `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${args.channel}/tinymce.min.js`, () => {
+          console.log('script ready');
+        });
+        lastChannel = args.channel;
+      }
+    });
+    const cc = args.channel || lastChannel;
+    const conf = getConf(args.conf);
+    const disabled = ref(false);
+    const toggleDisabled = (_e) => {
+      disabled.value = !disabled.value;
+    }
+    return {
+      apiKey,
+      content,
+      cloudChannel: cc,
+      conf,
+      disabled,
+      toggleDisabled
     }
   },
   template: `
@@ -82,7 +181,7 @@ export const Disable: Story = () => ({
       <editor
         api-key="${apiKey}"
         v-bind:disabled="disabled"
-        :init="{height: 300}"
+        :init="conf"
         v-model="content"
       />
     </div>`

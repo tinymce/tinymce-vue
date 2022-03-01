@@ -69,7 +69,11 @@ export const Editor = defineComponent({
     };
     watch(disabled, (disable) => {
       if (vueEditor !== null) {
-        vueEditor.setMode(disable ? 'readonly' : 'design');
+        if (typeof vueEditor.mode?.set === 'function') {
+          vueEditor.mode.set(disable ? 'readonly' : 'design');
+        } else {
+          vueEditor.setMode(disable ? 'readonly' : 'design');
+        }
       }
     });
     watch(tagName, (tagName) => {
