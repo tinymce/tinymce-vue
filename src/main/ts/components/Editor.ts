@@ -29,7 +29,7 @@ const renderIframe = (ce: any, id: string, elementRef: Ref<Element | null>) =>
 export const Editor = defineComponent({
   props: editorProps,
   setup: (props, ctx) => {
-    let conf = props.init ? {...props.init} : {};
+    let conf = props.init ? { ...props.init } : {};
     const { disabled, modelValue, tagName } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
     let vueEditor: any = null;
@@ -69,10 +69,14 @@ export const Editor = defineComponent({
     };
     watch(disabled, (disable) => {
       if (vueEditor !== null) {
-        vueEditor.setMode(disable ? 'readonly' : 'design');
+        if (typeof vueEditor.mode?.set === 'function') {
+          vueEditor.mode.set(disable ? 'readonly' : 'design');
+        } else {
+          vueEditor.setMode(disable ? 'readonly' : 'design');
+        }
       }
     });
-    watch(tagName, (tagName) => {
+    watch(tagName, (_) => {
       if (!modelBind) {
         cache = vueEditor.getContent();
       }
@@ -116,7 +120,7 @@ export const Editor = defineComponent({
     const rerender = (init: RawEditorSettings) => {
       cache = vueEditor.getContent();
       getTinymce()?.remove(vueEditor);
-      conf = {...conf, ...init};
+      conf = { ...conf, ...init };
       nextTick(() => initWrapper());
     };
     ctx.expose({
