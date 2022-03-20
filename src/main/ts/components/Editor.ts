@@ -11,7 +11,7 @@ import { getTinymce } from '../TinyMCE';
 import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '../Utils';
 import { editorProps } from './EditorPropTypes';
 import { h, defineComponent, onMounted, ref, Ref, toRefs, nextTick, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
-import { Editor as TinyMCEEditor, EditorEvent, RawEditorSettings } from 'tinymce';
+import { Editor as TinyMCEEditor, EditorEvent, RawEditorOptions } from 'tinymce';
 
 const renderInline = (ce: any, id: string, elementRef: Ref<Element | null>, tagName?: string) =>
   ce(tagName ? tagName : 'div', {
@@ -87,7 +87,7 @@ export const Editor = defineComponent({
       if (getTinymce() !== null) {
         initWrapper();
       } else if (element.value && element.value.ownerDocument) {
-        const channel = props.cloudChannel ? props.cloudChannel : '5';
+        const channel = props.cloudChannel ? props.cloudChannel : '6';
         const apiKey = props.apiKey ? props.apiKey : 'no-api-key';
         const scriptSrc = isNullOrUndefined(props.tinymceScriptSrc) ?
           `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js` :
@@ -117,7 +117,7 @@ export const Editor = defineComponent({
         getTinymce()?.remove(vueEditor);
       });
     }
-    const rerender = (init: RawEditorSettings) => {
+    const rerender = (init: RawEditorOptions) => {
       cache = vueEditor.getContent();
       getTinymce()?.remove(vueEditor);
       conf = { ...conf, ...init };

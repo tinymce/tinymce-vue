@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import { RawEditorSettings } from 'tinymce';
+import { RawEditorOptions } from 'tinymce';
 
 export type CopyProps<T> = { [P in keyof T]: any };
 
@@ -13,7 +13,7 @@ export interface IPropTypes {
   apiKey: string;
   cloudChannel: string;
   id: string;
-  init: RawEditorSettings;
+  init: RawEditorOptions;
   initialValue: string;
   outputFormat: 'html' | 'text';
   inline: boolean;

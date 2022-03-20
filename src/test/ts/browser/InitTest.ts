@@ -10,7 +10,7 @@ UnitTest.asynctest('InitTest', (success, failure) => {
     Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(context.editor.getBody()));
   });
 
-  const sTestVersion = (version: '4' | '5') => VersionLoader.sWithVersion(
+  const sTestVersion = (version: '4' | '5' | '6') => VersionLoader.sWithVersion(
     version,
     GeneralSteps.sequence([
       Logger.t('Should be able to setup editor', Chain.asStep({}, [
@@ -76,6 +76,7 @@ UnitTest.asynctest('InitTest', (success, failure) => {
 
   Pipeline.async({}, [
     sTestVersion('4'),
-    sTestVersion('5')
+    sTestVersion('5'),
+    sTestVersion('6')
   ], success, failure);
 });

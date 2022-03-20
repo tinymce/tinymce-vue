@@ -1,6 +1,6 @@
 {
   "name": "@tinymce/tinymce-vue",
-  "version": "4.0.8-rc",
+  "version": "5.0.0-rc",
   "description": "Official TinyMCE Vue 3 Component",
   "private": false,
   "repository": {
@@ -24,7 +24,7 @@
     "component"
   ],
   "author": "Ephox Inc",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "files": [
     "lib/*/**",
     "README.md",
@@ -68,6 +68,7 @@
     "rollup-plugin-uglify": "^6.0.0",
     "tinymce-4": "npm:tinymce@^4",
     "tinymce-5": "npm:tinymce@^5",
+    "tinymce-6": "npm:tinymce@^6",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.2.1",
     "tsconfig-paths-webpack-plugin": "^3.5.2",
@@ -81,6 +82,6 @@
     "webpack": "^5.51.1"
   },
   "dependencies": {
-    "tinymce": "^5.5.0"
+    "tinymce": "^6.0.0 || ^5.5.1"
   }
 }
