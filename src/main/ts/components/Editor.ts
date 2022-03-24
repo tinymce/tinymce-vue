@@ -11,7 +11,9 @@ import { getTinymce } from '../TinyMCE';
 import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '../Utils';
 import { editorProps } from './EditorPropTypes';
 import { h, defineComponent, onMounted, ref, Ref, toRefs, nextTick, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
-import { Editor as TinyMCEEditor, EditorEvent, RawEditorOptions } from 'tinymce';
+import { Editor as TinyMCEEditor, EditorEvent, TinyMCE } from 'tinymce';
+
+type EditorOptions = Parameters<TinyMCE['init']>[0];
 
 const renderInline = (ce: any, id: string, elementRef: Ref<Element | null>, tagName?: string) =>
   ce(tagName ? tagName : 'div', {
@@ -117,7 +119,7 @@ export const Editor = defineComponent({
         getTinymce()?.remove(vueEditor);
       });
     }
-    const rerender = (init: RawEditorOptions) => {
+    const rerender = (init: EditorOptions) => {
       cache = vueEditor.getContent();
       getTinymce()?.remove(vueEditor);
       conf = { ...conf, ...init };
