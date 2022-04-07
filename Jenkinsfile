@@ -1,5 +1,5 @@
 #!groovy
-@Library('waluigi@v4.1.0') _
+@Library('waluigi@v5.0.0') _
 
 standardProperties()
 
@@ -27,15 +27,7 @@ node("primary") {
     sh "yarn lint"
   }
 
-  def platforms = [
-    [ os: "windows-10", browser: "chrome" ],
-    [ os: "windows-10", browser: "firefox" ],
-    [ os: "windows-10", browser: "MicrosoftEdge" ],
-    [ os: "macos", browser: "chrome" ],
-    [ os: "macos", browser: "firefox" ],
-    [ os: "macos", browser: "safari" ]
-  ]
-  bedrockBrowsers(platforms: platforms, testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ])
+  bedrockBrowsers(testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ])
 
   stage("storybook") {
     def status = beehiveFlowStatus();
