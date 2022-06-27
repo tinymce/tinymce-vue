@@ -52,7 +52,7 @@ export const Editor = defineComponent({
         ...conf,
         readonly: props.disabled,
         selector: `#${elementId}`,
-        plugins: mergePlugins(conf.plugins, props.plugins),
+        plugins: mergePlugins(conf.plugins as string, props.plugins as string),
         toolbar: props.toolbar || (conf.toolbar),
         inline: inlineEditor,
         setup: (editor: TinyMCEEditor) => {
@@ -91,7 +91,7 @@ export const Editor = defineComponent({
       } else if (element.value && element.value.ownerDocument) {
         const channel = props.cloudChannel ? props.cloudChannel : '6';
         const apiKey = props.apiKey ? props.apiKey : 'no-api-key';
-        const scriptSrc = isNullOrUndefined(props.tinymceScriptSrc) ?
+        const scriptSrc: string = isNullOrUndefined(props.tinymceScriptSrc) ?
           `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js` :
           props.tinymceScriptSrc;
         ScriptLoader.load(
@@ -129,7 +129,7 @@ export const Editor = defineComponent({
       rerender
     });
     return () => inlineEditor ?
-      renderInline(h, elementId, element, props.tagName) :
+      renderInline(h, elementId, element, props.tagName as string) :
       renderIframe(h, elementId, element);
   }
 });

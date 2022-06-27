@@ -79,7 +79,7 @@ const isValidKey = (key: string) =>
   validEvents.map((event) => event.toLowerCase()).indexOf(key.toLowerCase()) !== -1;
 
 const bindHandlers = (initEvent: EditorEvent<any>, listeners: any, editor: TinyMCEEditor): void => {
-  Object.keys(listeners)
+  Object.keys(listeners as string[])
     .filter(isValidKey)
     .forEach((key: string) => {
       const handler = listeners[key];

@@ -7,7 +7,7 @@ import { SugarElement } from '@ephox/sugar';
 UnitTest.asynctest('InitTest', (success, failure) => {
   const cFakeType = (str: string) => Chain.op((context: any) => {
     context.editor.getBody().innerHTML = '<p>' + str + '</p>';
-    Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(context.editor.getBody()));
+    Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(context.editor.getBody()) as SugarElement<Node>);
   });
 
   const sTestVersion = (version: '4' | '5' | '6') => VersionLoader.sWithVersion(
