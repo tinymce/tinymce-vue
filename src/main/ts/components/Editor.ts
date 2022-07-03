@@ -9,7 +9,7 @@
 import { ScriptLoader } from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
 import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '../Utils';
-import { editorProps } from './EditorPropTypes';
+import { editorProps, IPropTypes } from './EditorPropTypes';
 import { h, defineComponent, onMounted, ref, Ref, toRefs, nextTick, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
 import { Editor as TinyMCEEditor, EditorEvent, TinyMCE } from 'tinymce';
 
@@ -30,7 +30,7 @@ const renderIframe = (ce: any, id: string, elementRef: Ref<Element | null>) =>
 
 export const Editor = defineComponent({
   props: editorProps,
-  setup: (props, ctx) => {
+  setup: (props: IPropTypes, ctx) => {
     let conf = props.init ? { ...props.init } : {};
     const { disabled, modelValue, tagName } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
@@ -52,7 +52,7 @@ export const Editor = defineComponent({
         ...conf,
         readonly: props.disabled,
         selector: `#${elementId}`,
-        plugins: mergePlugins(conf.plugins as string, props.plugins as string),
+        plugins: mergePlugins(conf.plugins, props.plugins),
         toolbar: props.toolbar || (conf.toolbar),
         inline: inlineEditor,
         setup: (editor: TinyMCEEditor) => {
@@ -129,7 +129,7 @@ export const Editor = defineComponent({
       rerender
     });
     return () => inlineEditor ?
-      renderInline(h, elementId, element, props.tagName as string) :
+      renderInline(h, elementId, element, props.tagName) :
       renderIframe(h, elementId, element);
   }
 });
