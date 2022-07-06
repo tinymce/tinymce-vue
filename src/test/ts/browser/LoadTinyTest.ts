@@ -13,7 +13,7 @@ UnitTest.asynctest('LoadTinyTest', (success, failure) => {
     delete Global.tinymce;
     delete Global.tinyMCE;
 
-    const hasTinymceUri = (attrName: string) => (elm: SugarElement) =>
+    const hasTinymceUri = (attrName: string) => (elm: SugarElement<Element>) =>
       Attribute.getOpt(elm, attrName).exists((src) => Strings.contains(src, 'tinymce'));
 
     const elements = Arr.flatten([

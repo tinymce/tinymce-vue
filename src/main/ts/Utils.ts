@@ -78,7 +78,7 @@ const validEvents = [
 const isValidKey = (key: string) =>
   validEvents.map((event) => event.toLowerCase()).indexOf(key.toLowerCase()) !== -1;
 
-const bindHandlers = (initEvent: EditorEvent<any>, listeners: any, editor: TinyMCEEditor): void => {
+const bindHandlers = (initEvent: EditorEvent<any>, listeners: Record<string, any>, editor: TinyMCEEditor): void => {
   Object.keys(listeners)
     .filter(isValidKey)
     .forEach((key: string) => {
@@ -144,7 +144,7 @@ const normalizePluginArray = (plugins?: string | string[]): string[] => {
   return Array.isArray(plugins) ? plugins : plugins.split(' ');
 };
 
-const mergePlugins = (initPlugins: string | string[], inputPlugins?: string | string[]) =>
+const mergePlugins = (initPlugins: string | string[] | undefined, inputPlugins?: string | string[]) =>
   normalizePluginArray(initPlugins).concat(normalizePluginArray(inputPlugins));
 
 const isNullOrUndefined = (value: any): value is null | undefined =>

@@ -1,11 +1,12 @@
-import { UnitTest, assert } from '@ephox/bedrock-client';
+import { Assertions } from '@ephox/agar';
+import { UnitTest } from '@ephox/bedrock-client';
 import { isValidKey } from 'src/main/ts/Utils';
 
 UnitTest.test('UtilsTest', () => {
 
   const checkValidKey = (key: string, expected: boolean) => {
     const actual = isValidKey(key);
-    assert.eq(expected, actual);
+    Assertions.assertEq('Key is valid', expected, actual);
   };
 
   checkValidKey('onKeyUp', true);
