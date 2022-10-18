@@ -97,7 +97,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Added functionality to bind to `disabled` property to set editor into readonly state.
 
-## 1.0.9 (2018-09-03)
+## 1.0.9 - 2018-09-03
 ### Fixed
 - Fixed broken links in readme.
 
