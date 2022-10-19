@@ -1,5 +1,5 @@
 #!groovy
-@Library('waluigi@v6.0.1') _
+@Library('waluigi@release/7') _
 
 beehiveFlowBuild(
   test: {
