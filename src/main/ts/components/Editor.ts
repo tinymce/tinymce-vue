@@ -51,7 +51,7 @@ export const Editor = defineComponent({
       const finalInit = {
         ...conf,
         readonly: props.disabled,
-        selector: `#${elementId}`,
+        target: element.value,
         plugins: mergePlugins(conf.plugins, props.plugins),
         toolbar: props.toolbar || (conf.toolbar),
         inline: inlineEditor,
