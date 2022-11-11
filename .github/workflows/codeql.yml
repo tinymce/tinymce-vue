@@ -1,0 +1,47 @@
+name: "CodeQL"
+
+## Github workflow code scanning
+# Configure this file to setup code scanning for the repository
+# Code scanning uses Github actions minutes. To learn more: https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "**.tsx?", "**.js", "**.vue" ]
+  pull_request:
+    branches: [ "main" ]
+    paths: [ "**.tsx?", "**.js", "**.vue" ]
+  schedule:
+    - cron: "0 0 1 * *"
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ javascript ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+          queries: +security-and-quality
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{ matrix.language }}"
