@@ -7,12 +7,15 @@ name: "CodeQL"
 on:
   push:
     branches: [ "main" ]
-    paths: [ "**.tsx?", "**.js", "**.vue" ]
+## Filter based on files changed: vue and tsx for integrations
+#    paths: [ "**.tsx?", "**.js", "**.vue" ]
   pull_request:
     branches: [ "main" ]
-    paths: [ "**.tsx?", "**.js", "**.vue" ]
-  schedule:
-    - cron: "0 0 1 * *"
+## Filter based on files changed: vue and tsx for integrations
+#    paths: [ "**.tsx?", "**.js", "**.vue" ]
+## Schedule cron running
+#  schedule:
+#    - cron: "0 0 1 * *"
 
 jobs:
   analyze:
