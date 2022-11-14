@@ -8,9 +8,9 @@
 
 import { uuid } from './Utils';
 
-export type callbackFn = () => void;
+export type CallbackFn = () => void;
 export interface IStateObj {
-  listeners: callbackFn[];
+  listeners: CallbackFn[];
   scriptId: string;
   scriptLoaded: boolean;
 }
@@ -22,14 +22,14 @@ const createState = (): IStateObj => ({
 });
 
 interface ScriptLoader {
-  load: (doc: Document, url: string, callback: callbackFn) => void;
+  load: (doc: Document, url: string, callback: CallbackFn) => void;
   reinitialize: () => void;
 }
 
 const CreateScriptLoader = (): ScriptLoader => {
   let state: IStateObj = createState();
 
-  const injectScriptTag = (scriptId: string, doc: Document, url: string, callback: callbackFn) => {
+  const injectScriptTag = (scriptId: string, doc: Document, url: string, callback: CallbackFn) => {
     const scriptTag = doc.createElement('script');
     scriptTag.referrerPolicy = 'origin';
     scriptTag.type = 'application/javascript';
@@ -46,7 +46,7 @@ const CreateScriptLoader = (): ScriptLoader => {
     }
   };
 
-  const load = (doc: Document, url: string, callback: callbackFn) => {
+  const load = (doc: Document, url: string, callback: CallbackFn) => {
     if (state.scriptLoaded) {
       callback();
     } else {
