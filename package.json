@@ -45,6 +45,8 @@
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-links": "^6.5.13",
     "@storybook/addon-notes": "^5.3.21",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16",
     "@storybook/storybook-deployer": "^2.8.16",
     "@storybook/vue3": "^6.5.13",
     "@tinymce/beehive-flow": "^0.19.0",
