@@ -9,6 +9,7 @@ import Controlled from '/views/Controlled.vue';
 import Keepalive from '/views/KeepAlive.vue';
 import Refreshable from '/views/Refreshable.vue';
 import Tagged from '/views/Tagged.vue';
+import GetEditor from '/views/GetEditor.vue';
 
 const routes = [
   {
@@ -45,6 +46,11 @@ const routes = [
     path: '/tagged',
     name: 'Tagged',
     component: Tagged
+  },
+  {
+    path: '/get-editor',
+    name: 'GetEditor',
+    component: GetEditor
   }
 ];
 

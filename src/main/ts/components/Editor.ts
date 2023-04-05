@@ -126,7 +126,8 @@ export const Editor = defineComponent({
       nextTick(() => initWrapper());
     };
     ctx.expose({
-      rerender
+      rerender,
+      getEditor: () => vueEditor
     });
     return () => inlineEditor ?
       renderInline(h, elementId, element, props.tagName) :

@@ -8,6 +8,7 @@
       <router-link :class="{ active: $route.path==='/keepalive'}" to="/keepalive">Keep-alive</router-link>
       <router-link :class="{ active: $route.path==='/refreshable'}" to="/refreshable">Rerender</router-link>
       <router-link :class="{ active: $route.path==='/tagged'}" to="/tagged">Tag Change</router-link>
+      <router-link :class="{ active: $route.path === '/get-editor' }" to="/get-editor">getEditor</router-link>
     </div>
     <router-view></router-view>
   </div>
