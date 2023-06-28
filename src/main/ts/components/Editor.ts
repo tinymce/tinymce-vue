@@ -32,6 +32,7 @@ export const Editor = defineComponent({
   props: editorProps,
   setup: (props: IPropTypes, ctx) => {
     let conf = props.init ? { ...props.init } : {};
+    conf.selector = undefined;
     const { disabled, modelValue, tagName } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
     let vueEditor: any = null;

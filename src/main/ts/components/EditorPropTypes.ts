@@ -7,7 +7,7 @@
  */
 import { TinyMCE } from 'tinymce';
 
-type EditorOptions = Parameters<TinyMCE['init']>[0];
+type EditorOptions = Omit<Parameters<TinyMCE['init']>, 'selector'>[0];
 
 export type CopyProps<T> = { [P in keyof T]: any };
 
