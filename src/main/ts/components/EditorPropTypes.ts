@@ -7,7 +7,7 @@
  */
 import { TinyMCE } from 'tinymce';
 
-type EditorOptions = Omit<Parameters<TinyMCE['init']>, 'selector'>[0];
+type EditorOptions = Parameters<TinyMCE['init']>[0];
 
 export type CopyProps<T> = { [P in keyof T]: any };
 
@@ -15,7 +15,7 @@ export interface IPropTypes {
   apiKey: string;
   cloudChannel: string;
   id: string;
-  init: EditorOptions;
+  init: EditorOptions & { selector?: undefined; target?: undefined };
   initialValue: string;
   outputFormat: 'html' | 'text';
   inline: boolean;
