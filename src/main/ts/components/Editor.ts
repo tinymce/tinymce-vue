@@ -28,12 +28,12 @@ const renderIframe = (ce: any, id: string, elementRef: Ref<Element | null>) =>
     ref: elementRef
   });
 
-const defaultInitVaues = { selector: undefined, target: undefined };
+const defaultInitValues = { selector: undefined, target: undefined };
 
 export const Editor = defineComponent({
   props: editorProps,
   setup: (props: IPropTypes, ctx) => {
-    let conf = props.init ? { ...props.init, ...defaultInitVaues } : { ...defaultInitVaues };
+    let conf = props.init ? { ...props.init, ...defaultInitValues } : { ...defaultInitValues };
     const { disabled, modelValue, tagName } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
     let vueEditor: any = null;
@@ -124,7 +124,7 @@ export const Editor = defineComponent({
     const rerender = (init: EditorOptions) => {
       cache = vueEditor.getContent();
       getTinymce()?.remove(vueEditor);
-      conf = { ...conf, ...init, ...defaultInitVaues };
+      conf = { ...conf, ...init, ...defaultInitValues };
       nextTick(() => initWrapper());
     };
     ctx.expose({
