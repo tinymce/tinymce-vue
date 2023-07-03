@@ -9,7 +9,8 @@
   "main": "lib/cjs/main/ts/index.js",
   "module": "lib/es2015/main/ts/index.js",
   "scripts": {
-    "test": "bedrock-auto -b chrome-headless -f src/test/ts/**/*Test.ts",
+    "test": "bedrock-auto -b firefox-headless -f src/test/ts/**/*Test.ts",
+    "test-sel": "bedrock-auto --webdriverPort 4444 --useSelenium -b chrome-headless -f src/test/ts/**/*Test.ts",
     "test-manual": "bedrock -f src/test/ts/**/*Test.ts",
     "clean": "rimraf lib",
     "lint": "eslint src/{main,test}/**/*.ts",
@@ -37,8 +38,8 @@
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@ephox/agar": "^7.2.1",
-    "@ephox/bedrock-client": "^13.0.0",
-    "@ephox/bedrock-server": "^13.3.0",
+    "@ephox/bedrock-client": "file:../bedrock/modules/client",
+    "@ephox/bedrock-server": "file:../bedrock/modules/server",
     "@ephox/katamari": "^9.1.1",
     "@ephox/sugar": "^9.1.1",
     "@storybook/addon-actions": "^6.5.13",
