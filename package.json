@@ -1,6 +1,6 @@
 {
   "name": "@tinymce/tinymce-vue",
-  "version": "5.1.1-rc",
+  "version": "5.1.1",
   "description": "Official TinyMCE Vue 3 Component",
   "private": false,
   "repository": {
