@@ -15,7 +15,7 @@ export interface IPropTypes {
   apiKey: string;
   cloudChannel: string;
   id: string;
-  init: EditorOptions;
+  init: EditorOptions & { selector?: undefined; target?: undefined };
   initialValue: string;
   outputFormat: 'html' | 'text';
   inline: boolean;
