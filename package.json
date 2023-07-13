@@ -11,6 +11,7 @@
   "scripts": {
     "test": "bedrock-auto -b chrome-headless -f src/test/ts/**/*Test.ts",
     "test-manual": "bedrock -f src/test/ts/**/*Test.ts",
+    "test-selenium": "bedrock-auto --useSelenium -b chrome-headless -f src/test/ts/**/*Test.ts",
     "clean": "rimraf lib",
     "lint": "eslint src/{main,test}/**/*.ts",
     "build": "yarn run clean && yarn run lint && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json && node rollup.build.js",
