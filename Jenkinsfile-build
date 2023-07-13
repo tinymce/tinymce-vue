@@ -10,7 +10,7 @@ timestamps {
         yarnInstall()
       }
 
-      stage() {
+      stage('dontForgetToNameTheStage') {
         sh 'yarn build'
       }
     }
