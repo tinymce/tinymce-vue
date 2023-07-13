@@ -2,7 +2,7 @@
 @Library('waluigi@feature/DEVOPS-824') _
 
 timestamps {
-  tinyPods.custom([ name: 'node', image: "public.ecr.aws/docker/library/node:lts", runAsGroup: '1000', runAsUser: '1000' ]) {
+  tinyPods.nodeBrowser {
     stage('install') {
       yarnInstall()
     }
