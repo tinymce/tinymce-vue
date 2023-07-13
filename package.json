@@ -39,7 +39,7 @@
     "@babel/core": "^7.20.2",
     "@ephox/agar": "^7.2.1",
     "@ephox/bedrock-client": "^13.0.0",
-    "@ephox/bedrock-server": "^13.3.0",
+    "@ephox/bedrock-server": "^13.5.0",
     "@ephox/katamari": "^9.1.1",
     "@ephox/sugar": "^9.1.1",
     "@storybook/addon-actions": "^6.5.13",
