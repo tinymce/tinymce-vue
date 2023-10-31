@@ -101,12 +101,12 @@ export const Editor: ThisTypedComponentOptionsWithRecordProps<Vue, {}, {}, {}, I
     }
   },
   beforeDestroy() {
-    if (getTinymce() !== null) {
+    if (getTinymce() !== null && this.editor) {
       getTinymce().remove(this.editor);
     }
   },
   deactivated() {
-    if (!this.inlineEditor) {
+    if (!this.inlineEditor && this.editor) {
       this.cache = this.editor.getContent();
       getTinymce()?.remove(this.editor);
     }
