@@ -3,6 +3,7 @@
 
 mixedBeehiveFlow(
   testPrefix: 'Tiny-Vue',
+  testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ],
   platforms: [
     [ browser: 'chrome', headless: true ],
     [ browser: 'firefox', provider: 'aws', buckets: 2 ],
