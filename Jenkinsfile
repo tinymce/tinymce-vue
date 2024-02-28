@@ -6,7 +6,7 @@ mixedBeehiveFlow(
   testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ],
   platforms: [
     [ browser: 'chrome', headless: true ],
-    [ browser: 'firefox', provider: 'aws', buckets: 2 ],
+    [ browser: 'firefox', provider: 'aws', buckets: 1 ],
     [ browser: 'safari', provider: 'lambdatest', os: 'macOS Sonoma', buckets: 1 ]
   ],
   customSteps: {
