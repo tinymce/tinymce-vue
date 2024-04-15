@@ -35,6 +35,16 @@ UnitTest.asynctest('LoadTinyTest', (success, failure) => {
       cRender({}, `
         <editor
           :init="init"
+          tinymce-script-src="/project/node_modules/tinymce-7/tinymce.min.js"
+        ></editor>
+      `),
+      cAssertTinymceVersion('7'),
+      cRemove,
+      cDeleteTinymce,
+
+      cRender({}, `
+        <editor
+          :init="init"
           tinymce-script-src="/project/node_modules/tinymce-6/tinymce.min.js"
         ></editor>
       `),
@@ -67,14 +77,14 @@ UnitTest.asynctest('LoadTinyTest', (success, failure) => {
         <editor
           :init="init"
           api-key="a-fake-api-key"
-          cloud-channel="7"
+          cloud-channel="7-stable"
         ></editor>
       `),
       cAssertTinymceVersion('7'),
       Chain.op(() => {
         Assertions.assertEq(
           'TinyMCE should have been loaded from Cloud',
-          'https://cdn.tiny.cloud/1/a-fake-api-key/tinymce/7',
+          'https://cdn.tiny.cloud/1/a-fake-api-key/tinymce/7-stable',
           Global.tinymce.baseURI.source
         );
       }),
@@ -84,14 +94,15 @@ UnitTest.asynctest('LoadTinyTest', (success, failure) => {
         <editor
           :init="init"
           api-key="a-fake-api-key"
-          cloud-channel="6"
+          cloud-channel="6-stable"
         ></editor>
       `),
       cAssertTinymceVersion('6'),
       Chain.op(() => {
         Assertions.assertEq(
           'TinyMCE should have been loaded from Cloud',
-          'https://cdn.tiny.cloud/1/a-fake-api-key/tinymce/6',
+
+          'https://cdn.tiny.cloud/1/a-fake-api-key/tinymce/6-stable',
           Global.tinymce.baseURI.source
         );
       }),
