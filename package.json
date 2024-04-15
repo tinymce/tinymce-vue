@@ -37,8 +37,8 @@
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@ephox/agar": "^7.2.1",
-    "@ephox/bedrock-client": "^13.0.0",
-    "@ephox/bedrock-server": "^13.3.0",
+    "@ephox/bedrock-client": "^14.1.1",
+    "@ephox/bedrock-server": "^14.1.2",
     "@ephox/katamari": "^9.1.1",
     "@ephox/sugar": "^9.1.1",
     "@storybook/addon-actions": "^6.5.13",
@@ -71,6 +71,7 @@
     "tinymce-4": "npm:tinymce@^4",
     "tinymce-5": "npm:tinymce@^5",
     "tinymce-6": "npm:tinymce@^6",
+    "tinymce-7": "npm:tinymce@^7",
     "ts-loader": "^9.4.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths-webpack-plugin": "^3.5.2",

@@ -1,10 +1,14 @@
 #!groovy
 @Library('waluigi@release/7') _
 
-beehiveFlowBuild(
-  test: {
-    bedrockBrowsers(testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ])
-  },
+mixedBeehiveFlow(
+  testPrefix: 'Tiny-Vue',
+  testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ],
+  platforms: [
+    [ browser: 'chrome', headless: true ],
+    [ browser: 'firefox', provider: 'aws' ],
+    [ browser: 'safari', provider: 'lambdatest' ]
+  ],
   customSteps: {
     stage("update storybook") {
       def status = beehiveFlowStatus()
