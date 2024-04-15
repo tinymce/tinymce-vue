@@ -91,7 +91,7 @@ export const Editor = defineComponent({
       if (getTinymce() !== null) {
         initWrapper();
       } else if (element.value && element.value.ownerDocument) {
-        const channel = props.cloudChannel ? props.cloudChannel : '6';
+        const channel = props.cloudChannel ? props.cloudChannel : '7';
         const apiKey = props.apiKey ? props.apiKey : 'no-api-key';
         const scriptSrc: string = isNullOrUndefined(props.tinymceScriptSrc) ?
           `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js` :

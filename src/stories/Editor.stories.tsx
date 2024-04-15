@@ -52,8 +52,8 @@ export default {
       table: {
         defaultValue: {summary: '5'}
       },
-      defaultValue: ['5'],
-      options: ['5', '5-dev', '5-testing', '6-dev', '6-testing', '6-stable'],
+      defaultValue: ['7'],
+      options: ['5', '5-dev', '5-testing', '6-dev', '6-testing', '6-stable', '7-dev', '7-testing', '7-stable'],
       control: { type: 'select'}
     },
     conf: {
