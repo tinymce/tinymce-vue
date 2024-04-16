@@ -101,7 +101,6 @@ UnitTest.asynctest('LoadTinyTest', (success, failure) => {
       Chain.op(() => {
         Assertions.assertEq(
           'TinyMCE should have been loaded from Cloud',
-
           'https://cdn.tiny.cloud/1/a-fake-api-key/tinymce/6-stable',
           Global.tinymce.baseURI.source
         );
