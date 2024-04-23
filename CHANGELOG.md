@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Changed
-- Default cloud channel to '7'
-
 ### Added
 - Add missing events: `onInput`, `onCommentChange`, `onCompositionEnd`, `onCompositionStart`, `onCompositionUpdate`
+
+### Changed
+- Default cloud channel to '7'
 
 ## 5.1.0 - 2023-04-05
 
