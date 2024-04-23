@@ -13,6 +13,7 @@ export type CopyProps<T> = { [P in keyof T]: any };
 
 export interface IPropTypes {
   apiKey: string;
+  licenseKey: string;
   cloudChannel: string;
   id: string;
   init: EditorOptions & { selector?: undefined; target?: undefined };
@@ -30,6 +31,7 @@ export interface IPropTypes {
 
 export const editorProps: CopyProps<IPropTypes> = {
   apiKey: String,
+  licenseKey: String,
   cloudChannel: String,
   id: String,
   init: Object,

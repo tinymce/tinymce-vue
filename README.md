@@ -4,9 +4,9 @@
 
 This package is a thin wrapper around [TinyMCE](https://github.com/tinymce/tinymce) to make it easier to use in a Vue application.
 
-* If you need detailed documentation on TinyMCE, see: [TinyMCE Documentation](https://www.tiny.cloud/docs/tinymce/6/).
-* For the TinyMCE Vue Quick Start, see: [TinyMCE Documentation - Vue Integration](https://www.tiny.cloud/docs/tinymce/6/vue-cloud).
-* For the TinyMCE Vue Technical Reference, see: [TinyMCE Documentation - TinyMCE Vue Technical Reference](https://www.tiny.cloud/docs/tinymce/6/vue-ref).
+* If you need detailed documentation on TinyMCE, see: [TinyMCE Documentation](https://www.tiny.cloud/docs/tinymce/7/).
+* For the TinyMCE Vue Quick Start, see: [TinyMCE Documentation - Vue Integration](https://www.tiny.cloud/docs/tinymce/7/vue-cloud).
+* For the TinyMCE Vue Technical Reference, see: [TinyMCE Documentation - TinyMCE Vue Technical Reference](https://www.tiny.cloud/docs/tinymce/7/vue-ref).
 
 ### Support
 
