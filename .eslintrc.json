@@ -8,6 +8,7 @@
       "excludedFiles": [
         "src/demo/demo.ts"
       ],
+      "plugins": ["@typescript-eslint"],
       "extends": "plugin:@tinymce/standard",
       "parserOptions": {
         "project": "tsconfig.json",
