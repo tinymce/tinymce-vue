@@ -1,6 +1,6 @@
 {
   "name": "@tinymce/tinymce-vue",
-  "version": "6.0.0",
+  "version": "6.0.0-rc",
   "description": "Official TinyMCE Vue 3 Component",
   "private": false,
   "repository": {
@@ -16,7 +16,8 @@
     "build": "yarn run clean && yarn run lint && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json && node rollup.build.js",
     "storybook": "start-storybook -p 6006",
     "demo": "vite",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "deploy-storybook": "yarn build-storybook && gh-pages -d ./storybook-static -u 'tiny-bot <no-reply@tiny.cloud>'"
   },
   "keywords": [
     "tinymce",
@@ -47,7 +48,6 @@
     "@storybook/addon-notes": "^5.3.21",
     "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/manager-webpack5": "^6.5.16",
-    "@storybook/storybook-deployer": "^2.8.16",
     "@storybook/vue3": "^6.5.13",
     "@tinymce/beehive-flow": "^0.19.0",
     "@tinymce/eslint-plugin": "^2.3.1",
@@ -60,6 +60,7 @@
     "babel-register": "^6.26.0",
     "css-loader": "^6.2.0",
     "file-loader": "^6.0.0",
+    "gh-pages": "^6.1.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "regenerator-runtime": "^0.13.9",
