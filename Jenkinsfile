@@ -9,6 +9,10 @@ mixedBeehiveFlow(
     [ browser: 'firefox', provider: 'aws' ],
     [ browser: 'safari', provider: 'lambdatest' ]
   ],
+  publishContainer: [
+    resourceRequestMemory: '4Gi',
+    resourceLimitMemory: '4Gi'
+  ],
   customSteps: {
     stage("update storybook") {
       def status = beehiveFlowStatus()
