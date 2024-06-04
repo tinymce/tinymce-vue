@@ -14,7 +14,7 @@ mixedBeehiveFlow(
       def status = beehiveFlowStatus()
       if (status.branchState == 'releaseReady' && status.isLatest) {
         tinyGit.withGitHubSSHCredentials {
-          exec('yarn storybook-to-ghpages')
+          exec('yarn deploy-storybook')
         }
       } else {
         echo "Skipping as is not latest release"
