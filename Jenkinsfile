@@ -24,5 +24,9 @@ mixedBeehiveFlow(
         echo "Skipping as is not latest release"
       }
     }
+  },
+  preparePublish:{
+    yarnInstall()
+    sh "yarn build"
   }
 )
