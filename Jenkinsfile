@@ -2,6 +2,7 @@
 @Library('waluigi@release/7') _
 
 mixedBeehiveFlow(
+  container: [ resourceRequestMemory: '3Gi', resourceLimitMemory: '3Gi' ],
   testPrefix: 'Tiny-Vue',
   testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ],
   platforms: [
@@ -24,5 +25,9 @@ mixedBeehiveFlow(
         echo "Skipping as is not latest release"
       }
     }
+  },
+  preparePublish:{
+    yarnInstall()
+    sh "yarn build"
   }
 )
