@@ -9,7 +9,7 @@ assignees: ''
 
 **What is the current behavior?**
 
-**Please provide the steps to reproduce and if possible a minimal demo of the problem via [codesandbox.io](https://codesandbox.io/s/9y95z5m40y?fontsize=14) or similar.**
+**Please provide the steps to reproduce and if possible a minimal demo of the problem via [codesandbox.io](https://codesandbox.io/p/sandbox/tinymce-vue-shtq6h) or similar.**
 
 **What is the expected behavior?**
 
