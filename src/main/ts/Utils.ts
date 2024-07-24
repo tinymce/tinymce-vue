@@ -8,7 +8,7 @@
 
 import { Ref, watch, SetupContext } from 'vue';
 import { IPropTypes } from './components/EditorPropTypes';
-import { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
+import type { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
 
 const validEvents = [
   'onActivate',
