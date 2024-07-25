@@ -1,6 +1,6 @@
 {
   "name": "@tinymce/tinymce-vue",
-  "version": "6.0.2-rc",
+  "version": "7.0.2-rc",
   "description": "Official TinyMCE Vue 3 Component",
   "private": false,
   "repository": {
@@ -33,7 +33,13 @@
     "LICENSE.txt"
   ],
   "peerDependencies": {
+    "tinymce": "^7.0.0 || ^6.0.0 || ^5.5.1",
     "vue": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "tinymce": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
@@ -69,6 +75,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript2": "^0.34.1",
     "rollup-plugin-uglify": "^6.0.0",
+    "tinymce": "^7",
     "tinymce-4": "npm:tinymce@^4",
     "tinymce-5": "npm:tinymce@^5",
     "tinymce-6": "npm:tinymce@^6",
@@ -84,8 +91,5 @@
     "vue-router": "^4.3.2",
     "vue-template-compiler": "^2.7.16",
     "webpack": "^5.75.0"
-  },
-  "dependencies": {
-    "tinymce": "^7.0.0 || ^6.0.0 || ^5.5.1"
   }
 }

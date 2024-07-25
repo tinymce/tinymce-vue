@@ -3,7 +3,7 @@ import { onBeforeMount, ref } from 'vue';
 import { ScriptLoader } from '../main/ts/ScriptLoader';
 
 import { Editor } from '../main/ts/components/Editor';
-import { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
+import type { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
 
 const apiKey = 'qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc';
 const content = `
