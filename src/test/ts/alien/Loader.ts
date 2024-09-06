@@ -1,4 +1,3 @@
-import { Chain } from '@ephox/agar';
 import { Fun } from '@ephox/katamari';
 import { Attribute, SugarBody, SugarElement, Insert, Remove, SelectorFind } from '@ephox/sugar';
 import Editor from 'src/main/ts/index';
@@ -19,40 +18,41 @@ const getRoot = () => SelectorFind.descendant(SugarBody.body(), '#root').getOrTh
   return root;
 });
 
-const cRender = (data: Record<string, any> = {}, template: string = `<editor :init="init" ></editor>`) =>
-  Chain.async<Context, Context>((_value, next, _die) => {
-    const root = getRoot();
-    const mountPoint = SugarElement.fromTag('div');
-    Insert.append(root, mountPoint);
+const pRender = (data: Record<string, any> = {}, template: string = `<editor :init="init"></editor>`): Promise<Context> => new Promise((resolve) => {
+  const root = getRoot();
+  const mountPoint = SugarElement.fromTag('div');
+  Insert.append(root, mountPoint);
 
-    const originalInit = data.init || {};
-    const originalSetup = originalInit.setup || Fun.noop;
+  const originalInit = data.init || {};
+  const originalSetup = originalInit.setup || Fun.noop;
 
-    const vm = createApp({
-      template,
-      components: {
-        Editor
-      },
-      data: () => ({
-        ...data,
-        outputFormat: 'text',
-        init: {
-          ...originalInit,
-          setup: (editor: any) => {
-            originalSetup(editor);
-            editor.on('SkinLoaded', () => {
-              setTimeout(() => {
-                next({ editor, vm });
-              }, 0);
-            });
-          }
+  const vm = createApp({
+    template,
+    components: {
+      Editor
+    },
+    data: () => ({
+      ...data,
+      outputFormat: 'text',
+      init: {
+        ...originalInit,
+        'licenseKey': 'gpl',
+        'api-key': 'your-api-key',
+        'setup': (editor: any) => {
+          originalSetup(editor);
+          editor.on('SkinLoaded', () => {
+            setTimeout(() => {
+              resolve({ editor, vm });
+            }, 0);
+          });
         }
-      }),
-    }).mount(mountPoint.dom);
-  });
-
-const cRemove = Chain.op(() => {
-  Remove.remove(getRoot());
+      }
+    }),
+  }).mount(mountPoint.dom);
 });
 
-export { cRender, cRemove };
+const remove = () => {
+  Remove.remove(getRoot());
+};
+
+export { pRender, remove, getRoot };

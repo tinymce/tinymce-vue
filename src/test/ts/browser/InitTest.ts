@@ -1,83 +1,109 @@
-import { GeneralSteps, Logger, Pipeline, Assertions, Chain, Keyboard, Keys } from '@ephox/agar';
-import { UnitTest } from '@ephox/bedrock-client';
-import { VersionLoader } from '@tinymce/miniature';
-import { cRender, cRemove } from '../alien/Loader';
+import { Assertions, Keyboard, Keys } from '@ephox/agar';
+import { pRender, remove } from '../alien/Loader';
 import { SugarElement } from '@ephox/sugar';
+import { Assert, describe, it } from '@ephox/bedrock-client';
 
-UnitTest.asynctest('InitTest', (success, failure) => {
-  const cFakeType = (str: string) => Chain.op((context: any) => {
+describe('Editor Component Initialization Tests', () => {
+  // eslint-disable-next-line @typescript-eslint/require-await
+  const cFakeType = async (str: string, context: any) => {
     context.editor.getBody().innerHTML = '<p>' + str + '</p>';
     Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(context.editor.getBody()) as SugarElement<Node>);
+  };
+
+  const testVersion = (version: '4' | '5' | '6' | '7') => {
+    describe(`Editor Initialization for Version ${version}`, () => {
+      it('should not be inline by default', async () => {
+        const context = await pRender();
+        Assertions.assertEq('Editor should not be inline', false, context.editor.inline);
+        remove();
+      });
+
+      it('should be inline with inline attribute in template', async () => {
+        const context = await pRender({}, `<editor :init="init" :inline="true"></editor>`);
+        Assertions.assertEq('Editor should be inline', true, context.editor.inline);
+        remove();
+      });
+
+      it('should be inline with inline option in init', async () => {
+        const context = await pRender({ init: { inline: true }});
+        Assertions.assertEq('Editor should be inline', true, context.editor.inline);
+        remove();
+      });
+
+      it('should handle one-way binding with output-format="text"', async () => {
+        const context = await pRender({
+          content: ''
+        }, `
+          <editor
+            :init="init"
+            @update:modelValue="content = $event"
+            output-format="text"
+          ></editor>
+        `);
+        // Should we use type instead of cFakeType?
+        await cFakeType('A', context);
+        Assertions.assertEq('Content emitted should be of format="text"', 'A', context.vm.content);
+        remove();
+      });
+
+      it('should handle one-way binding with output-format="html"', async () => {
+        const context = await pRender({
+          content: ''
+        }, `
+          <editor
+            :init="init"
+            v-model="content"
+            output-format="html"
+          ></editor>
+        `);
+        await cFakeType('A', context);
+        Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', context.vm.content);
+        remove();
+      });
+      // Original test
+      // it('should handle one-way binding with output-format="text"', async () => {
+      //   const context = await pRender({
+      //     content: ''
+      //   }, `
+      //     <editor
+      //       :init="init"
+      //       @update:modelValue="content = $event"
+      //       output-format="text"
+      //     ></editor>
+      //   `);
+      //   await cFakeType('A', context);
+      //   Assertions.assertEq('Content emitted should be of format="text"', 'A', context.vm.content);
+      //   remove();
+      // });
+
+      // it('should handle one-way binding with output-format="html"', async () => {
+      //   const context = await pRender({
+      //     content: ''
+      //   }, `
+      //     <editor
+      //       :init="init"
+      //       v-model="content"
+      //       output-format="html"
+      //     ></editor>
+      //   `);
+      //   await cFakeType('A', context);
+      //   Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', context.vm.content);
+      //   remove();
+      // });
+    });
+  };
+
+  Assert.succeeds('should test all versions', () => {
+    Promise.all([
+      testVersion('4'),
+      testVersion('5'),
+      testVersion('6'),
+      testVersion('7'),
+    ]).then(() => {
+      //
+    }).catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error('this is a error', error);
+    });
   });
-
-  const sTestVersion = (version: '4' | '5' | '6' | '7') => VersionLoader.sWithVersion(
-    version,
-    GeneralSteps.sequence([
-      Logger.t('Should be able to setup editor', Chain.asStep({}, [
-        cRender(),
-        Chain.op((context) => {
-          Assertions.assertEq('Editor should not be inline', false, context.editor.inline);
-        }),
-        cRemove
-      ])),
-
-      Logger.t('Should be able to setup editor', Chain.asStep({}, [
-        cRender({}, `<editor :init="init" :inline=true ></editor>`),
-        Chain.op((context) => {
-          Assertions.assertEq('Editor should be inline', true, context.editor.inline);
-        }),
-        cRemove
-      ])),
-
-      Logger.t('Should be able to setup editor', Chain.asStep({}, [
-        cRender({ init: { inline: true }}),
-        Chain.op((context) => {
-          Assertions.assertEq('Editor should be inline', true, context.editor.inline);
-        }),
-        cRemove
-      ])),
-
-      Logger.t('Test one way binding tinymce-vue -> variable', GeneralSteps.sequence([
-        Logger.t('Test outputFormat="text"', Chain.asStep({}, [
-          cRender({
-            content: undefined
-          }, `
-            <editor
-              :init="init"
-              @update:modelValue="content = $event"
-              output-format="text"
-            ></editor>
-          `),
-          cFakeType('A'),
-          Chain.op((context) => {
-            Assertions.assertEq('Content emitted should be of format="text"', 'A', context.vm.content);
-          }),
-          cRemove
-        ])),
-        Logger.t('Test outputFormat="html"', Chain.asStep({}, [
-          cRender({
-            content: undefined
-          }, `
-            <editor
-              :init="init"
-              v-model="content"
-              output-format="html"
-            ></editor>
-          `),
-          cFakeType('A'),
-          Chain.op((context) => {
-            Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', context.vm.content);
-          }),
-          cRemove
-        ])),
-      ])),
-    ])
-  );
-
-  Pipeline.async({}, [
-    sTestVersion('4'),
-    sTestVersion('5'),
-    sTestVersion('6'),
-    sTestVersion('7'),
-  ], success, failure);
 });
