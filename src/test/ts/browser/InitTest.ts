@@ -1,7 +1,8 @@
 import { Assertions, Keyboard, Keys } from '@ephox/agar';
-import { pRender, remove } from '../alien/Loader';
+import { pRender } from '../alien/Loader';
 import { SugarElement } from '@ephox/sugar';
 import { Assert, describe, it } from '@ephox/bedrock-client';
+import { cleanupTinymce, VALID_API_KEY } from '../alien/TestHelper';
 
 describe('Editor Component Initialization Tests', () => {
   // eslint-disable-next-line @typescript-eslint/require-await
@@ -15,81 +16,55 @@ describe('Editor Component Initialization Tests', () => {
       it('should not be inline by default', async () => {
         const context = await pRender();
         Assertions.assertEq('Editor should not be inline', false, context.editor.inline);
-        remove();
+        cleanupTinymce();
       });
 
       it('should be inline with inline attribute in template', async () => {
-        const context = await pRender({}, `<editor :init="init" :inline="true"></editor>`);
+        const context = await pRender({}, `
+          <editor
+           :init="init"
+           :inline="true"
+           ></editor>`);
         Assertions.assertEq('Editor should be inline', true, context.editor.inline);
-        remove();
+        cleanupTinymce();
       });
 
       it('should be inline with inline option in init', async () => {
         const context = await pRender({ init: { inline: true }});
         Assertions.assertEq('Editor should be inline', true, context.editor.inline);
-        remove();
+        cleanupTinymce();
       });
-
       it('should handle one-way binding with output-format="text"', async () => {
         const context = await pRender({
-          content: ''
+          content: undefined,
         }, `
           <editor
             :init="init"
-            @update:modelValue="content = $event"
+            api-key="${VALID_API_KEY}"
+            @update:modelValue="content =$event"
             output-format="text"
           ></editor>
         `);
-        // Should we use type instead of cFakeType?
-        await cFakeType('A', context);
+        cFakeType('A', context);
         Assertions.assertEq('Content emitted should be of format="text"', 'A', context.vm.content);
-        remove();
+        cleanupTinymce();
       });
 
       it('should handle one-way binding with output-format="html"', async () => {
         const context = await pRender({
-          content: ''
+          content: undefined,
         }, `
           <editor
             :init="init"
-            v-model="content"
+            api-key="${VALID_API_KEY}"
+            @update:modelValue="content =$event"
             output-format="html"
           ></editor>
         `);
         await cFakeType('A', context);
-        Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', context.vm.content);
-        remove();
+        Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', context.editor.content);
+        cleanupTinymce();
       });
-      // Original test
-      // it('should handle one-way binding with output-format="text"', async () => {
-      //   const context = await pRender({
-      //     content: ''
-      //   }, `
-      //     <editor
-      //       :init="init"
-      //       @update:modelValue="content = $event"
-      //       output-format="text"
-      //     ></editor>
-      //   `);
-      //   await cFakeType('A', context);
-      //   Assertions.assertEq('Content emitted should be of format="text"', 'A', context.vm.content);
-      //   remove();
-      // });
-
-      // it('should handle one-way binding with output-format="html"', async () => {
-      //   const context = await pRender({
-      //     content: ''
-      //   }, `
-      //     <editor
-      //       :init="init"
-      //       v-model="content"
-      //       output-format="html"
-      //     ></editor>
-      //   `);
-      //   await cFakeType('A', context);
-      //   Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', context.vm.content);
-      //   remove();
-      // });
     });
   };
 

@@ -1,31 +1,10 @@
 import { Assertions } from '@ephox/agar';
 import { context, describe, it } from '@ephox/bedrock-client';
-import { Arr, Strings, Global } from '@ephox/katamari';
-import { SelectorFilter, Attribute, SugarElement, Remove } from '@ephox/sugar';
-import { ScriptLoader } from '../../../main/ts/ScriptLoader';
+import { Global } from '@ephox/katamari';
 import { pRender } from '../alien/Loader';
+import { cleanupTinymce } from '../alien/TestHelper';
 
 describe('LoadTinyTest', () => {
-  // Function to clean up and remove TinyMCE-related scripts and links from the document
-  const removeTinymce = () => {
-    ScriptLoader.reinitialize();
-
-    // Delete global references to TinyMCE, if they exist
-    delete Global.tinymce;
-    delete Global.tinyMCE;
-
-    // Helper function to check if an element has a TinyMCE-related URI in a specific attribute
-    const hasTinymceUri = (attrName: string) => (elm: SugarElement<Element>) =>
-      Attribute.getOpt(elm, attrName).exists((src) => Strings.contains(src, 'tinymce'));
-
-    // Find all script and link elements that have a TinyMCE-related URI
-    const elements = Arr.flatten([
-      Arr.filter(SelectorFilter.all('script'), hasTinymceUri('src')),
-      Arr.filter(SelectorFilter.all('link'), hasTinymceUri('href')),
-    ]);
-
-    Arr.each(elements, Remove.remove);
-  };
 
   const AssertTinymceVersion = (version: '4' | '5' | '6' | '7') => {
     Assertions.assertEq(`Loaded version of TinyMCE should be ${version}`, version, Global.tinymce.majorVersion);
@@ -33,8 +12,6 @@ describe('LoadTinyTest', () => {
 
   context('LoadTinyTest', () => {
     it('Should be able to load local version of TinyMCE using the tinymceScriptSrc prop', async () => {
-      removeTinymce();
-
       await pRender({}, `
         <editor
           :init="init"
@@ -43,7 +20,7 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('7');
-      removeTinymce();
+      cleanupTinymce();
     });
   });
 });

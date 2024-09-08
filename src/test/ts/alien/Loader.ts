@@ -18,7 +18,7 @@ const getRoot = () => SelectorFind.descendant(SugarBody.body(), '#root').getOrTh
   return root;
 });
 
-const pRender = (data: Record<string, any> = {}, template: string = `<editor :init="init"></editor>`): Promise<Context> => new Promise((resolve) => {
+const pRender = (data: Record<string, any> = {}, template: string = `<editor :init="init"></editor>`): Promise<any> => new Promise((resolve) => {
   const root = getRoot();
   const mountPoint = SugarElement.fromTag('div');
   Insert.append(root, mountPoint);
@@ -36,9 +36,7 @@ const pRender = (data: Record<string, any> = {}, template: string = `<editor :in
       outputFormat: 'text',
       init: {
         ...originalInit,
-        'licenseKey': 'gpl',
-        'api-key': 'your-api-key',
-        'setup': (editor: any) => {
+        setup: (editor: any) => {
           originalSetup(editor);
           editor.on('SkinLoaded', () => {
             setTimeout(() => {
