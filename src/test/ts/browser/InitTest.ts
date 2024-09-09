@@ -6,7 +6,7 @@ import { cleanupTinymce, VALID_API_KEY } from '../alien/TestHelper';
 
 describe('Editor Component Initialization Tests', () => {
   // eslint-disable-next-line @typescript-eslint/require-await
-  const cFakeType = async (str: string, context: any) => {
+  const cFakeType = (str: string, context: any) => {
     context.editor.getBody().innerHTML = '<p>' + str + '</p>';
     Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(context.editor.getBody()) as SugarElement<Node>);
   };
@@ -61,8 +61,8 @@ describe('Editor Component Initialization Tests', () => {
             output-format="html"
           ></editor>
         `);
-        await cFakeType('A', context);
-        Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', context.editor.content);
+        cFakeType('A', context);
+        Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', context.vm.content);
         cleanupTinymce();
       });
     });
