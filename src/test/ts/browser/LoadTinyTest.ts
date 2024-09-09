@@ -2,7 +2,7 @@ import { Assertions } from '@ephox/agar';
 import { context, describe, it } from '@ephox/bedrock-client';
 import { Global } from '@ephox/katamari';
 import { pRender } from '../alien/Loader';
-import { cleanupTinymce } from '../alien/TestHelper';
+import { cleanupTinymce, VALID_API_KEY } from '../alien/TestHelper';
 
 describe('LoadTinyTest', () => {
 
@@ -11,7 +11,7 @@ describe('LoadTinyTest', () => {
   };
 
   context('LoadTinyTest', () => {
-    it('Should be able to load local version of TinyMCE using the tinymceScriptSrc prop', async () => {
+    it('Should be able to load local version of TinyMCE 7 using the tinymceScriptSrc prop', async () => {
       await pRender({}, `
         <editor
           :init="init"
@@ -22,107 +22,86 @@ describe('LoadTinyTest', () => {
       AssertTinymceVersion('7');
       cleanupTinymce();
     });
+    it('Should be able to load local version of TinyMCE 6 using the tinymceScriptSrc prop', async () => {
+      await pRender({}, `
+        <editor
+          :init="init"
+          tinymce-script-src="/project/node_modules/tinymce-6/tinymce.min.js"
+        ></editor>
+      `);
+
+      AssertTinymceVersion('6');
+      cleanupTinymce();
+    });
+    it('Should be able to load local version of TinyMCE 5 using the tinymceScriptSrc prop', async () => {
+      await pRender({}, `
+        <editor
+          :init="init"
+          tinymce-script-src="/project/node_modules/tinymce-5/tinymce.min.js"
+        ></editor>
+      `);
+
+      AssertTinymceVersion('5');
+      cleanupTinymce();
+    });
+    it('Should be able to load local version of TinyMCE 4 using the tinymceScriptSrc prop', async () => {
+      await pRender({}, `
+        <editor
+          :init="init"
+          tinymce-script-src="/project/node_modules/tinymce-4/tinymce.min.js"
+        ></editor>
+      `);
+
+      AssertTinymceVersion('4');
+      cleanupTinymce();
+    });
+    it('Should be able to load TinyMCE 7 from Cloud', async () => {
+      await pRender({}, `
+        <editor
+          :init="init"
+          api-key="${VALID_API_KEY}"
+          cloud-channel="7-stable"
+        ></editor>
+      `);
+      AssertTinymceVersion('7');
+      Assertions.assertEq(
+        'TinyMCE 7 should have been loaded from Cloud',
+        `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/7-stable`,
+        Global.tinymce.baseURI.source
+      );
+      cleanupTinymce();
+    });
+    it('Should be able to load TinyMCE 6 from Cloud', async () => {
+      await pRender({}, `
+        <editor
+          :init="init"
+          api-key="${VALID_API_KEY}"
+          cloud-channel="6-stable"
+        ></editor>
+      `);
+      AssertTinymceVersion('6');
+      Assertions.assertEq(
+        'TinyMCE 6 should have been loaded from Cloud',
+        `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/6-stable`,
+        Global.tinymce.baseURI.source
+      );
+      cleanupTinymce();
+    });
+    it('Should be able to load TinyMCE 5 from Cloud', async () => {
+      await pRender({}, `
+        <editor
+          :init="init"
+          api-key="${VALID_API_KEY}"
+          cloud-channel="5-stable"
+        ></editor>
+      `);
+      AssertTinymceVersion('5');
+      Assertions.assertEq(
+        'TinyMCE 5 should have been loaded from Cloud',
+        `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/5-stable`,
+        Global.tinymce.baseURI.source
+      );
+      cleanupTinymce();
+    });
   });
 });
-
-
-
-  // TODO: Add the below tests for loading TinyMCE from Cloud
-  // Pipeline.async({}, [
-  //   Log.chainsAsStep('Should be able to load local version of TinyMCE using the tinymceScriptSrc prop', '', [
-  //     cDeleteTinymce,
-
-  //     cRender({}, `
-  //       <editor
-  //         :init="init"
-  //         tinymce-script-src="/project/node_modules/tinymce-7/tinymce.min.js"
-  //       ></editor>
-  //     `),
-  //     cAssertTinymceVersion('7'),
-  //     cRemove,
-  //     cDeleteTinymce,
-
-  //     cRender({}, `
-  //       <editor
-  //         :init="init"
-  //         tinymce-script-src="/project/node_modules/tinymce-6/tinymce.min.js"
-  //       ></editor>
-  //     `),
-  //     cAssertTinymceVersion('6'),
-  //     cRemove,
-  //     cDeleteTinymce,
-
-  //     cRender({}, `
-  //       <editor
-  //         :init="init"
-  //         tinymce-script-src="/project/node_modules/tinymce-5/tinymce.min.js"
-  //       ></editor>
-  //     `),
-  //     cAssertTinymceVersion('5'),
-  //     cRemove,
-  //     cDeleteTinymce,
-
-  //     cRender({}, `
-  //       <editor
-  //         :init="init"
-  //         tinymce-script-src="/project/node_modules/tinymce-4/tinymce.min.js"
-  //       ></editor>
-  //     `),
-  //     cAssertTinymceVersion('4'),
-  //     cRemove,
-  //     cDeleteTinymce,
-  //   ]),
-  //   Log.chainsAsStep('Should be able to load TinyMCE from Cloud', '', [
-  //     cRender({}, `
-  //       <editor
-  //         :init="init"
-  //         api-key="a-fake-api-key"
-  //         cloud-channel="7-stable"
-  //       ></editor>
-  //     `),
-  //     cAssertTinymceVersion('7'),
-  //     Chain.op(() => {
-  //       Assertions.assertEq(
-  //         'TinyMCE should have been loaded from Cloud',
-  //         'https://cdn.tiny.cloud/1/a-fake-api-key/tinymce/7-stable',
-  //         Global.tinymce.baseURI.source
-  //       );
-  //     }),
-  //     cRemove,
-  //     cDeleteTinymce,
-  //     cRender({}, `
-  //       <editor
-  //         :init="init"
-  //         api-key="a-fake-api-key"
-  //         cloud-channel="6-stable"
-  //       ></editor>
-  //     `),
-  //     cAssertTinymceVersion('6'),
-  //     Chain.op(() => {
-  //       Assertions.assertEq(
-  //         'TinyMCE should have been loaded from Cloud',
-  //         'https://cdn.tiny.cloud/1/a-fake-api-key/tinymce/6-stable',
-  //         Global.tinymce.baseURI.source
-  //       );
-  //     }),
-  //     cRemove,
-  //     cDeleteTinymce,
-  //     cRender({}, `
-  //       <editor
-  //         :init="init"
-  //         api-key="a-fake-api-key"
-  //         cloud-channel="5-stable"
-  //       ></editor>
-  //     `),
-  //     cAssertTinymceVersion('5'),
-  //     Chain.op(() => {
-  //       Assertions.assertEq(
-  //         'TinyMCE should have been loaded from Cloud',
-  //         'https://cdn.tiny.cloud/1/a-fake-api-key/tinymce/5-stable',
-  //         Global.tinymce.baseURI.source
-  //       );
-  //     }),
-  //     cRemove,
-  //     cDeleteTinymce,
-  //   ]),
-  // ], success, failure);

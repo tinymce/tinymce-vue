@@ -7,7 +7,6 @@ describe('UtilsTest', () => {
     const actual = isValidKey(key);
     Assertions.assertEq('Key is valid', expected, actual);
   };
-
   it('should check if key is valid onKeyUp', () => {
     checkValidKey('onKeyUp', true);
   });
