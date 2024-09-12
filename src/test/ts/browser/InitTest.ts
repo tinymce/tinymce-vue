@@ -13,12 +13,11 @@ describe('Editor Component Initialization Tests', () => {
     Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(vmContext.editor.getBody()) as SugarElement<Node>);
   };
 
-  afterEach(() => {
-    cleanupTinymce();
-  });
-
   Arr.each([ '4', '5', '6', '7' as const ], (version) => {
     context(`Version: ${version}`, () => {
+      afterEach(() => {
+        cleanupTinymce();
+      });
       before(async () => {
         await VersionLoader.pLoadVersion(version);
       });
