@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "asynctest"
-    ]
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }
