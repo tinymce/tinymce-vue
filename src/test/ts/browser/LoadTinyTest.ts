@@ -1,7 +1,7 @@
 import { Assertions } from '@ephox/agar';
 import { context, describe, it } from '@ephox/bedrock-client';
 import { Global } from '@ephox/katamari';
-import { pRender } from '../alien/Loader';
+import { pRender, remove } from '../alien/Loader';
 import { cleanupGlobalTinymce, VALID_API_KEY } from '../alien/TestHelper';
 
 describe('LoadTinyTest', () => {
@@ -20,6 +20,7 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('7');
+      remove();
       cleanupGlobalTinymce();
     });
 
@@ -32,6 +33,7 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('6');
+      remove();
       cleanupGlobalTinymce();
     });
 
@@ -44,6 +46,7 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('5');
+      remove();
       cleanupGlobalTinymce();
     });
 
@@ -56,6 +59,7 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('4');
+      remove();
       cleanupGlobalTinymce();
     });
 
@@ -73,6 +77,7 @@ describe('LoadTinyTest', () => {
         `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/7-stable`,
         Global.tinymce.baseURI.source
       );
+      remove();
       cleanupGlobalTinymce();
     });
 
@@ -90,6 +95,7 @@ describe('LoadTinyTest', () => {
         `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/6-stable`,
         Global.tinymce.baseURI.source
       );
+      remove();
       cleanupGlobalTinymce();
     });
 
@@ -107,6 +113,7 @@ describe('LoadTinyTest', () => {
         `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/5-stable`,
         Global.tinymce.baseURI.source
       );
+      remove();
       cleanupGlobalTinymce();
     });
   });
