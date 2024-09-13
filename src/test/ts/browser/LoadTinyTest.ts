@@ -2,7 +2,7 @@ import { Assertions } from '@ephox/agar';
 import { context, describe, it } from '@ephox/bedrock-client';
 import { Global } from '@ephox/katamari';
 import { pRender } from '../alien/Loader';
-import { cleanupTinymce, VALID_API_KEY } from '../alien/TestHelper';
+import { cleanupGlobalTinymce, VALID_API_KEY } from '../alien/TestHelper';
 
 describe('LoadTinyTest', () => {
 
@@ -20,8 +20,9 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('7');
-      cleanupTinymce();
+      cleanupGlobalTinymce();
     });
+
     it('Should be able to load local version of TinyMCE 6 using the tinymceScriptSrc prop', async () => {
       await pRender({}, `
         <editor
@@ -31,8 +32,9 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('6');
-      cleanupTinymce();
+      cleanupGlobalTinymce();
     });
+
     it('Should be able to load local version of TinyMCE 5 using the tinymceScriptSrc prop', async () => {
       await pRender({}, `
         <editor
@@ -42,8 +44,9 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('5');
-      cleanupTinymce();
+      cleanupGlobalTinymce();
     });
+
     it('Should be able to load local version of TinyMCE 4 using the tinymceScriptSrc prop', async () => {
       await pRender({}, `
         <editor
@@ -53,8 +56,9 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('4');
-      cleanupTinymce();
+      cleanupGlobalTinymce();
     });
+
     it('Should be able to load TinyMCE 7 from Cloud', async () => {
       await pRender({}, `
         <editor
@@ -69,8 +73,9 @@ describe('LoadTinyTest', () => {
         `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/7-stable`,
         Global.tinymce.baseURI.source
       );
-      cleanupTinymce();
+      cleanupGlobalTinymce();
     });
+
     it('Should be able to load TinyMCE 6 from Cloud', async () => {
       await pRender({}, `
         <editor
@@ -85,8 +90,9 @@ describe('LoadTinyTest', () => {
         `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/6-stable`,
         Global.tinymce.baseURI.source
       );
-      cleanupTinymce();
+      cleanupGlobalTinymce();
     });
+
     it('Should be able to load TinyMCE 5 from Cloud', async () => {
       await pRender({}, `
         <editor
@@ -101,7 +107,7 @@ describe('LoadTinyTest', () => {
         `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/5-stable`,
         Global.tinymce.baseURI.source
       );
-      cleanupTinymce();
+      cleanupGlobalTinymce();
     });
   });
 });

@@ -1,9 +1,9 @@
 import { Assertions, Keyboard, Keys, Waiter } from '@ephox/agar';
-import { pRender } from '../alien/Loader';
+import { pRender, remove } from '../alien/Loader';
 import { VersionLoader } from '@tinymce/miniature'; // Add this line
 import { SugarElement } from '@ephox/sugar';
-import { describe, it, afterEach, before, context } from '@ephox/bedrock-client';
-import { cleanupTinymce, VALID_API_KEY } from '../alien/TestHelper';
+import { describe, it, afterEach, before, context, after } from '@ephox/bedrock-client';
+import { cleanupGlobalTinymce, VALID_API_KEY } from '../alien/TestHelper';
 import { Arr } from '@ephox/katamari';
 
 describe('Editor Component Initialization Tests', () => {
@@ -15,11 +15,17 @@ describe('Editor Component Initialization Tests', () => {
 
   Arr.each([ '4', '5', '6', '7' as const ], (version) => {
     context(`Version: ${version}`, () => {
-      afterEach(() => {
-        cleanupTinymce();
-      });
+
       before(async () => {
         await VersionLoader.pLoadVersion(version);
+      });
+
+      after(() => {
+        cleanupGlobalTinymce();
+      });
+
+      afterEach(() => {
+        remove();
       });
 
       it('should not be inline by default', async () => {

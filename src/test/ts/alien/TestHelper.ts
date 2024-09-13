@@ -5,7 +5,7 @@ import { ScriptLoader } from '../../../main/ts/ScriptLoader';
 const VALID_API_KEY = 'qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc';
 
 // Function to clean up and remove TinyMCE-related scripts and links from the document
-const cleanupTinymce = () => {
+const cleanupGlobalTinymce = () => {
   ScriptLoader.reinitialize();
   // Delete global references to TinyMCE, if they exist
   delete Global.tinymce;
@@ -23,5 +23,5 @@ const cleanupTinymce = () => {
 
 export {
   VALID_API_KEY,
-  cleanupTinymce,
+  cleanupGlobalTinymce,
 };
