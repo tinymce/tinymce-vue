@@ -1,6 +1,6 @@
 import { Assertions, Keyboard, Keys, Waiter } from '@ephox/agar';
 import { pRender, remove } from '../alien/Loader';
-import { VersionLoader } from '@tinymce/miniature'; // Add this line
+import { VersionLoader } from '@tinymce/miniature';
 import { SugarElement } from '@ephox/sugar';
 import { describe, it, afterEach, before, context, after } from '@ephox/bedrock-client';
 import { cleanupGlobalTinymce, VALID_API_KEY } from '../alien/TestHelper';
