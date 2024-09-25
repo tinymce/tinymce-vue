@@ -52,7 +52,7 @@ export default {
       table: {
         defaultValue: {summary: '5'}
       },
-      defaultValue: ['7'],
+      defaultValue: '7',
       options: ['5', '5-dev', '5-testing', '6-testing', '6-stable', '7-dev', '7-testing', '7-stable'],
       control: { type: 'select'}
     },
@@ -79,7 +79,6 @@ export const Iframe: Story = (args) => ({
     });
     const cc = args.channel || lastChannel;
     const conf = getConf(args.conf);
-    console.log('conf: ', conf);
     return {
       apiKey,
       content,
