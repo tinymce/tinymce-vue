@@ -79,8 +79,6 @@ export const Iframe: Story = (args) => ({
     });
     const cc = args.channel || lastChannel;
     const conf = getConf(args.conf);
-    console.log('conf: ', conf);
-    console.log('channel: ', cc);
     return {
       apiKey,
       content,
