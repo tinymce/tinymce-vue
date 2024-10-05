@@ -36,6 +36,7 @@ export const Editor = defineComponent({
     let conf = props.init ? { ...props.init, ...defaultInitValues } : { ...defaultInitValues };
     const { disabled, modelValue, tagName } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
+    const ready = ref(false);
     let vueEditor: any = null;
     const elementId: string = props.id || uuid('tiny-vue');
     const inlineEditor: boolean = (props.init && props.init.inline) || props.inline;
@@ -59,7 +60,13 @@ export const Editor = defineComponent({
         inline: inlineEditor,
         setup: (editor: TinyMCEEditor) => {
           vueEditor = editor;
-          editor.on('init', (e: EditorEvent<any>) => initEditor(e, props, ctx, editor, modelValue, content));
+          editor.on('init', (e: EditorEvent<any>) => {
+            ready.value = true;
+            initEditor(e, props, ctx, editor, modelValue, content);
+          });
+          editor.on('remove', () => {
+            ready.value = false;
+          });
           if (typeof conf.setup === 'function') {
             conf.setup(editor);
           }
@@ -71,8 +78,8 @@ export const Editor = defineComponent({
       getTinymce().init(finalInit);
       mounting = false;
     };
-    watch(disabled, (disable) => {
-      if (vueEditor !== null) {
+    watch([ disabled, ready ], ([ disable, isReady ]) => {
+      if (isReady && vueEditor !== null) {
         if (typeof vueEditor.mode?.set === 'function') {
           vueEditor.mode.set(disable ? 'readonly' : 'design');
         } else {
