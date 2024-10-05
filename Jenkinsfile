@@ -2,6 +2,8 @@
 @Library('waluigi@release/7') _
 
 mixedBeehiveFlow(
+  container: [ resourceRequestMemory: '3Gi', resourceLimitMemory: '3Gi' ],
+  testContainer: [ selenium: [ image: "selenium/standalone-chrome:127.0" ] ],
   testPrefix: 'Tiny-Vue',
   testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ],
   platforms: [
@@ -24,5 +26,9 @@ mixedBeehiveFlow(
         echo "Skipping as is not latest release"
       }
     }
+  },
+  preparePublish:{
+    yarnInstall()
+    sh "yarn build"
   }
 )
