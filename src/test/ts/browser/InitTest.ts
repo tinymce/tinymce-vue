@@ -1,4 +1,4 @@
-import { Assertions, Keyboard, Keys, Waiter } from '@ephox/agar';
+import { Assertions, Keyboard, Keys } from '@ephox/agar';
 import { pRender, remove } from '../alien/Loader';
 import { VersionLoader } from '@tinymce/miniature';
 import { SugarElement } from '@ephox/sugar';
@@ -62,7 +62,6 @@ describe('Editor Component Initialization Tests', () => {
           ></editor>
         `);
         await pFakeType('A', vmContext);
-        await Waiter.pWait(100);
         Assertions.assertEq('Content emitted should be of format="text"', 'A', vmContext.vm.content);
       });
 
@@ -78,7 +77,6 @@ describe('Editor Component Initialization Tests', () => {
           ></editor>
         `);
         await pFakeType('A', vmContext);
-        await Waiter.pWait(100);
         Assertions.assertEq('Content emitted should be of format="html"', '<p>A</p>', vmContext.vm.content);
       });
     });
