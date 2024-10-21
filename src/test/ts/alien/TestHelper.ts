@@ -7,7 +7,7 @@ const VALID_API_KEY = 'qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc';
 // Function to clean up and remove TinyMCE-related scripts and links from the document
 const cleanupGlobalTinymce = () => {
   ScriptLoader.reinitialize();
-  // Delete global references to TinyMCE, if they exist
+  // This deletes global references to TinyMCE, to ensure a clean slate for each initialization when tests are switching to a different editor versions.
   delete Global.tinymce;
   delete Global.tinyMCE;
   // Helper function to check if an element has a TinyMCE-related URI in a specific attribute
