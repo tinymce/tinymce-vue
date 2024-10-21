@@ -1,5 +1,6 @@
 import { Assertions } from '@ephox/agar';
 import { describe, it } from '@ephox/bedrock-client';
+import { Arr } from '@ephox/katamari';
 import { isValidKey } from 'src/main/ts/Utils';
 
 describe('UtilsTest', () => {
@@ -17,7 +18,7 @@ describe('UtilsTest', () => {
       { key: 'onkeyup', description: 'lowercase event name "onkeyup"' }
     ];
 
-    validKeys.forEach(({ key, description }) => {
+    Arr.each(validKeys, ({ key, description }) => {
       it(`should validate ${description}`, () => {
         checkValidKey(key, true);
       });

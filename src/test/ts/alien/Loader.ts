@@ -18,7 +18,8 @@ const getRoot = () => SelectorFind.descendant(SugarBody.body(), '#root').getOrTh
   return root;
 });
 
-const pRender = (data: Record<string, any> = {}, template: string = `<editor :init="init"></editor>`): Promise<any> => new Promise((resolve) => {
+// eslint-disable-next-line max-len
+const pRender = (data: Record<string, any> = {}, template: string = `<editor :init="init"></editor>`): Promise<Record<string, any>> => new Promise((resolve) => {
   const root = getRoot();
   const mountPoint = SugarElement.fromTag('div');
   Insert.append(root, mountPoint);
