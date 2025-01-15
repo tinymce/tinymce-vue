@@ -3,7 +3,7 @@
 
 mixedBeehiveFlow(
   container: [ resourceRequestMemory: '3Gi', resourceLimitMemory: '3Gi' ],
-  testContainer: [ selenium: [ image: "selenium/standalone-chrome:127.0" ] ],
+  headlessContainer: [ selenium: [ image: "selenium/standalone-chrome:127.0" ] ],
   testPrefix: 'Tiny-Vue',
   testDirs: [ "src/test/ts/atomic", "src/test/ts/browser" ],
   platforms: [
