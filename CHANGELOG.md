@@ -7,11 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 6.1.0 - 2024-10-22
+
 ### Changed
-- Moved tinymce dependency to be a optional peer dependency. #INT-3324
+- Moved tinymce dependency to be a optional peer dependency.
 
 ### Fixed
-- Assigned the `licenseKey` prop to TinyMCE's `license_key` init prop. Community PR acknowledgement: Calneideck <cal_neideck@hotmail.com>
+- Assigned the `licenseKey` prop to TinyMCE's `license_key` init prop. Community PR acknowledgement: Calneideck.
 
 ## 6.0.0 - 2024-06-05
 

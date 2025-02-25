@@ -58,6 +58,7 @@ export const Editor = defineComponent({
         plugins: mergePlugins(conf.plugins, props.plugins),
         toolbar: props.toolbar || (conf.toolbar),
         inline: inlineEditor,
+        license_key: props.licenseKey,
         setup: (editor: TinyMCEEditor) => {
           vueEditor = editor;
           editor.on('init', (e: EditorEvent<any>) => {
