@@ -105,7 +105,7 @@ export const Editor = defineComponent({
       }
     });
     onBeforeUnmount(() => {
-      if (getTinymce() !== null) {
+      if (getTinymce() !== null && vueEditor !== null) {
         getTinymce().remove(vueEditor);
       }
     });
@@ -119,7 +119,9 @@ export const Editor = defineComponent({
         if (!modelBind) {
           cache = vueEditor.getContent();
         }
-        getTinymce()?.remove(vueEditor);
+        if (vueEditor !== null) {
+          getTinymce()?.remove(vueEditor);
+        }
       });
     }
     const rerender = (init: EditorOptions) => {
