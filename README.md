@@ -12,6 +12,7 @@ This package is a thin wrapper around [TinyMCE](https://github.com/tinymce/tinym
 
 ### Support
 
+Version 7.0 is intended to support the tinymce version 7.4 and above.
 Version 4.0 is intended to support Vue 3. For Vue 2.x and below please use previous versions of the wrapper.
 
 ### Issues

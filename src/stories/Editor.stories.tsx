@@ -2,8 +2,8 @@ import { Story } from '@storybook/vue3';
 import { onBeforeMount, ref } from 'vue';
 import { ScriptLoader } from '../main/ts/ScriptLoader';
 
+import type { EditorEvent, Editor as TinyMCEEditor } from 'tinymce';
 import { Editor } from '../main/ts/components/Editor';
-import type { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
 
 const apiKey = 'qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc';
 const content = `
@@ -159,8 +159,12 @@ export const Disable: Story = (args) => ({
     const cc = args.channel || lastChannel;
     const conf = getConf(args.conf);
     const disabled = ref(false);
+    const readonly = ref(false);
     const toggleDisabled = (_) => {
       disabled.value = !disabled.value;
+    }
+    const toggleReadonly = (_) => {
+      readonly.value = !readonly.value;
     }
     return {
       apiKey,
@@ -168,15 +172,19 @@ export const Disable: Story = (args) => ({
       cloudChannel: cc,
       conf,
       disabled,
-      toggleDisabled
+      readonly,
+      toggleDisabled,
+      toggleReadonly
     }
   },
   template: `
     <div>
       <button @click="toggleDisabled">{{ disabled ? 'enable' : 'disable' }}</button>
+      <button @click="toggleReadonly">{{ readonly ? 'design' : 'readonly' }}</button>
       <editor
         api-key="${apiKey}"
         v-bind:disabled="disabled"
+        v-bind:readonly="readonly"
         :init="conf"
         v-model="content"
       />

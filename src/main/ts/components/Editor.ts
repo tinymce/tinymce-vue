@@ -34,7 +34,7 @@ export const Editor = defineComponent({
   props: editorProps,
   setup: (props: IPropTypes, ctx) => {
     let conf = props.init ? { ...props.init, ...defaultInitValues } : { ...defaultInitValues };
-    const { disabled, modelValue, tagName } = toRefs(props);
+    const { disabled, readonly, modelValue, tagName } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
     let vueEditor: any = null;
     const elementId: string = props.id || uuid('tiny-vue');
@@ -52,7 +52,8 @@ export const Editor = defineComponent({
       const content = getContent(mounting);
       const finalInit = {
         ...conf,
-        readonly: props.disabled,
+        readonly: props.readonly,
+        disabled: props.disabled,
         target: element.value,
         plugins: mergePlugins(conf.plugins, props.plugins),
         toolbar: props.toolbar || (conf.toolbar),
@@ -72,13 +73,18 @@ export const Editor = defineComponent({
       getTinymce().init(finalInit);
       mounting = false;
     };
-    watch(disabled, (disable) => {
+    watch(readonly, (isReadonly) => {
       if (vueEditor !== null) {
         if (typeof vueEditor.mode?.set === 'function') {
-          vueEditor.mode.set(disable ? 'readonly' : 'design');
+          vueEditor.mode.set(isReadonly ? 'readonly' : 'design');
         } else {
-          vueEditor.setMode(disable ? 'readonly' : 'design');
+          vueEditor.setMode(isReadonly ? 'readonly' : 'design');
         }
+      }
+    });
+    watch(disabled, (disable) => {
+      if (vueEditor !== null) {
+        vueEditor.options.set('disabled', disable);
       }
     });
     watch(tagName, (_) => {
