@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- The readonly prop now maps the the readonly editor option. See: https://www.tiny.cloud/docs/tinymce/latest/editor-important-options/#readonly
+- The readonly prop now maps to the readonly editor option. See: [Editor important options: readonly](https://www.tiny.cloud/docs/tinymce/latest/editor-important-options/#readonly)
 
 ### Changed
 - The disabled prop now maps the the disabled editor option. See: https://www.tiny.cloud/docs/tinymce/latest/editor-important-options/#disabled
