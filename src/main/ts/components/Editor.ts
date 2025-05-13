@@ -8,7 +8,7 @@
 
 import { ScriptLoader } from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
-import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '../Utils';
+import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor, isDisabledOptionSupported } from '../Utils';
 import { editorProps, IPropTypes } from './EditorPropTypes';
 import { h, defineComponent, onMounted, ref, Ref, toRefs, nextTick, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
 import type { Editor as TinyMCEEditor, EditorEvent, TinyMCE } from 'tinymce';
@@ -34,9 +34,9 @@ export const Editor = defineComponent({
   props: editorProps,
   setup: (props: IPropTypes, ctx) => {
     let conf = props.init ? { ...props.init, ...defaultInitValues } : { ...defaultInitValues };
-    const { disabled, modelValue, tagName } = toRefs(props);
+    const { disabled, readonly, modelValue, tagName } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
-    let vueEditor: any = null;
+    let vueEditor: TinyMCEEditor | null = null;
     const elementId: string = props.id || uuid('tiny-vue');
     const inlineEditor: boolean = (props.init && props.init.inline) || props.inline;
     const modelBind = !!ctx.attrs['onUpdate:modelValue'];
@@ -52,7 +52,8 @@ export const Editor = defineComponent({
       const content = getContent(mounting);
       const finalInit = {
         ...conf,
-        readonly: props.disabled,
+        readonly: props.readonly,
+        disabled: props.disabled,
         target: element.value,
         plugins: mergePlugins(conf.plugins, props.plugins),
         toolbar: props.toolbar || (conf.toolbar),
@@ -72,21 +73,36 @@ export const Editor = defineComponent({
       getTinymce().init(finalInit);
       mounting = false;
     };
+    watch(readonly, (isReadonly) => {
+      if (vueEditor !== null && isDisabledOptionSupported(vueEditor)) {
+        if (typeof vueEditor.mode?.set === 'function') {
+          vueEditor.mode.set(isReadonly ? 'readonly' : 'design');
+        } else {
+          (vueEditor as any).setMode(isReadonly ? 'readonly' : 'design');
+        }
+      }
+    });
     watch(disabled, (disable) => {
       if (vueEditor !== null) {
-        if (typeof vueEditor.mode?.set === 'function') {
-          vueEditor.mode.set(disable ? 'readonly' : 'design');
+        if (isDisabledOptionSupported(vueEditor)) {
+          vueEditor.options.set('disabled', disable);
         } else {
-          vueEditor.setMode(disable ? 'readonly' : 'design');
+          if (typeof vueEditor.mode?.set === 'function') {
+            vueEditor.mode.set(disable ? 'readonly' : 'design');
+          } else {
+            (vueEditor as any).setMode(disable ? 'readonly' : 'design');
+          }
         }
       }
     });
     watch(tagName, (_) => {
-      if (!modelBind) {
-        cache = vueEditor.getContent();
+      if (vueEditor) {
+        if (!modelBind) {
+          cache = vueEditor.getContent();
+        }
+        getTinymce()?.remove(vueEditor);
+        nextTick(() => initWrapper());
       }
-      getTinymce()?.remove(vueEditor);
-      nextTick(() => initWrapper());
     });
     onMounted(() => {
       if (getTinymce() !== null) {
@@ -116,17 +132,21 @@ export const Editor = defineComponent({
         }
       });
       onDeactivated(() => {
-        if (!modelBind) {
-          cache = vueEditor.getContent();
+        if (vueEditor) {
+          if (!modelBind) {
+            cache = vueEditor.getContent();
+          }
+          getTinymce()?.remove(vueEditor);
         }
-        getTinymce()?.remove(vueEditor);
       });
     }
     const rerender = (init: EditorOptions) => {
-      cache = vueEditor.getContent();
-      getTinymce()?.remove(vueEditor);
-      conf = { ...conf, ...init, ...defaultInitValues };
-      nextTick(() => initWrapper());
+      if (vueEditor) {
+        cache = vueEditor.getContent();
+        getTinymce()?.remove(vueEditor);
+        conf = { ...conf, ...init, ...defaultInitValues };
+        nextTick(() => initWrapper());
+      }
     };
     ctx.expose({
       rerender,

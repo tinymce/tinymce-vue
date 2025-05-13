@@ -26,6 +26,7 @@ export interface IPropTypes {
   toolbar: string[] | string;
   modelValue: string;
   disabled: boolean;
+  readonly: boolean;
   tinymceScriptSrc: string;
 }
 
@@ -43,6 +44,7 @@ export const editorProps: CopyProps<IPropTypes> = {
   toolbar: [ String, Array ],
   modelValue: String,
   disabled: Boolean,
+  readonly: Boolean,
   tinymceScriptSrc: String,
   outputFormat: {
     type: String,

@@ -155,6 +155,8 @@ const mergePlugins = (initPlugins: string | string[] | undefined, inputPlugins?:
 const isNullOrUndefined = (value: any): value is null | undefined =>
   value === null || value === undefined;
 
+const isDisabledOptionSupported = (editor: TinyMCEEditor): boolean => typeof editor.options.set === 'function' && editor.options.isRegistered('disabled');
+
 export {
   bindHandlers,
   bindModelHandlers,
@@ -163,5 +165,6 @@ export {
   uuid,
   isTextarea,
   mergePlugins,
-  isNullOrUndefined
+  isNullOrUndefined,
+  isDisabledOptionSupported
 };
