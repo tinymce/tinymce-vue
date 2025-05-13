@@ -8,7 +8,7 @@
 
 import { ScriptLoader } from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
-import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor } from '../Utils';
+import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor, isDisabledOptionSupported } from '../Utils';
 import { editorProps, IPropTypes } from './EditorPropTypes';
 import { h, defineComponent, onMounted, ref, Ref, toRefs, nextTick, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
 import type { Editor as TinyMCEEditor, EditorEvent, TinyMCE } from 'tinymce';
@@ -74,7 +74,7 @@ export const Editor = defineComponent({
       mounting = false;
     };
     watch(readonly, (isReadonly) => {
-      if (vueEditor !== null) {
+      if (vueEditor !== null && isDisabledOptionSupported()) {
         if (typeof vueEditor.mode?.set === 'function') {
           vueEditor.mode.set(isReadonly ? 'readonly' : 'design');
         } else {
@@ -84,7 +84,15 @@ export const Editor = defineComponent({
     });
     watch(disabled, (disable) => {
       if (vueEditor !== null) {
-        vueEditor.options.set('disabled', disable);
+        if (isDisabledOptionSupported()) {
+          vueEditor.options.set('disabled', disable);
+        } else {
+          if (typeof vueEditor.mode?.set === 'function') {
+            vueEditor.mode.set(disable ? 'readonly' : 'design');
+          } else {
+            vueEditor.setMode(disable ? 'readonly' : 'design');
+          }
+        }
       }
     });
     watch(tagName, (_) => {
