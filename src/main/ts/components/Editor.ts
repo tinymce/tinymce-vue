@@ -36,7 +36,7 @@ export const Editor = defineComponent({
     let conf = props.init ? { ...props.init, ...defaultInitValues } : { ...defaultInitValues };
     const { disabled, readonly, modelValue, tagName } = toRefs(props);
     const element: Ref<Element | null> = ref(null);
-    let vueEditor: any = null;
+    let vueEditor: TinyMCEEditor | null = null;
     const elementId: string = props.id || uuid('tiny-vue');
     const inlineEditor: boolean = (props.init && props.init.inline) || props.inline;
     const modelBind = !!ctx.attrs['onUpdate:modelValue'];
@@ -74,33 +74,35 @@ export const Editor = defineComponent({
       mounting = false;
     };
     watch(readonly, (isReadonly) => {
-      if (vueEditor !== null && isDisabledOptionSupported()) {
+      if (vueEditor !== null && isDisabledOptionSupported(vueEditor)) {
         if (typeof vueEditor.mode?.set === 'function') {
           vueEditor.mode.set(isReadonly ? 'readonly' : 'design');
         } else {
-          vueEditor.setMode(isReadonly ? 'readonly' : 'design');
+          (vueEditor as any).setMode(isReadonly ? 'readonly' : 'design');
         }
       }
     });
     watch(disabled, (disable) => {
       if (vueEditor !== null) {
-        if (isDisabledOptionSupported()) {
+        if (isDisabledOptionSupported(vueEditor)) {
           vueEditor.options.set('disabled', disable);
         } else {
           if (typeof vueEditor.mode?.set === 'function') {
             vueEditor.mode.set(disable ? 'readonly' : 'design');
           } else {
-            vueEditor.setMode(disable ? 'readonly' : 'design');
+            (vueEditor as any).setMode(disable ? 'readonly' : 'design');
           }
         }
       }
     });
     watch(tagName, (_) => {
-      if (!modelBind) {
-        cache = vueEditor.getContent();
+      if (vueEditor) {
+        if (!modelBind) {
+          cache = vueEditor.getContent();
+        }
+        getTinymce()?.remove(vueEditor);
+        nextTick(() => initWrapper());
       }
-      getTinymce()?.remove(vueEditor);
-      nextTick(() => initWrapper());
     });
     onMounted(() => {
       if (getTinymce() !== null) {
@@ -130,17 +132,21 @@ export const Editor = defineComponent({
         }
       });
       onDeactivated(() => {
-        if (!modelBind) {
-          cache = vueEditor.getContent();
+        if (vueEditor) {
+          if (!modelBind) {
+            cache = vueEditor.getContent();
+          }
+          getTinymce()?.remove(vueEditor);
         }
-        getTinymce()?.remove(vueEditor);
       });
     }
     const rerender = (init: EditorOptions) => {
-      cache = vueEditor.getContent();
-      getTinymce()?.remove(vueEditor);
-      conf = { ...conf, ...init, ...defaultInitValues };
-      nextTick(() => initWrapper());
+      if (vueEditor) {
+        cache = vueEditor.getContent();
+        getTinymce()?.remove(vueEditor);
+        conf = { ...conf, ...init, ...defaultInitValues };
+        nextTick(() => initWrapper());
+      }
     };
     ctx.expose({
       rerender,
