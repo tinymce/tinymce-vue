@@ -8,9 +8,7 @@
 
 import { Ref, watch, SetupContext } from 'vue';
 import { IPropTypes } from './components/EditorPropTypes';
-import type { Editor as TinyMCEEditor, EditorEvent, TinyMCE } from 'tinymce';
-import { getTinymce } from './TinyMCE';
-import { TinyVer } from '@tinymce/miniature';
+import type { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
 
 const validEvents = [
   'onActivate',
@@ -157,10 +155,7 @@ const mergePlugins = (initPlugins: string | string[] | undefined, inputPlugins?:
 const isNullOrUndefined = (value: any): value is null | undefined =>
   value === null || value === undefined;
 
-const isDisabledOptionSupported = (): boolean => {
-  const tinymce: TinyMCE = getTinymce();
-  return !TinyVer.isLessThan(tinymce, '7.6.0');
-};
+const isDisabledOptionSupported = (editor: TinyMCEEditor): boolean => typeof editor.options.set === 'function' && editor.options.isRegistered('disabled');
 
 export {
   bindHandlers,
