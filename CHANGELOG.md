@@ -8,10 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- The readonly prop now maps to the readonly editor option. See: [Editor important options: readonly](https://www.tiny.cloud/docs/tinymce/latest/editor-important-options/#readonly)
+- New `readonly` prop that can be used to toggle the editor's `readonly` mode. #TINY-11908
 
 ### Changed
-- The disabled prop now maps to the disabled editor option. See: [Editor important options: disabled](https://www.tiny.cloud/docs/tinymce/latest/editor-important-options/#disabled)
+- `disabled` prop is now mapped to the editor's `disabled` option. #TINY-11908
 
 ## 6.1.0 - 2024-10-22
 
@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 6.0.0 - 2024-06-05
 
 ### Added
-- Add missing events: `onInput`, `onCommentChange`, `onCompositionEnd`, `onCompositionStart`, `onCompositionUpdate`
+- Added missing events: `onInput`, `onCommentChange`, `onCompositionEnd`, `onCompositionStart`, `onCompositionUpdate`.
 
 ### Changed
 - Default cloud channel to '7'

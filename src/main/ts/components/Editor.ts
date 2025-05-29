@@ -30,6 +30,15 @@ const renderIframe = (ce: any, id: string, elementRef: Ref<Element | null>) =>
 
 const defaultInitValues = { selector: undefined, target: undefined };
 
+const setMode = (editor: TinyMCEEditor, mode: 'readonly' | 'design') => {
+  if (typeof editor.mode?.set === 'function') {
+    editor.mode.set(mode);
+  } else {
+    // TinyMCE v4
+    (editor as any).setMode(mode);
+  }
+};
+
 export const Editor = defineComponent({
   props: editorProps,
   setup: (props: IPropTypes, ctx) => {
@@ -52,8 +61,8 @@ export const Editor = defineComponent({
       const content = getContent(mounting);
       const finalInit = {
         ...conf,
-        readonly: props.readonly,
         disabled: props.disabled,
+        readonly: props.readonly,
         target: element.value,
         plugins: mergePlugins(conf.plugins, props.plugins),
         toolbar: props.toolbar || (conf.toolbar),
@@ -61,6 +70,11 @@ export const Editor = defineComponent({
         license_key: props.licenseKey,
         setup: (editor: TinyMCEEditor) => {
           vueEditor = editor;
+
+          if (!isDisabledOptionSupported(vueEditor) && props.disabled === true) {
+            setMode(vueEditor, 'readonly');
+          }
+
           editor.on('init', (e: EditorEvent<any>) => initEditor(e, props, ctx, editor, modelValue, content));
           if (typeof conf.setup === 'function') {
             conf.setup(editor);
@@ -74,24 +88,16 @@ export const Editor = defineComponent({
       mounting = false;
     };
     watch(readonly, (isReadonly) => {
-      if (vueEditor !== null && isDisabledOptionSupported(vueEditor)) {
-        if (typeof vueEditor.mode?.set === 'function') {
-          vueEditor.mode.set(isReadonly ? 'readonly' : 'design');
-        } else {
-          (vueEditor as any).setMode(isReadonly ? 'readonly' : 'design');
-        }
+      if (vueEditor !== null) {
+        setMode(vueEditor, isReadonly ? 'readonly' : 'design');
       }
     });
-    watch(disabled, (disable) => {
+    watch(disabled, (isDisabled) => {
       if (vueEditor !== null) {
         if (isDisabledOptionSupported(vueEditor)) {
-          vueEditor.options.set('disabled', disable);
+          vueEditor.options.set('disabled', isDisabled);
         } else {
-          if (typeof vueEditor.mode?.set === 'function') {
-            vueEditor.mode.set(disable ? 'readonly' : 'design');
-          } else {
-            (vueEditor as any).setMode(disable ? 'readonly' : 'design');
-          }
+          setMode(vueEditor, isDisabled ? 'readonly' : 'design');
         }
       }
     });
