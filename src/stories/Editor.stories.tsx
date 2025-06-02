@@ -53,8 +53,16 @@ export default {
         defaultValue: {summary: '5'}
       },
       defaultValue: '7',
-      options: ['5', '5-dev', '5-testing', '6-testing', '6-stable', '7-dev', '7-testing', '7-stable'],
+      options: ['5', '5-dev', '5-testing', '6-testing', '6-stable', '7-dev', '7-testing', '7-stable', '7.3', '7.4', '7.6'],
       control: { type: 'select'}
+    },
+    disabled: {
+      defaultValue: false,
+      control: 'boolean'
+    },
+    readonly: {
+      defaultValue: false,
+      control: 'boolean'
     },
     conf: {
       defaultValue: '{height: 300}',
@@ -158,11 +166,41 @@ export const Disable: Story = (args) => ({
     });
     const cc = args.channel || lastChannel;
     const conf = getConf(args.conf);
-    const disabled = ref(false);
-    const readonly = ref(false);
+    const disabled = ref(args.disabled);
     const toggleDisabled = (_) => {
       disabled.value = !disabled.value;
     }
+
+    return {
+      apiKey,
+      content,
+      cloudChannel: cc,
+      conf,
+      disabled,
+      toggleDisabled
+    }
+  },
+  template: `
+    <div>
+      <button @click="toggleDisabled">{{ disabled ? 'enable' : 'disable' }}</button>
+      <editor
+        api-key="${apiKey}"
+        :disabled="disabled"
+        :init="conf"
+        v-model="content"
+      />
+    </div>`
+});
+
+export const Readonly: Story = (args) => ({
+  components: { Editor },
+  setup() {
+    onBeforeMount(() => {
+      loadTiny(args);
+    });
+    const cc = args.channel || lastChannel;
+    const conf = getConf(args.conf);
+    const readonly = ref(args.readonly);
     const toggleReadonly = (_) => {
       readonly.value = !readonly.value;
     }
@@ -171,20 +209,16 @@ export const Disable: Story = (args) => ({
       content,
       cloudChannel: cc,
       conf,
-      disabled,
       readonly,
-      toggleDisabled,
       toggleReadonly
     }
   },
   template: `
     <div>
-      <button @click="toggleDisabled">{{ disabled ? 'enable' : 'disable' }}</button>
       <button @click="toggleReadonly">{{ readonly ? 'design' : 'readonly' }}</button>
       <editor
         api-key="${apiKey}"
-        v-bind:disabled="disabled"
-        v-bind:readonly="readonly"
+        :readonly="readonly"
         :init="conf"
         v-model="content"
       />
