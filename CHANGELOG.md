@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 6.2.0 - 2025-06-02
+
 ### Added
 - New `readonly` prop that can be used to toggle the editor's `readonly` mode. #TINY-11908
 
