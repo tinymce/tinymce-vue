@@ -6,7 +6,7 @@ import { cleanupGlobalTinymce, VALID_API_KEY } from '../alien/TestHelper';
 
 describe('LoadTinyTest', () => {
 
-  const AssertTinymceVersion = (version: '4' | '5' | '6' | '7') => {
+  const AssertTinymceVersion = (version: '4' | '5' | '6' | '7' | '8') => {
     Assertions.assertEq(`Loaded version of TinyMCE should be ${version}`, version, Global.tinymce.majorVersion);
   };
 
@@ -15,6 +15,18 @@ describe('LoadTinyTest', () => {
     beforeEach(() => {
       remove();
       cleanupGlobalTinymce();
+    });
+
+    it('Should be able to load local version of TinyMCE 8 using the tinymceScriptSrc prop', async () => {
+      await pRender({}, `
+        <editor
+          :init="init"
+          license-key="gpl"
+          tinymce-script-src="/project/node_modules/tinymce-8/tinymce.min.js"
+        ></editor>
+      `);
+
+      AssertTinymceVersion('8');
     });
 
     it('Should be able to load local version of TinyMCE 7 using the tinymceScriptSrc prop', async () => {
@@ -59,6 +71,25 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('4');
+    });
+
+    it('Should be able to load TinyMCE 8 from Cloud', async () => {
+      // The 8-dev should be swapped with 8-stable once 8 releases
+      await pRender({}, `
+        <editor
+          :init="init"
+          api-key="${VALID_API_KEY}"
+          cloud-channel="8-dev"
+        ></editor>
+      `);
+
+      AssertTinymceVersion('8');
+      // The 8-dev should be swapped with 8-stable once 8 releases
+      Assertions.assertEq(
+        'TinyMCE 8 should have been loaded from Cloud',
+        `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/8-dev`,
+        Global.tinymce.baseURI.source
+      );
     });
 
     it('Should be able to load TinyMCE 7 from Cloud', async () => {

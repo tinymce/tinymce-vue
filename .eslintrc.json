@@ -6,7 +6,8 @@
         "src/**/*.tsx"
       ],
       "excludedFiles": [
-        "src/demo/demo.ts"
+        "src/demo/demo.ts",
+        "src/**/*.stories.*"
       ],
       "plugins": ["@typescript-eslint"],
       "extends": "plugin:@tinymce/standard",
@@ -16,6 +17,21 @@
       },
       "rules": {
         "@tinymce/prefer-fun": "off"
+      }
+    },
+    {
+      "files": [ "src/**/*.stories.*" ],
+      "plugins": ["@typescript-eslint"],
+      "extends": "plugin:@tinymce/standard",
+      "parserOptions": {
+        "project": "tsconfig.storybook.json",
+        "sourceType": "module"
+      },
+      "rules": {
+        "@tinymce/prefer-fun": "off",
+        "no-console": "off",
+        "@typescript-eslint/no-implied-eval": "off",
+        "@typescript-eslint/no-unsafe-argument": "off"
       }
     },
     {
