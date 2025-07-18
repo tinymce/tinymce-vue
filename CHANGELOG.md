@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Default cloud channel to '8'
+
 ## 6.2.0 - 2025-06-02
 
 ### Added

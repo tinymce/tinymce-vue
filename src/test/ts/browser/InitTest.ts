@@ -13,6 +13,7 @@ describe('Editor Component Initialization Tests', () => {
     Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(vmContext.editor.getBody()) as SugarElement<Node>);
   };
 
+  // TODO: Add tests for TinyMCE 8 initialization once it releases
   Arr.each([ '4', '5', '6', '7' as const ], (version) => {
     context(`Version: ${version}`, () => {
 
@@ -32,6 +33,7 @@ describe('Editor Component Initialization Tests', () => {
         const vmContext = await pRender({}, `
           <editor
             :init="init"
+            license-key="gpl"
           ></editor>`);
         Assertions.assertEq('Editor should not be inline', false, vmContext.editor.inline);
       });
@@ -41,12 +43,13 @@ describe('Editor Component Initialization Tests', () => {
           <editor
             :init="init"
             :inline="true"
+            license-key="gpl"
           ></editor>`);
         Assertions.assertEq('Editor should be inline', true, vmContext.editor.inline);
       });
 
       it('should be inline with inline option in init', async () => {
-        const vmContext = await pRender({ init: { inline: true }});
+        const vmContext = await pRender({ init: { inline: true, license_key: 'gpl' }});
         Assertions.assertEq('Editor should be inline', true, vmContext.editor.inline);
       });
 
@@ -57,6 +60,7 @@ describe('Editor Component Initialization Tests', () => {
           <editor
             :init="init"
             api-key="${VALID_API_KEY}"
+            license-key="gpl"
             @update:modelValue="content=$event"
             output-format="text"
           ></editor>
@@ -71,6 +75,7 @@ describe('Editor Component Initialization Tests', () => {
         }, `
           <editor
             :init="init"
+            license-key="gpl"
             api-key="${VALID_API_KEY}"
             @update:modelValue="content=$event"
             output-format="html"
