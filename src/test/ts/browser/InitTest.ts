@@ -13,7 +13,8 @@ describe('Editor Component Initialization Tests', () => {
     Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(vmContext.editor.getBody()) as SugarElement<Node>);
   };
 
-  Arr.each([ '4', '5', '6', '7', '8' as const ], (version) => {
+  // TODO: Add tests for TinyMCE 8 initialization once it releases
+  Arr.each([ '4', '5', '6', '7' as const ], (version) => {
     context(`Version: ${version}`, () => {
 
       before(async () => {

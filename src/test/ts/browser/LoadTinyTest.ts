@@ -17,7 +17,8 @@ describe('LoadTinyTest', () => {
       cleanupGlobalTinymce();
     });
 
-    it('Should be able to load local version of TinyMCE 8 using the tinymceScriptSrc prop', async () => {
+    // Skip this test as it requires a local version of TinyMCE 8
+    it.skip('Should be able to load local version of TinyMCE 8 using the tinymceScriptSrc prop', async () => {
       await pRender({}, `
         <editor
           :init="init"
@@ -73,7 +74,8 @@ describe('LoadTinyTest', () => {
       AssertTinymceVersion('4');
     });
 
-    it('Should be able to load TinyMCE 8 from Cloud', async () => {
+    // Skip this test until TinyMCE 8 is released
+    it.skip('Should be able to load TinyMCE 8 from Cloud', async () => {
       // The 8-dev should be swapped with 8-stable once 8 releases
       await pRender({}, `
         <editor

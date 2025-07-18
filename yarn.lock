@@ -15525,11 +15525,10 @@ tiny-emitter@^2.0.0:
   resolved "https://registry.npmjs.org/tinymce/-/tinymce-7.0.1.tgz"
   integrity sha512-0a7DJnhniBx2psRuKcVQ9g4hujN6PAR4fPS0NSF1T1luH1RBDZVVEn2pGND6Ly+AW1lUm/cHOHjsasqBelMhbw==
 
-"tinymce-8@file:../tinymce/dist/tinymce_8.1.0_component":
-  version "8.1.0"
-
-"tinymce@file:../tinymce/dist/tinymce_8.1.0_component/":
-  version "8.1.0"
+tinymce@^7:
+  version "7.9.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-7.9.1.tgz#1b18bad9cb7a3b4b12e3e5a7f29fc7daad0713d7"
+  integrity sha512-zaOHwmiP1EqTeLRXAvVriDb00JYnfEjWGPdKEuac7MiZJ5aiDMZ4Unc98Gmajn+PBljOmO1GKV6G0KwWn3+k8A==
 
 tmp@^0.2.1:
   version "0.2.1"
