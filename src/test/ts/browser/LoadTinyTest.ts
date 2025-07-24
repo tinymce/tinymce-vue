@@ -74,14 +74,13 @@ describe('LoadTinyTest', () => {
       AssertTinymceVersion('4');
     });
 
-    // Skip this test until TinyMCE 8 is released
-    it.skip('Should be able to load TinyMCE 8 from Cloud', async () => {
+    it('Should be able to load TinyMCE 8 from Cloud', async () => {
       // The 8-dev should be swapped with 8-stable once 8 releases
       await pRender({}, `
         <editor
           :init="init"
           api-key="${VALID_API_KEY}"
-          cloud-channel="8-dev"
+          cloud-channel="8"
         ></editor>
       `);
 
@@ -89,7 +88,7 @@ describe('LoadTinyTest', () => {
       // The 8-dev should be swapped with 8-stable once 8 releases
       Assertions.assertEq(
         'TinyMCE 8 should have been loaded from Cloud',
-        `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/8-dev`,
+        `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/8`,
         Global.tinymce.baseURI.source
       );
     });
