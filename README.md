@@ -4,17 +4,25 @@
 
 This package is a thin wrapper around [TinyMCE](https://github.com/tinymce/tinymce) to make it easier to use in a Vue application.
 
-* If you need detailed documentation on TinyMCE, see: [TinyMCE Documentation](https://www.tiny.cloud/docs/tinymce/8/).
-* For the TinyMCE Vue Quick Start, see: [TinyMCE Documentation - Vue Integration](https://www.tiny.cloud/docs/tinymce/8/vue-cloud).
-* For the TinyMCE Vue Technical Reference, see: [TinyMCE Documentation - TinyMCE Vue Technical Reference](https://www.tiny.cloud/docs/tinymce/8/vue-ref).
+* If you need detailed documentation on TinyMCE, see: [TinyMCE Documentation](https://www.tiny.cloud/docs/tinymce/latest/).
+* For the TinyMCE Vue Quick Start, see: [TinyMCE Documentation - Vue Integration](https://www.tiny.cloud/docs/tinymce/latest/vue-cloud).
+* For the TinyMCE Vue Technical Reference, see: [TinyMCE Documentation - TinyMCE Vue Technical Reference](https://www.tiny.cloud/docs/tinymce/latest/vue-ref).
 * For our quick demos, check out the TinyMCE Vue [Storybook](https://tinymce.github.io/tinymce-vue/).
 
 
-### Support
+### Tinymce version compatibility
 
-Version 7.0 is intended to support the tinymce version 8.0 and above.
-Version 6.0 is intended to support the tinymce version 7.6 and above.
-Version 4.0 is intended to support Vue 3. For Vue 2.x and below please use previous versions of the wrapper.
+| tinymce       | tinymce-vue version   |
+| ---           | ---                   |
+| 7.6 and above | 6.2 and above         |
+| below 7.6     | Versions prior to 6.2 |
+
+### Vue version compatibility
+
+| vue     | tinymce-vue             |
+| ---     | ---                     |
+| 3.x     | 4.0 and above           |
+| 2.x     | Versions prior to 4.0   |
 
 ### Issues
 
