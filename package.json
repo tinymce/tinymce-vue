@@ -33,7 +33,7 @@
     "LICENSE.txt"
   ],
   "peerDependencies": {
-    "tinymce": "^7.0.0 || ^6.0.0 || ^5.5.1",
+    "tinymce": "^8.0.0 || ^7.0.0 || ^6.0.0 || ^5.5.1",
     "vue": "^3.0.0"
   },
   "peerDependenciesMeta": {
