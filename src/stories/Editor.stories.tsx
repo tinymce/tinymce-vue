@@ -53,7 +53,7 @@ export default {
       table: {
         defaultValue: { summary: '5' }
       },
-      defaultValue: '8-dev',
+      defaultValue: '8',
       options: [ '5', '5-dev', '5-testing', '6-testing', '6-stable', '7-dev', '7-testing', '7-stable', '7.3', '7.4', '7.6', '8-dev', '8-testing', '8-stable' ],
       control: { type: 'select' }
     },
