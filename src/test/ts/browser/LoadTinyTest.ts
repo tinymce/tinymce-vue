@@ -17,8 +17,7 @@ describe('LoadTinyTest', () => {
       cleanupGlobalTinymce();
     });
 
-    // Skip this test as it requires a local version of TinyMCE 8
-    it.skip('Should be able to load local version of TinyMCE 8 using the tinymceScriptSrc prop', async () => {
+    it('Should be able to load local version of TinyMCE 8 using the tinymceScriptSrc prop', async () => {
       await pRender({}, `
         <editor
           :init="init"
