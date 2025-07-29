@@ -40,9 +40,15 @@ const pRender = (data: Record<string, any> = {}, template: string = `<editor :in
         setup: (editor: any) => {
           originalSetup(editor);
           editor.on('SkinLoaded', () => {
-            setTimeout(() => {
+            // This is a workaround to avoid a race condition occurring in tinymce 8 where licenseKeyManager is still validating the license key
+            // after global tinymce is removed in a clean up. Specifically, it happens when unloading/loading different versions of TinyMCE
+            if (editor.licenseKeyManager) {
+              editor.licenseKeyManager.validate({}).then(() => {
+                resolve({ editor, vm });
+              });
+            } else {
               resolve({ editor, vm });
-            }, 0);
+            }
           });
         }
       }

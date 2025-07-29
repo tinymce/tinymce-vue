@@ -74,7 +74,6 @@ describe('LoadTinyTest', () => {
     });
 
     it('Should be able to load TinyMCE 8 from Cloud', async () => {
-      // The 8-dev should be swapped with 8-stable once 8 releases
       await pRender({}, `
         <editor
           :init="init"
@@ -84,7 +83,6 @@ describe('LoadTinyTest', () => {
       `);
 
       AssertTinymceVersion('8');
-      // The 8-dev should be swapped with 8-stable once 8 releases
       Assertions.assertEq(
         'TinyMCE 8 should have been loaded from Cloud',
         `https://cdn.tiny.cloud/1/${VALID_API_KEY}/tinymce/8`,
