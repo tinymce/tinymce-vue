@@ -2,7 +2,7 @@ import { Story } from '@storybook/vue3';
 import { onBeforeMount, ref } from 'vue';
 import { ScriptLoader } from '../main/ts/ScriptLoader';
 
-import type { EditorEvent, Editor as TinyMCEEditor } from 'tinymce';
+import type { EditorEvent } from 'tinymce';
 import { Editor } from '../main/ts/components/Editor';
 
 const apiKey = 'qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc';
@@ -11,12 +11,14 @@ const content = `
   TinyMCE provides a <span style="text-decoration: underline;">full-featured</span> rich text editing experience, and a featherweight download.
 </h2>
 <p style="text-align: center;">
-  <strong><span style="font-size: 14pt;"><span style="color: #7e8c8d; font-weight: 600;">No matter what you're building, TinyMCE has got you covered.</span></span></strong>
+  <strong>
+    <span style="font-size: 14pt;"><span style="color: #7e8c8d; font-weight: 600;">No matter what you're building, TinyMCE has got you covered.</span></span>
+  </strong>
 </p>`;
 
-let lastChannel = '5';
+let lastChannel = '8';
 const getConf = (stringConf: string) => {
-  let conf  = {};
+  let conf = {};
   console.log('parsing: ', stringConf);
   try {
     conf = Function('"use strict";return (' + stringConf + ')')();
@@ -24,7 +26,7 @@ const getConf = (stringConf: string) => {
     console.error('failed to parse configuration: ', err);
   }
   return conf;
-}
+};
 
 const removeTiny = () => {
   delete (window as any).tinymce;
@@ -43,18 +45,17 @@ const loadTiny = (currentArgs: any) => {
   }
 };
 
-
 export default {
   title: 'Editor',
   component: Editor,
   argTypes: {
     channel: {
       table: {
-        defaultValue: {summary: '5'}
+        defaultValue: { summary: '5' }
       },
-      defaultValue: '7',
-      options: ['5', '5-dev', '5-testing', '6-testing', '6-stable', '7-dev', '7-testing', '7-stable', '7.3', '7.4', '7.6'],
-      control: { type: 'select'}
+      defaultValue: '8-stable',
+      options: [ '5', '5-dev', '5-testing', '6-testing', '6-stable', '7-dev', '7-testing', '7-stable', '7.3', '7.4', '7.6', '8-dev', '8-testing', '8-stable' ],
+      control: { type: 'select' }
     },
     disabled: {
       defaultValue: false,
@@ -80,8 +81,8 @@ export default {
 };
 
 export const Iframe: Story = (args) => ({
-  components: {Editor},
-  setup() {
+  components: { Editor },
+  setup: () => {
     onBeforeMount(() => {
       loadTiny(args);
     });
@@ -92,14 +93,14 @@ export const Iframe: Story = (args) => ({
       content,
       cloudChannel: cc,
       conf
-    }
+    };
   },
   template: '<div ><p>Ready</p><editor :api-key="apiKey" :initialValue="content" :cloud-channel="cloudChannel" :init="conf" /></div>'
 });
 
 export const Inline: Story = (args) => ({
   components: { Editor },
-  setup() {
+  setup: () => {
     onBeforeMount(() => {
       loadTiny(args);
     });
@@ -110,7 +111,7 @@ export const Inline: Story = (args) => ({
       content,
       cloudChannel: cc,
       conf
-    }
+    };
   },
   template: `
     <div style="padding-top: 100px;">
@@ -125,13 +126,15 @@ export const Inline: Story = (args) => ({
 
 export const Controlled: Story = (args) => ({
   components: { Editor },
-  setup() {
+  setup: () => {
     onBeforeMount(() => {
       loadTiny(args);
     });
     const cc = args.channel || lastChannel;
     const conf = getConf(args.conf);
-    const log = (e: EditorEvent<any>, editor: TinyMCEEditor) => {console.log(e);};
+    const log = (e: EditorEvent<any>) => {
+      console.log(e);
+    };
     const controlledContent = ref(content);
     return {
       apiKey,
@@ -139,7 +142,7 @@ export const Controlled: Story = (args) => ({
       cloudChannel: cc,
       conf,
       log
-    }
+    };
   },
   template: `
     <div>
@@ -160,16 +163,16 @@ export const Controlled: Story = (args) => ({
 
 export const Disable: Story = (args) => ({
   components: { Editor },
-  setup() {
+  setup: () => {
     onBeforeMount(() => {
       loadTiny(args);
     });
     const cc = args.channel || lastChannel;
     const conf = getConf(args.conf);
     const disabled = ref(args.disabled);
-    const toggleDisabled = (_) => {
+    const toggleDisabled = () => {
       disabled.value = !disabled.value;
-    }
+    };
 
     return {
       apiKey,
@@ -178,7 +181,7 @@ export const Disable: Story = (args) => ({
       conf,
       disabled,
       toggleDisabled
-    }
+    };
   },
   template: `
     <div>
@@ -194,16 +197,16 @@ export const Disable: Story = (args) => ({
 
 export const Readonly: Story = (args) => ({
   components: { Editor },
-  setup() {
+  setup: () => {
     onBeforeMount(() => {
       loadTiny(args);
     });
     const cc = args.channel || lastChannel;
     const conf = getConf(args.conf);
     const readonly = ref(args.readonly);
-    const toggleReadonly = (_) => {
+    const toggleReadonly = () => {
       readonly.value = !readonly.value;
-    }
+    };
     return {
       apiKey,
       content,
@@ -211,7 +214,7 @@ export const Readonly: Story = (args) => ({
       conf,
       readonly,
       toggleReadonly
-    }
+    };
   },
   template: `
     <div>
