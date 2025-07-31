@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 6.3.0 - 2025-07-31
+
 ### Changed
 - Set the default cloudChannel to `'8'`. #INT-3352
+- Updated peer dependency to support tinymce `8`. #INT-3352
 
 ## 6.2.0 - 2025-06-02
 
