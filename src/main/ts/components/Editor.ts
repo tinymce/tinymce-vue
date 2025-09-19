@@ -101,13 +101,13 @@ export const Editor = defineComponent({
         }
       }
     });
-    watch(tagName, (_) => {
+    watch(tagName, async (_) => {
       if (vueEditor) {
         if (!modelBind) {
           cache = vueEditor.getContent();
         }
         getTinymce()?.remove(vueEditor);
-        nextTick(() => initWrapper());
+        await nextTick(() => initWrapper());
       }
     });
     onMounted(() => {
@@ -146,12 +146,12 @@ export const Editor = defineComponent({
         }
       });
     }
-    const rerender = (init: EditorOptions) => {
+    const rerender = async (init: EditorOptions) => {
       if (vueEditor) {
         cache = vueEditor.getContent();
         getTinymce()?.remove(vueEditor);
         conf = { ...conf, ...init, ...defaultInitValues };
-        nextTick(() => initWrapper());
+        await nextTick(() => initWrapper());
       }
     };
     ctx.expose({
