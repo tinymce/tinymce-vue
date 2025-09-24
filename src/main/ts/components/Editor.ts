@@ -101,13 +101,15 @@ export const Editor = defineComponent({
         }
       }
     });
-    watch(tagName, async (_) => {
+    watch(tagName, (_) => {
       if (vueEditor) {
         if (!modelBind) {
           cache = vueEditor.getContent();
         }
         getTinymce()?.remove(vueEditor);
-        await nextTick(() => initWrapper());
+        // The Vue docs state you can either use the callback form or await it. Ref: https://vuejs.org/api/general.html#nexttick
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        nextTick(() => initWrapper());
       }
     });
     onMounted(() => {
@@ -146,12 +148,16 @@ export const Editor = defineComponent({
         }
       });
     }
-    const rerender = async (init: EditorOptions) => {
+    const rerender = (init: EditorOptions) => {
       if (vueEditor) {
         cache = vueEditor.getContent();
         getTinymce()?.remove(vueEditor);
         conf = { ...conf, ...init, ...defaultInitValues };
-        await nextTick(() => initWrapper());
+
+        // The Vue docs state you can either use the callback form or await it. Ref: https://vuejs.org/api/general.html#nexttick
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        nextTick(() => initWrapper());
+
       }
     };
     ctx.expose({
