@@ -33,6 +33,7 @@ describe('LoadTinyTest', () => {
       await pRender({}, `
         <editor
           :init="init"
+          license-key="gpl"
           tinymce-script-src="/project/node_modules/tinymce-7/tinymce.min.js"
         ></editor>
       `);
@@ -79,6 +80,7 @@ describe('LoadTinyTest', () => {
           :init="init"
           api-key="${VALID_API_KEY}"
           cloud-channel="8"
+          license-key="gpl"
         ></editor>
       `);
 

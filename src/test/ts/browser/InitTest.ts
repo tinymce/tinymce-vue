@@ -7,7 +7,6 @@ import { cleanupGlobalTinymce, VALID_API_KEY } from '../alien/TestHelper';
 import { Arr } from '@ephox/katamari';
 
 describe('Editor Component Initialization Tests', () => {
-  // eslint-disable-next-line @typescript-eslint/require-await
   const pFakeType = async (str: string, vmContext: any) => {
     vmContext.editor.getBody().innerHTML = '<p>' + str + '</p>';
     Keyboard.keystroke(Keys.space(), {}, SugarElement.fromDom(vmContext.editor.getBody()) as SugarElement<Node>);
