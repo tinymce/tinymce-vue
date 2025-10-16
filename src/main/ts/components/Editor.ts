@@ -107,6 +107,8 @@ export const Editor = defineComponent({
           cache = vueEditor.getContent();
         }
         getTinymce()?.remove(vueEditor);
+        // The Vue docs state you can either use the callback form or await it. Ref: https://vuejs.org/api/general.html#nexttick
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         nextTick(() => initWrapper());
       }
     });
@@ -151,7 +153,11 @@ export const Editor = defineComponent({
         cache = vueEditor.getContent();
         getTinymce()?.remove(vueEditor);
         conf = { ...conf, ...init, ...defaultInitValues };
+
+        // The Vue docs state you can either use the callback form or await it. Ref: https://vuejs.org/api/general.html#nexttick
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         nextTick(() => initWrapper());
+
       }
     };
     ctx.expose({
