@@ -6,26 +6,26 @@
  *
  */
 
+import Vue, { CreateElement, VNode } from 'vue';
 import { ScriptLoader } from '../ScriptLoader';
 import { getTinymce } from '../TinyMCE';
 import { isTextarea, mergePlugins, uuid, isNullOrUndefined, initEditor, isDisabledOptionSupported } from '../Utils';
-import { editorProps, IPropTypes } from './EditorPropTypes';
-import { h, defineComponent, onMounted, ref, Ref, toRefs, nextTick, watch, onBeforeUnmount, onActivated, onDeactivated } from 'vue';
+import { editorProps } from './EditorPropTypes';
 import type { Editor as TinyMCEEditor, EditorEvent, TinyMCE } from 'tinymce';
 
 type EditorOptions = Parameters<TinyMCE['init']>[0];
 
-const renderInline = (ce: any, id: string, elementRef: Ref<Element | null>, tagName?: string) =>
-  ce(tagName ? tagName : 'div', {
-    id,
-    ref: elementRef
+const renderInline = (h: CreateElement, id: string, tagName?: string) =>
+  h(tagName ? tagName : 'div', {
+    attrs: { id },
+    ref: 'element'
   });
 
-const renderIframe = (ce: any, id: string, elementRef: Ref<Element | null>) =>
-  ce('textarea', {
-    id,
-    visibility: 'hidden',
-    ref: elementRef
+const renderIframe = (h: CreateElement, id: string) =>
+  h('textarea', {
+    attrs: { id },
+    style: { visibility: 'hidden' },
+    ref: 'element'
   });
 
 const defaultInitValues = { selector: undefined, target: undefined };
@@ -39,133 +39,158 @@ const setMode = (editor: TinyMCEEditor, mode: 'readonly' | 'design') => {
   }
 };
 
-export const Editor = defineComponent({
+export const Editor = Vue.extend({
+  name: 'Editor',
   props: editorProps,
-  setup: (props: IPropTypes, ctx) => {
-    let conf = props.init ? { ...props.init, ...defaultInitValues } : { ...defaultInitValues };
-    const { disabled, readonly, modelValue, tagName } = toRefs(props);
-    const element: Ref<Element | null> = ref(null);
-    let vueEditor: TinyMCEEditor | null = null;
-    const elementId: string = props.id || uuid('tiny-vue');
-    const inlineEditor: boolean = (props.init && props.init.inline) || props.inline;
-    const modelBind = !!ctx.attrs['onUpdate:modelValue'];
-    let mounting = true;
-    const initialValue: string = props.initialValue ? props.initialValue : '';
-    let cache = '';
-
-    const getContent = (isMounting: boolean): () => string => modelBind ?
-      () => (modelValue?.value ? modelValue.value : '') :
-      () => isMounting ? initialValue : cache;
-
-    const initWrapper = (): void => {
-      const content = getContent(mounting);
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue'
+  },
+  data() {
+    return {
+      conf: this.init ? { ...this.init, ...defaultInitValues } : { ...defaultInitValues },
+      element: null as Element | null,
+      vueEditor: null as TinyMCEEditor | null,
+      elementId: this.id || uuid('tiny-vue'),
+      inlineEditor: (this.init && (this.init as any).inline) || this.inline,
+      mounting: true,
+      cache: '',
+      modelUnwatch: undefined as undefined | (() => void)
+    };
+  },
+  computed: {
+    modelBind(): boolean {
+      return !!this.$listeners['update:modelValue'];
+    }
+  },
+  watch: {
+    readonly(isReadonly: boolean) {
+      if (this.vueEditor !== null) {
+        setMode(this.vueEditor, isReadonly ? 'readonly' : 'design');
+      }
+    },
+    disabled(isDisabled: boolean) {
+      if (this.vueEditor !== null) {
+        if (isDisabledOptionSupported(this.vueEditor)) {
+          this.vueEditor.options.set('disabled', isDisabled);
+        } else {
+          setMode(this.vueEditor, isDisabled ? 'readonly' : 'design');
+        }
+      }
+    },
+    tagName() {
+      if (this.vueEditor) {
+        if (!this.modelBind) {
+          this.cache = this.vueEditor.getContent();
+        }
+        getTinymce()?.remove(this.vueEditor);
+        this.modelUnwatch?.();
+        this.modelUnwatch = undefined;
+        this.$nextTick(() => this.initWrapper());
+      }
+    }
+  },
+  mounted() {
+    this.element = this.$refs.element as Element | null;
+    if (getTinymce() !== null) {
+      this.initWrapper();
+    } else if (this.element && this.element.ownerDocument) {
+      const channel = this.cloudChannel ? this.cloudChannel : '8';
+      const apiKey = this.apiKey ? this.apiKey : 'no-api-key';
+      const scriptSrc: string = isNullOrUndefined(this.tinymceScriptSrc) ?
+        `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js` :
+        this.tinymceScriptSrc as string;
+      ScriptLoader.load(
+        this.element.ownerDocument,
+        scriptSrc,
+        () => this.initWrapper()
+      );
+    }
+  },
+  beforeDestroy() {
+    if (getTinymce() !== null) {
+      getTinymce().remove(this.vueEditor);
+    }
+    this.modelUnwatch?.();
+    this.modelUnwatch = undefined;
+  },
+  activated() {
+    if (!this.inlineEditor && !this.mounting) {
+      this.initWrapper();
+    }
+  },
+  deactivated() {
+    if (!this.inlineEditor && this.vueEditor) {
+      if (!this.modelBind) {
+        this.cache = this.vueEditor.getContent();
+      }
+      getTinymce()?.remove(this.vueEditor);
+      this.modelUnwatch?.();
+      this.modelUnwatch = undefined;
+    }
+  },
+  methods: {
+    getContent(isMounting: boolean): () => string {
+      if (this.modelBind) {
+        return () => (this.modelValue ? this.modelValue as string : '');
+      } else {
+        const initialValue: string = this.initialValue ? this.initialValue as string : '';
+        return () => isMounting ? initialValue : this.cache;
+      }
+    },
+    initWrapper(): void {
+      if (!this.element) {
+        return;
+      }
+      const content = this.getContent(this.mounting);
       const finalInit = {
-        ...conf,
-        disabled: props.disabled,
-        readonly: props.readonly,
-        target: element.value,
-        plugins: mergePlugins(conf.plugins, props.plugins),
-        toolbar: props.toolbar || (conf.toolbar),
-        inline: inlineEditor,
-        license_key: props.licenseKey,
+        ...this.conf,
+        disabled: this.disabled,
+        readonly: this.readonly,
+        target: this.element,
+        plugins: mergePlugins((this.conf as EditorOptions).plugins, this.plugins as string | string[]),
+        toolbar: this.toolbar || (this.conf as EditorOptions).toolbar,
+        inline: this.inlineEditor,
+        license_key: this.licenseKey,
         setup: (editor: TinyMCEEditor) => {
-          vueEditor = editor;
+          this.vueEditor = editor;
 
-          if (!isDisabledOptionSupported(vueEditor) && props.disabled === true) {
-            setMode(vueEditor, 'readonly');
+          if (!isDisabledOptionSupported(editor) && this.disabled === true) {
+            setMode(editor, 'readonly');
           }
 
-          editor.on('init', (e: EditorEvent<any>) => initEditor(e, props, ctx, editor, modelValue, content));
-          if (typeof conf.setup === 'function') {
-            conf.setup(editor);
-          }
+          editor.on('init', (e: EditorEvent<any>) => {
+            this.modelUnwatch?.();
+            this.modelUnwatch = initEditor(e, this as Vue, editor, content);
+          });
+
+          (this.conf as EditorOptions).setup?.(editor);
         }
       };
-      if (isTextarea(element.value)) {
-        element.value.style.visibility = '';
+      if (isTextarea(this.element)) {
+        (this.element as HTMLTextAreaElement).style.visibility = '';
       }
       getTinymce().init(finalInit);
-      mounting = false;
-    };
-    watch(readonly, (isReadonly) => {
-      if (vueEditor !== null) {
-        setMode(vueEditor, isReadonly ? 'readonly' : 'design');
+      this.mounting = false;
+    },
+    rerender(init: EditorOptions) {
+      if (this.vueEditor) {
+        this.cache = this.vueEditor.getContent();
+        getTinymce()?.remove(this.vueEditor);
+        this.modelUnwatch?.();
+        this.modelUnwatch = undefined;
+        this.conf = { ...this.conf, ...init, ...defaultInitValues };
+
+        this.$nextTick(() => this.initWrapper());
       }
-    });
-    watch(disabled, (isDisabled) => {
-      if (vueEditor !== null) {
-        if (isDisabledOptionSupported(vueEditor)) {
-          vueEditor.options.set('disabled', isDisabled);
-        } else {
-          setMode(vueEditor, isDisabled ? 'readonly' : 'design');
-        }
-      }
-    });
-    watch(tagName, (_) => {
-      if (vueEditor) {
-        if (!modelBind) {
-          cache = vueEditor.getContent();
-        }
-        getTinymce()?.remove(vueEditor);
-        // The Vue docs state you can either use the callback form or await it. Ref: https://vuejs.org/api/general.html#nexttick
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        nextTick(() => initWrapper());
-      }
-    });
-    onMounted(() => {
-      if (getTinymce() !== null) {
-        initWrapper();
-      } else if (element.value && element.value.ownerDocument) {
-        const channel = props.cloudChannel ? props.cloudChannel : '8';
-        const apiKey = props.apiKey ? props.apiKey : 'no-api-key';
-        const scriptSrc: string = isNullOrUndefined(props.tinymceScriptSrc) ?
-          `https://cdn.tiny.cloud/1/${apiKey}/tinymce/${channel}/tinymce.min.js` :
-          props.tinymceScriptSrc;
-        ScriptLoader.load(
-          element.value.ownerDocument,
-          scriptSrc,
-          initWrapper
-        );
-      }
-    });
-    onBeforeUnmount(() => {
-      if (getTinymce() !== null) {
-        getTinymce().remove(vueEditor);
-      }
-    });
-    if (!inlineEditor) {
-      onActivated(() => {
-        if (!mounting) {
-          initWrapper();
-        }
-      });
-      onDeactivated(() => {
-        if (vueEditor) {
-          if (!modelBind) {
-            cache = vueEditor.getContent();
-          }
-          getTinymce()?.remove(vueEditor);
-        }
-      });
+    },
+    getEditor() {
+      return this.vueEditor;
     }
-    const rerender = (init: EditorOptions) => {
-      if (vueEditor) {
-        cache = vueEditor.getContent();
-        getTinymce()?.remove(vueEditor);
-        conf = { ...conf, ...init, ...defaultInitValues };
-
-        // The Vue docs state you can either use the callback form or await it. Ref: https://vuejs.org/api/general.html#nexttick
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        nextTick(() => initWrapper());
-
-      }
-    };
-    ctx.expose({
-      rerender,
-      getEditor: () => vueEditor
-    });
-    return () => inlineEditor ?
-      renderInline(h, elementId, element, props.tagName) :
-      renderIframe(h, elementId, element);
+  },
+  render(h: CreateElement): VNode {
+    return this.inlineEditor ?
+      renderInline(h, this.elementId as string, this.tagName as string) :
+      renderIframe(h, this.elementId as string);
   }
 });

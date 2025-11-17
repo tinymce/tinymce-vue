@@ -1,6 +1,6 @@
 <template>
   <div>
-    <editor v-model="content" api-key="apiKey"></editor>
+    <editor v-model="content" :api-key="apiKey"></editor>
   </div>
 </template>
 

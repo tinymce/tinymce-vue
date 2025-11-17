@@ -6,8 +6,7 @@
  *
  */
 
-import { Ref, watch, SetupContext } from 'vue';
-import { IPropTypes } from './components/EditorPropTypes';
+import Vue from 'vue';
 import type { Editor as TinyMCEEditor, EditorEvent } from 'tinymce';
 
 const validEvents = [
@@ -98,33 +97,34 @@ const bindHandlers = (initEvent: EditorEvent<any>, listeners: Record<string, any
     });
 };
 
-const bindModelHandlers = (props: IPropTypes, ctx: SetupContext, editor: TinyMCEEditor, modelValue: Ref<any>) => {
-  const modelEvents = props.modelEvents ? props.modelEvents : null;
+const bindModelHandlers = (vm: Vue, editor: TinyMCEEditor) => {
+  const modelEvents = vm.$props.modelEvents ? vm.$props.modelEvents : null;
   const normalizedEvents = Array.isArray(modelEvents) ? modelEvents.join(' ') : modelEvents;
 
-  watch(modelValue, (val: string, prevVal: string) => {
-    if (editor && typeof val === 'string' && val !== prevVal && val !== editor.getContent({ format: props.outputFormat })) {
+  const unwatchModelValue = vm.$watch('modelValue', (val: string, prevVal: string) => {
+    // @ts-expect-error - original code, types issue
+    if (editor && typeof val === 'string' && val !== prevVal && val !== editor.getContent({ format: vm.$props.outputFormat })) {
       editor.setContent(val);
     }
   });
 
   editor.on(normalizedEvents ? normalizedEvents : 'change input undo redo', () => {
-    ctx.emit('update:modelValue', editor.getContent({ format: props.outputFormat }));
+    vm.$emit('update:modelValue', editor.getContent({ format: vm.$props.outputFormat }));
   });
+
+  return unwatchModelValue;
 };
 
 const initEditor = (
   initEvent: EditorEvent<any>,
-  props: IPropTypes,
-  ctx: SetupContext,
+  vm: Vue,
   editor: TinyMCEEditor,
-  modelValue: Ref<any>,
   content: () => string) => {
   editor.setContent(content());
-  if (ctx.attrs['onUpdate:modelValue']) {
-    bindModelHandlers(props, ctx, editor, modelValue);
-  }
-  bindHandlers(initEvent, ctx.attrs, editor);
+  const hasModelListener = !!vm.$listeners['update:modelValue'];
+  const unwatchModelValue = hasModelListener ? bindModelHandlers(vm, editor) : undefined;
+  bindHandlers(initEvent, vm.$listeners, editor);
+  return unwatchModelValue;
 };
 
 let unique = 0;

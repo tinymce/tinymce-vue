@@ -1,7 +1,7 @@
 {
   "name": "@tinymce/tinymce-vue",
   "version": "6.3.1-rc",
-  "description": "Official TinyMCE Vue 3 Component",
+  "description": "TinyMCE Vue 2 Component",
   "private": false,
   "repository": {
     "url": "https://github.com/tinymce/tinymce-vue"
@@ -34,7 +34,7 @@
   ],
   "peerDependencies": {
     "tinymce": "^8.0.0 || ^7.0.0 || ^6.0.0 || ^5.5.1",
-    "vue": "^3.0.0"
+    "vue": "^2.6.14 || ^2.7.0"
   },
   "peerDependenciesMeta": {
     "tinymce": {
@@ -54,13 +54,12 @@
     "@storybook/addon-notes": "^5.3.21",
     "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/manager-webpack5": "^6.5.16",
-    "@storybook/vue3": "^6.5.13",
+    "@storybook/vue": "^6.5.16",
     "@tinymce/beehive-flow": "^0.19.0",
     "@tinymce/eslint-plugin": "^3.0.0",
     "@tinymce/miniature": "^6.0.0",
     "@types/node": "^20.14.0",
-    "@vitejs/plugin-vue": "^5.0.5",
-    "@vue/compiler-sfc": "^3.4.27",
+    "@vitejs/plugin-vue2": "^2.3.3",
     "babel-loader": "^8.2.3",
     "babel-preset-vue": "^2.0.2",
     "babel-register": "^6.26.0",
@@ -86,10 +85,9 @@
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
-    "vue": "^3.4.27",
-    "vue-cli-plugin-storybook": "^2.1.0",
-    "vue-loader": "^17.4.2",
-    "vue-router": "^4.3.2",
+    "vue": "^2.7.16",
+    "vue-loader": "^15.11.1",
+    "vue-router": "^3.6.5",
     "vue-template-compiler": "^2.7.16",
     "webpack": "^5.75.0"
   }

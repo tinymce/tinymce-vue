@@ -14,9 +14,10 @@
   </div>
 </template>
 
-<script>
-import { defineComponent } from "vue";
-export default defineComponent({
+<script lang="ts">
+import Vue from "vue";
+
+export default Vue.extend({
   name: 'Demo',
 });
 </script>

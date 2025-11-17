@@ -1,5 +1,5 @@
-import { createApp } from 'vue';
-import { createWebHistory, createRouter } from 'vue-router';
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import Demo from '/Demo.vue';
 
 import Home from '/views/Home.vue';
@@ -10,6 +10,8 @@ import Keepalive from '/views/KeepAlive.vue';
 import Refreshable from '/views/Refreshable.vue';
 import Tagged from '/views/Tagged.vue';
 import GetEditor from '/views/GetEditor.vue';
+
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -54,9 +56,12 @@ const routes = [
   }
 ];
 
-const router = createRouter({
-  history: createWebHistory(),
+const router = new VueRouter({
+  mode: 'history',
   routes
 });
 
-createApp(Demo).use(router).mount('#app');
+new Vue({
+  router,
+  render: (h) => h(Demo)
+}).$mount('#app');

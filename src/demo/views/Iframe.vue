@@ -6,8 +6,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import Vue from "vue";
 import Editor from "/@/main/ts/index";
+
 const apiKey = "qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc";
 const content = `
 <h2 style="text-align: center;">
@@ -16,11 +17,12 @@ const content = `
 <p style="text-align: center;">
   <strong><span style="font-size: 14pt;"><span style="color: #7e8c8d; font-weight: 600;">No matter what you're building, TinyMCE has got you covered.</span></span></strong>
 </p>`;
-export default defineComponent({
+
+export default Vue.extend({
   components: {
     Editor,
   },
-  setup() {
+  data() {
     return {
       apiKey,
       content,

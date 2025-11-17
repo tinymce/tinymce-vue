@@ -11,6 +11,8 @@
     "preserveConstEnums": true,
     "strictNullChecks": true,
     "target": "es5",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     // "lib": ["es2020.string"] // fix the mathAll issue
     "types": [
       "node"

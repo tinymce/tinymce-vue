@@ -13,8 +13,8 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref, computed } from "vue";
+<script lang="ts">
+import Vue from "vue";
 import Editor from "/@/main/ts/index";
 import ContentTab from "/views/ContentTab.vue";
 import EditorTab from "/views/EditorTab.vue";
@@ -28,7 +28,7 @@ const content = `
   <strong><span style="font-size: 14pt;"><span style="color: #7e8c8d; font-weight: 600;">No matter what you're building, TinyMCE has got you covered.</span></span></strong>
 </p>`;
 
-export default defineComponent({
+export default Vue.extend({
   name: "Keepalive",
   components: {
     Editor,
@@ -37,20 +37,19 @@ export default defineComponent({
   },
   data() {
     return {
-      html: ""
-    };
-  },
-  setup() {
-    const tab = ref('ContentTab');
-    const computedTab = computed(() => tab.value);
-    const toggleTab = (activeTab) => {
-      tab.value = activeTab;
-    };
-    return {
       apiKey,
       content,
-      toggleTab,
-      computedTab
+      tab: "ContentTab"
+    };
+  },
+  computed: {
+    computedTab(): string {
+      return this.tab;
+    }
+  },
+  methods: {
+    toggleTab(activeTab: string) {
+      this.tab = activeTab;
     }
   }
 });
