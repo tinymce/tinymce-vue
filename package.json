@@ -1,10 +1,10 @@
 {
-  "name": "@tinymce/tinymce-vue",
-  "version": "6.3.1-rc",
+  "name": "@bloqhouse/tinymce-vue2",
+  "version": "1.0.0",
   "description": "TinyMCE Vue 2 Component",
   "private": false,
   "repository": {
-    "url": "https://github.com/tinymce/tinymce-vue"
+    "url": "https://github.com/JFGHT/tinymce-vue2"
   },
   "main": "lib/cjs/main/ts/index.js",
   "module": "lib/es2015/main/ts/index.js",
