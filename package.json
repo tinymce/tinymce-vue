@@ -85,7 +85,7 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.4.5",
-    "vite": "^5.2.12",
+    "vite": "^6.4.2",
     "vue": "^3.4.27",
     "vue-cli-plugin-storybook": "^2.1.0",
     "vue-loader": "^17.4.2",
