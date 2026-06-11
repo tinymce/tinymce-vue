@@ -52,6 +52,12 @@ export const Editor = defineComponent({
     let mounting = true;
     const initialValue: string = props.initialValue ? props.initialValue : '';
     let cache = '';
+    // Recovery state for when the editor's iframe is moved in the DOM (see watchReattach).
+    let reattachIframe: HTMLIFrameElement | null = null;
+    let reattachHandler: (() => void) | null = null;
+    let reinitializing = false;
+    // False once the component is torn down, so a queued re-init can bail out.
+    let active = true;
 
     const getContent = (isMounting: boolean): () => string => modelBind ?
       () => (modelValue?.value ? modelValue.value : '') :
@@ -75,7 +81,19 @@ export const Editor = defineComponent({
             setMode(vueEditor, 'readonly');
           }
 
-          editor.on('init', (e: EditorEvent<any>) => initEditor(e, props, ctx, editor, modelValue, content));
+          editor.on('init', (e: EditorEvent<any>) => {
+            initEditor(e, props, ctx, editor, modelValue, content);
+            watchReattach();
+          });
+          if (!modelBind && !inlineEditor) {
+            // Remember the content as it changes so we can restore it after a re-init;
+            // the moved iframe is already blank by the time we notice. v-model uses
+            // modelValue, and inline editors have no iframe, so this is only for the
+            // uncontrolled initialValue case.
+            editor.on('change input undo redo SetContent', () => {
+              cache = editor.getContent();
+            });
+          }
           if (typeof conf.setup === 'function') {
             conf.setup(editor);
           }
@@ -86,6 +104,59 @@ export const Editor = defineComponent({
       }
       getTinymce().init(finalInit);
       mounting = false;
+    };
+    const removeReattachListener = (): void => {
+      if (reattachIframe !== null && reattachHandler !== null) {
+        reattachIframe.removeEventListener('load', reattachHandler);
+      }
+      reattachIframe = null;
+      reattachHandler = null;
+    };
+    const reinitializeEditor = (): void => {
+      if (vueEditor === null || reinitializing) {
+        return;
+      }
+      reinitializing = true;
+      // Don't read the editor here: its iframe is already blank. cache/modelValue hold the content.
+      removeReattachListener();
+      getTinymce()?.remove(vueEditor);
+      // The Vue docs state you can either use the callback form or await it. Ref: https://vuejs.org/api/general.html#nexttick
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      nextTick(() => {
+        try {
+          // Skip if the component was torn down while this was queued.
+          if (active) {
+            initWrapper();
+          }
+        } finally {
+          // Always clear the guard so a failed init doesn't disable recovery.
+          reinitializing = false;
+        }
+      });
+    };
+    // Recover when the editor's iframe is moved in the DOM, e.g. by a modal that
+    // relocates its content or by Vue re-ordering the surrounding elements. Moving an
+    // iframe blanks it, and Vue doesn't unmount the component, so nothing else fixes
+    // it. The iframe fires `load` again on each insertion, so a `load` after the first
+    // means it was moved and must be re-created. Inline editors have no iframe.
+    // See #131 and #230.
+    const watchReattach = (): void => {
+      removeReattachListener();
+      if (inlineEditor || vueEditor === null) {
+        return;
+      }
+      // iframeElement/removed are typed from v5 on; the null/falsy guards keep this safe on v4.
+      const iframe = vueEditor.iframeElement;
+      if (isNullOrUndefined(iframe)) {
+        return;
+      }
+      reattachIframe = iframe;
+      reattachHandler = () => {
+        if (vueEditor !== null && !vueEditor.removed && !reinitializing) {
+          reinitializeEditor();
+        }
+      };
+      iframe.addEventListener('load', reattachHandler);
     };
     watch(readonly, (isReadonly) => {
       if (vueEditor !== null) {
@@ -102,10 +173,11 @@ export const Editor = defineComponent({
       }
     });
     watch(tagName, (_) => {
-      if (vueEditor) {
+      if (vueEditor && !vueEditor.removed && !reinitializing) {
         if (!modelBind) {
           cache = vueEditor.getContent();
         }
+        removeReattachListener();
         getTinymce()?.remove(vueEditor);
         // The Vue docs state you can either use the callback form or await it. Ref: https://vuejs.org/api/general.html#nexttick
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -129,18 +201,23 @@ export const Editor = defineComponent({
       }
     });
     onBeforeUnmount(() => {
+      active = false;
+      removeReattachListener();
       if (getTinymce() !== null) {
         getTinymce().remove(vueEditor);
       }
     });
     if (!inlineEditor) {
       onActivated(() => {
+        active = true;
         if (!mounting) {
           initWrapper();
         }
       });
       onDeactivated(() => {
-        if (vueEditor) {
+        active = false;
+        removeReattachListener();
+        if (vueEditor && !vueEditor.removed) {
           if (!modelBind) {
             cache = vueEditor.getContent();
           }
@@ -151,6 +228,7 @@ export const Editor = defineComponent({
     const rerender = (init: EditorOptions) => {
       if (vueEditor) {
         cache = vueEditor.getContent();
+        removeReattachListener();
         getTinymce()?.remove(vueEditor);
         conf = { ...conf, ...init, ...defaultInitValues };
 
