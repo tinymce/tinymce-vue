@@ -1,7 +1,7 @@
 {
   "name": "@tinymce/tinymce-vue",
   "version": "6.3.1-rc",
-  "description": "Official TinyMCE Vue 3 Component",
+  "description": "Official Vue Component for TinyMCE rich text editor.",
   "private": false,
   "repository": {
     "url": "https://github.com/tinymce/tinymce-vue"
@@ -22,9 +22,14 @@
   "keywords": [
     "tinymce",
     "vue",
-    "component"
+    "component",
+    "wysiwyg",
+    "rich-text-editor",
+    "html",
+    "contenteditable",
+    "editor"
   ],
-  "author": "Ephox Inc",
+  "author": "Ephox Corporation DBA Tiny Technologies, Inc.",
   "license": "MIT",
   "files": [
     "lib/*/**",
