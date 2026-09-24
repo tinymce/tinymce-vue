@@ -2,12 +2,9 @@
 
 ## About
 
-Official Vue component for TinyMCE rich text editor. It makes integrating TinyMCE into Vue applications easy and seamless.
+Official Vue component for TinyMCE, the rich text editor. It wraps TinyMCE as a Vue `<Editor />` component. By default, it pulls TinyMCE from the Tiny Cloud CDN unless configured to use a different setup, such as self-hosting the [tinymce NPM package](https://www.npmjs.com/package/tinymce).
 
 ## Quickstart
-
-`tinymce-vue` is a thin wrapper for TinyMCE. It automatically pulls TinyMCE from the Tiny Cloud CDN unless configured to use a different setup, such as self-hosting the [tinymce NPM package](https://www.npmjs.com/package/tinymce)
-
 
 ### Cloud CDN
 
