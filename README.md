@@ -8,31 +8,29 @@ Official Vue component for TinyMCE, the rich text editor. It wraps TinyMCE as a 
 
 ### Cloud CDN
 
-In your Vue project:
-
 1. [Sign up for a Tiny Cloud account](https://www.tiny.cloud/pricing/) to receive a Tiny Cloud API key.
-2. `npm install @tinymce/tinymce-vue`
-3. Include the following code:
+1. Then in your Vue project:
+    1. Run `npm install @tinymce/tinymce-vue`
+    1. Include the following code:
 
-```vue
-<template>
-  <h1>TinyMCE Vue demo</h1>
-  <Editor
-    api-key="your-api-key"
-    v-model="content"
-    :init="{ plugins: 'lists link image table code help wordcount' }"
-  />
-</template>
+        ```vue
+        <template>
+          <h1>TinyMCE Vue demo</h1>
+          <Editor
+            api-key="your-api-key"
+            v-model="content"
+            :init="{ plugins: 'lists link image table code help wordcount' }"
+          />
+        </template>
 
-<script setup>
-import { ref } from 'vue';
-import Editor from '@tinymce/tinymce-vue';
+        <script setup>
+        import { ref } from 'vue';
+        import Editor from '@tinymce/tinymce-vue';
 
-const content = ref('<p>Initial value</p>');
-</script>
-```
-
-4. Update the `api-key` prop on the `Editor` component to include your Tiny Cloud API key.
+        const content = ref('<p>Initial value</p>');
+        </script>
+        ```
+    1. Update the `api-key` prop on the `Editor` component to include your Tiny Cloud API key.
 
 For more information: [Using TinyMCE with Vue - Cloud CDN](https://www.tiny.cloud/docs/tinymce/latest/vue-cloud/)
 
