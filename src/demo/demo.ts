@@ -7,6 +7,7 @@ import Iframe from '/views/Iframe.vue';
 import Inline from '/views/Inline.vue';
 import Controlled from '/views/Controlled.vue';
 import Keepalive from '/views/KeepAlive.vue';
+import Modal from '/views/Modal.vue';
 import Refreshable from '/views/Refreshable.vue';
 import Tagged from '/views/Tagged.vue';
 import GetEditor from '/views/GetEditor.vue';
@@ -36,6 +37,11 @@ const routes = [
     path: '/keepalive',
     name: 'Keepalive',
     component: Keepalive
+  },
+  {
+    path: '/modal',
+    name: 'Modal',
+    component: Modal
   },
   {
     path: '/refreshable',

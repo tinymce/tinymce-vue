@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Fixed the editor turning blank and unresponsive after being moved in the DOM, which happens when it is used inside a modal or dialog that relocates its content, or when Vue re-orders the surrounding elements. The editor is now re-created automatically and keeps its content. #131 #230
+
 ## 6.3.0 - 2025-07-31
 
 ### Changed
